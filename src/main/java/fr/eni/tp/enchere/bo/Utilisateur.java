@@ -1,5 +1,8 @@
 package fr.eni.tp.enchere.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utilisateur {
     private int noUtilisateur;
     private String pseudo;
@@ -13,7 +16,8 @@ public class Utilisateur {
     private String motDePasse;
     private int credit;
     private boolean administrateur;
-
+    private List<ArticleVendu> LstArticle = new ArrayList<>();
+    private List<Enchere> LstEnchere = new ArrayList<>();
 
 
 }
