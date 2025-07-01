@@ -1,0 +1,49 @@
+<form xmlns:th="http://www.thymeleaf.org"
+      data-th-fragment="frag-formateur-form"
+      method="post"
+      data-th-action="@{ ${action} ?: ''}"
+      data-th-object="${utilisateur}"
+>
+    <h1 data-th-text="${titreForm} ?: 'Détail du formateur'"></h1>
+
+    <!-- Gestion des erreurs -->
+    <th:block data-th-if="${!#strings.isEmpty(action)}">
+        <div data-th-replace="~{fragments/errors/fragment-errors :: frag-errors}"></div>
+    </th:block>
+    <ul class="flex-outer">
+        <li>
+            <label for="inputPrenom">Prénom : </label>
+            <input type="text" name="prenom" id="inputPrenom" required
+                   data-th-field="*{prenom}"
+                   data-th-disabled="${#strings.isEmpty(action)}"/>
+            <th:block data-th-if="${!#strings.isEmpty(action)}">
+                <div data-th-replace="~{fragments/errors/fragment-error :: frag-error('prenom')}"></div>
+            </th:block>
+        </li>
+        <li>
+            <label for="inputNom">Nom : </label>
+            <input type="text" name="nom" id="inputNom" required
+                   data-th-field="*{nom}"
+                   data-th-disabled="${#strings.isEmpty(action)}"/>
+            <th:block data-th-if="${!#strings.isEmpty(action)}">
+                <div data-th-replace="~{fragments/errors/fragment-error :: frag-error('nom')}"></div>
+            </th:block>
+        </li>
+        <li>
+            <label for="inputEmail">Email : </label>
+            <input type="text" name="email" id="inputEmail" required
+                   data-th-field="*{email}"
+                   data-th-disabled="${#strings.isEmpty(action)}"/>
+            <th:block data-th-if="${!#strings.isEmpty(action)}">
+                <div data-th-replace="~{fragments/errors/fragment-error :: frag-error('email')}"></div>
+            </th:block>
+        </li>
+        <!-- Ajout liste des cours d’un formateur -->
+        <li data-th-replace="${fragListeDesCours} ?: ~{fragments/fragment-liste-cours-lecture :: frag-liste-cours}"></li>
+
+
+        <li data-th-if="${!#strings.isEmpty(action)}">
+            <button type="submit">Enregistrer</button>
+        </li>
+    </ul>
+</form>
