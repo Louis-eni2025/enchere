@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+  <link rel="stylesheet" href="/css/AuthStyle.css">
 </head>
 <body>
 
 <form th:action="@{/inscription} " method="post" >
-  <input name="pseudo" type="text">
-  <input name="nom" type="text">
-  <input name="prenom" type="text">
-    <input name="email" type="text">
-    <input name="telephone" type="text">
-    <input name="rue" type="text">
-    <input name="codePostal" type="text">
-    <input name="ville" type="text">
-    <input name="motDePasse" type="password">
+  <input name="pseudo" type="text" required>
+  <input name="nom" type="text" required>
+  <input name="prenom" type="text" required>
+    <input name="email" type="text" required>
+    <input name="telephone" type="text" required>
+    <input name="rue" type="text" required>
+    <input name="codePostal" type="text" required>
+    <input name="ville" type="text" required>
+    <input name="motDePasse" type="password" required>
   <p th:text="${message}"></p>
-  <button type="submit" name="validate" value="valider">inskri twa lolilol</button>
+  <button type="submit" name="validate" value="valider" id="btn-validate">inskri twa lolilol</button>
 
 
 </form>
