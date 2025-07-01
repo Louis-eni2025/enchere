@@ -33,24 +33,13 @@ public class InscriptionController {
 @PostMapping("/inscription")
     public String inscription(@ModelAttribute Utilisateur utilisateur, Model model)
 
-
 {
-
-
-
     inscriptionService.create(utilisateur);
 
     System.out.println("controller ok");
 
     model.addAttribute("message", "inscription reussit");
 
-
-
-
-
-        return "redirect:/Logged";
+        return "redirect:/login";
 }
-
-
-
 }

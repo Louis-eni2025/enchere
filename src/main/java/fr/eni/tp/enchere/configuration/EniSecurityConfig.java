@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,19 +20,21 @@ public class EniSecurityConfig {
     @Bean
     UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.setUsersByUsernameQuery("select email, password, 1 from utilisateur where email=?");
-        /*userDetailsManager.setAuthoritiesByUsernameQuery("select email, role from roles as r join membre as m on r.is_admin = m.admin where email=?");*/
+        userDetailsManager.setUsersByUsernameQuery("select email, mot_de_passe, 1 from utilisateurs where email=?");
+        userDetailsManager.setAuthoritiesByUsernameQuery("select email, administrateur from utilisateurs where email=?");
         return userDetailsManager;
 
     }
+
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
                     auth
                             .requestMatchers(HttpMethod.GET, "/*").permitAll()
-                            /*.requestMatchers(HttpMethod.GET, "/films/*").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/avis").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/.well-known/*").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/inscription/*").permitAll()
+                            /*.requestMatchers(HttpMethod.GET, "/avis").permitAll()
                             .requestMatchers(HttpMethod.GET, "/films/details").authenticated()
                             .requestMatchers(HttpMethod.GET, "/avis/ajouter").hasRole("MEMBRE")
                             .requestMatchers(HttpMethod.POST, "/avis/ajouter").hasRole("MEMBRE")

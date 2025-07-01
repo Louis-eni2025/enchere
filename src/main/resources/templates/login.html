@@ -8,17 +8,27 @@
 
         <ul class="flex-outer">
             <li>
-                <label for="username" >Login</label>
+                <label for="username" >Email</label>
                 <input id="username" name="username">
             </li>
             <li>
-                <label for="password" >Password</label>
+                <label for="password" >Mot de passe</label>
                 <input id="password" name="password" type="password">
             </li>
-            <li>
-                <button type="submit">Login</button>
-            </li>
+
+                <button type="submit">Se connecter</button>
+
+            <a href="/inscription">S'inscrire</a>
+
         </ul>
+        <div class = "remember">
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Se souvenir de moi
+            </label>
+        </div>
+        <div>
+            <span class="forgotPassword">Oublié <a href="/resetPassword">Mot de passe?</a></span>
+        </div>
     </form>
 </main>
 </html>

@@ -9,4 +9,5 @@ public class LoginController {
     String login() {
         return "login";
     }
+
 }
