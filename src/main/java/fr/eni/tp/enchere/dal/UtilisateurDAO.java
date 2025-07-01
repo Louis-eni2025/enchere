@@ -7,4 +7,12 @@ public interface UtilisateurDAO {
     Utilisateur read(int id);
     void update(Utilisateur utilisateur);
     void delete(int id);
+
+    //Verification pseudo,email ou telephone déja existant
+
+    boolean pseudoExist(String pseudo);
+
+    boolean emailExist(String email);
+
+    boolean telephoneExist(String telephone);
 }

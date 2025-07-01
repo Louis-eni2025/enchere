@@ -16,6 +16,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     private NamedParameterJdbcTemplate jdbc;
 
+    
+
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
     private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
     private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, codePostal = :codePostal, ville = :ville, motDePasse = :motDePasse, credit = :credit, administrateur = :administrateur WHERE noUtilisateur=:noUtilisateur";
@@ -27,6 +29,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     @Override
     public void create(Utilisateur utilisateur) {
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource map = new MapSqlParameterSource();
@@ -43,7 +46,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("administrateur", utilisateur.isAdministrateur());
 
         jdbc.update(INSERT_USER, map, keyHolder);
-        System.out.println("dao ok");
+
+
+
 
         if(keyHolder.getKey() != null) {
             utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());
@@ -87,6 +92,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         jdbc.update(DELETE, map);
 
     }
+
+    //Verification pseudo,email ou telephone déja existant
+
+    @Override
+    public boolean pseudoExist(String pseudo) {
+        return false;
+    }
+
+    @Override
+    public boolean emailExist(String email) {
+        return false;
+    }
+
+    @Override
+    public boolean telephoneExist(String telephone) {
+        return false;
+    }
+
 
     private class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 
