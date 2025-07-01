@@ -4,13 +4,10 @@ package fr.eni.tp.enchere.ihm;
 import fr.eni.tp.enchere.bll.InscriptionService;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class InscriptionController {
@@ -30,27 +27,30 @@ public class InscriptionController {
         return "view_inscription";
     }
 
-@PostMapping("/inscription")
-    public String inscription(@ModelAttribute Utilisateur utilisateur, Model model)
+    @PostMapping("/inscription")
+    public String inscription(@ModelAttribute Utilisateur utilisateur, Model model) {
+
+    //verification
+        String password = utilisateur.getMotDePasse();
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
+
+        boolean validPassword = password.matches(regex);
+
+        if (!validPassword ) {
+            model.addAttribute("message", "Mot de passe invalide");
+            return "view_inscription";
+        }
 
 
-{
+        if(inscriptionService.pseudoExist(utilisateur.getPseudo()) || inscriptionService.emailExist(utilisateur.getEmail()) || inscriptionService.telephoneExist(utilisateur.getTelephone())) {
+            model.addAttribute("message", "Utilisateur déja enregistré");
+            return "view_inscription";
+        } else {
 
+            inscriptionService.create(utilisateur);
+            model.addAttribute("message", "Inscription réussie");
 
-
-    inscriptionService.create(utilisateur);
-
-    System.out.println("controller ok");
-
-    model.addAttribute("message", "inscription reussit");
-
-
-
-
-
-        return "redirect:/Logged";
-}
-
-
-
+            return "redirect:/login";
+        }
+    }
 }
