@@ -1,13 +1,16 @@
-package fr.eni.tp.enchere.dal;
+package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import org.springframework.stereotype.Service;
 
-public interface UtilisateurDAO {
+
+public interface InscriptionService {
+
     void create(Utilisateur utilisateur);
+
     Utilisateur read(int id);
 
-    Utilisateur read(String email);
-
     void update(Utilisateur utilisateur);
+
     void delete(int id);
 }

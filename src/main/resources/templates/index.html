@@ -11,8 +11,10 @@
     <header>
         <h2>ENI-Enchères</h2>
         <nav>
-            <a href="/">Se connecter</a>
-            <a href="/">S'inscrire</a>
+            <ul>
+                <li data-sec-authorize="!isAuthenticated()"><a href="/login">Se connecter/S'inscrire</a></li>
+                <li data-sec-authorize="isAuthenticated()"><a href="/logout">Se déconnecter</a></li>
+            </ul>
         </nav>
     </header>
 
