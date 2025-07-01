@@ -16,10 +16,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     private NamedParameterJdbcTemplate jdbc;
 
-    private String SELECT_BY_ID = "SELECT * FROM utilisateur WHERE noUtilisateur=:noUtilisateur";
-    private String INSERT_USER = "INSERT INTO utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur) values(:pseudo,:nom,:email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
-    private String UPDATE = "UPDATE utilisateur SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, codePostal = :codePostal, ville = :ville, motDePasse = :motDePasse, credit = :credit, administrateur = :administrateur WHERE noUtilisateur=:noUtilisateur";
-    private String DELETE = "DELETE FROM utilisateur WHERE noUtilisateur=:noUtilisateur";
+    private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
+    private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
+    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, codePostal = :codePostal, ville = :ville, motDePasse = :motDePasse, credit = :credit, administrateur = :administrateur WHERE noUtilisateur=:noUtilisateur";
+    private String DELETE = "DELETE FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
 
     public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbc) {
         this.jdbc = jdbc;
@@ -43,6 +43,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("administrateur", utilisateur.isAdministrateur());
 
         jdbc.update(INSERT_USER, map, keyHolder);
+        System.out.println("dao ok");
 
         if(keyHolder.getKey() != null) {
             utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());

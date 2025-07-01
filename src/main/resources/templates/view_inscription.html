@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/inscription}">
+<form th:action="@{/inscription} " method="post" >
   <input name="pseudo" type="text">
   <input name="nom" type="text">
   <input name="prenom" type="text">
@@ -15,8 +15,9 @@
     <input name="rue" type="text">
     <input name="codePostal" type="text">
     <input name="ville" type="text">
-    <input name="motdePasse" type="text">
-    <button type="submit">Inskri twa lolilol</button>
+    <input name="motDePasse" type="password">
+  <button type="submit" name="validate" value="valider">inskri twa lolilol</button>
+
 
 </form>
 
