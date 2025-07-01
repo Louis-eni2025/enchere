@@ -1,7 +1,6 @@
 package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,24 +14,20 @@ import java.sql.SQLException;
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbc;
 
-    private NamedParameterJdbcTemplate jdbc;
-
-    private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
+    private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String SELECT_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email = :email";
     private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
-    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, codePostal = :codePostal, ville = :ville, motDePasse = :motDePasse, credit = :credit, administrateur = :administrateur WHERE noUtilisateur=:noUtilisateur";
-    private String DELETE = "DELETE FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
+    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse, credit = :credit, administrateur = :administrateur WHERE no_utilisateur=:noUtilisateur";
+    private String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String COMPARE_PSEUDO = "select count(*) from utilisateurs where pseudo = :pseudo";
     private String COMPARE_MAIL = "select count(*) from utilisateurs where email = :email";
     private String COMPARE_PHONE = "select count(*) from utilisateurs where telephone = :telephone";
 
-    public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbc, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.jdbc = jdbc;
-        this.jdbcTemplate = jdbcTemplate;
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public UtilisateurDAOImpl( NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+
+        this.jdbc = namedParameterJdbcTemplate;
     }
 
     @Override
@@ -114,7 +109,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("pseudo", pseudo);
 
-        Integer count = namedParameterJdbcTemplate.queryForObject(COMPARE_PSEUDO, map, Integer.class);
+        Integer count = jdbc.queryForObject(COMPARE_PSEUDO, map, Integer.class);
 
         if(count != null && count > 0) {
             return true; //pseudo dispo
@@ -129,7 +124,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("email", email);
 
-        Integer count = namedParameterJdbcTemplate.queryForObject(COMPARE_MAIL, map, Integer.class);
+        Integer count = jdbc.queryForObject(COMPARE_MAIL, map, Integer.class);
 
         if(count != null && count > 0) {
             return true; //pseudo dispo
@@ -144,7 +139,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("telephone", telephone);
 
-        Integer count = namedParameterJdbcTemplate.queryForObject(COMPARE_PHONE, map, Integer.class);
+        Integer count = jdbc.queryForObject(COMPARE_PHONE, map, Integer.class);
 
         if(count != null && count > 0) {
             return true; //pseudo dispo
