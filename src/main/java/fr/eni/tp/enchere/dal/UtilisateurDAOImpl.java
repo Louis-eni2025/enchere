@@ -21,7 +21,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private NamedParameterJdbcTemplate jdbc;
 
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
-    private String SELECT_BY_EMAIL = "SELECT * FROM utilisateur WHERE email = :email";
+    private String SELECT_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email = :email";
     private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
     private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, codePostal = :codePostal, ville = :ville, motDePasse = :motDePasse, credit = :credit, administrateur = :administrateur WHERE noUtilisateur=:noUtilisateur";
     private String DELETE = "DELETE FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";

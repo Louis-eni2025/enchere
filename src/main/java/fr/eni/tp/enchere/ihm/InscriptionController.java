@@ -27,48 +27,30 @@ public class InscriptionController {
         return "view_inscription";
     }
 
-@PostMapping("/inscription")
-    public String inscription(@ModelAttribute Utilisateur utilisateur, Model model)
-{
+    @PostMapping("/inscription")
+    public String inscription(@ModelAttribute Utilisateur utilisateur, Model model) {
 
     //verification
-    String password = utilisateur.getMotDePasse();
-    String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
+        String password = utilisateur.getMotDePasse();
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
 
-    boolean validPassword = password.matches(regex);
+        boolean validPassword = password.matches(regex);
 
-    if (!validPassword ) {
-        model.addAttribute("message", "Mot de passe invalide");
-        return "view_inscription";
+        if (!validPassword ) {
+            model.addAttribute("message", "Mot de passe invalide");
+            return "view_inscription";
+        }
+
+
+        if(inscriptionService.pseudoExist(utilisateur.getPseudo()) || inscriptionService.emailExist(utilisateur.getEmail()) || inscriptionService.telephoneExist(utilisateur.getTelephone())) {
+            model.addAttribute("message", "Utilisateur déja enregistré");
+            return "view_inscription";
+        } else {
+
+            inscriptionService.create(utilisateur);
+            model.addAttribute("message", "Inscription réussie");
+
+            return "redirect:/login";
+        }
     }
-
-
-    if(inscriptionService.pseudoExist(utilisateur.getPseudo())
-            || inscriptionService.emailExist(utilisateur.getEmail())
-            || inscriptionService.telephoneExist(utilisateur.getTelephone())) {
-
-
-
-        model.addAttribute("message", "utilisatur déja enregistré");
-        return "view_inscription";
-    }else{
-
-        inscriptionService.create(utilisateur);
-
-
-        return "login";
-    }
-
-
-
-
-
-
-
-}
-
-
-
-
-
 }
