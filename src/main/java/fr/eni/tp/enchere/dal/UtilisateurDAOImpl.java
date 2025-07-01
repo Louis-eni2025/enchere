@@ -17,6 +17,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private NamedParameterJdbcTemplate jdbc;
 
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
+    private String SELECT_BY_EMAIL = "SELECT * FROM utilisateur WHERE email = :email";
     private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
     private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, codePostal = :codePostal, ville = :ville, motDePasse = :motDePasse, credit = :credit, administrateur = :administrateur WHERE noUtilisateur=:noUtilisateur";
     private String DELETE = "DELETE FROM utilisateurs WHERE noUtilisateur=:noUtilisateur";
@@ -43,7 +44,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("administrateur", utilisateur.isAdministrateur());
 
         jdbc.update(INSERT_USER, map, keyHolder);
-        System.out.println("dao ok");
 
         if(keyHolder.getKey() != null) {
             utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());
@@ -53,9 +53,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     @Override
     public Utilisateur read(int id) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("id", id);
+        map.addValue("noUtilisateur", id);
 
         return jdbc.queryForObject(SELECT_BY_ID, map, new UtilisateurRowMapper());
+    }
+
+    @Override
+    public Utilisateur read(String email) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("email", email);
+        return jdbc.queryForObject(SELECT_BY_EMAIL, map, new UtilisateurRowMapper());
     }
 
     @Override

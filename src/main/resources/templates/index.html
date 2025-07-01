@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" >
+<header>
+    <nav>
+        <ul>
+            <li data-sec-authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+            <li data-sec-authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+</header>
 <main>
     <section>
         <h1 style="text-align: center;" data-th-text="helol"></h1>
