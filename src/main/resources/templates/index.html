@@ -3,13 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <!-- Rendre variable le titre de la page -->
-    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/general.css">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
-<main>
-    <section>
-        <h1>MON TITRE</h1>
-    </section>
-</main>
+<body>
+    <header>
+        <h2>ENI-Enchères</h2>
+        <nav>
+            <a href="/">Se connecter</a>
+            <a href="/">S'inscrire</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 id="home__title">Listes des enchères</h1>
+        <form id="filtres">
+            <h2>Filtres</h2>
+            <input name="filtre" id="filtre" placeholder="Le nom de l'article contient">
+            <div id="filtres__categories">
+                <label for="categorie">Catégorie :</label>
+                <select id="categorie">
+                    <option value="toutes">Toutes</option>
+                    <option value="informatique">Informatique</option>
+                    <option value="ameublement">Ameublement</option>
+                    <option value="vetements">Vêtements</option>
+                    <option value="sportLoisir">Sports & Loisirs</option>
+                </select>
+            </div>
+            <button type="submit">Rechercher</button>
+        </form>
+        <div id="resultats">
+
+        </div>
+    </main>
+</body>
+
 </html>
