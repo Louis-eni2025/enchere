@@ -23,9 +23,7 @@ public class EniSecurityConfig {
         userDetailsManager.setUsersByUsernameQuery("select email, mot_de_passe, 1 from utilisateurs where email=?");
         userDetailsManager.setAuthoritiesByUsernameQuery("select email, administrateur from utilisateurs where email=?");
         return userDetailsManager;
-
     }
-
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
