@@ -45,12 +45,12 @@ public class EniSecurityConfig {
         );
 
         // Accès à l'authentification de son utilisateur
-/*        http.formLogin(form ->{
+        http.formLogin(form ->{
             form.loginPage("/login").permitAll();
             form.defaultSuccessUrl("/");
-        });*/
+        });
 
-        http.formLogin(withDefaults());
+        /*http.formLogin(withDefaults());*/
 
         http.logout(logout ->{
             logout
