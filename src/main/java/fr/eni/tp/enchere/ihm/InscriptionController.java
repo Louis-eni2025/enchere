@@ -29,14 +29,7 @@ public class InscriptionController {
 
 @PostMapping("/inscription")
     public String inscription(@ModelAttribute Utilisateur utilisateur, Model model)
-
-
 {
-
-
-
-    inscriptionService.create(utilisateur);
-
 
     //verification
     String password = utilisateur.getMotDePasse();
@@ -44,34 +37,30 @@ public class InscriptionController {
 
     boolean validPassword = password.matches(regex);
 
-    if (!validPassword ) {
-        System.out.println("password incorrecte");
-        return "redirect:/inscription";
-    }
 
-    if(!inscriptionService.pseudoExist(utilisateur.getPseudo())) {
 
-        model.addAttribute("message", "pseudo déja use");
+    if(inscriptionService.pseudoExist(utilisateur.getPseudo())
+            || inscriptionService.emailExist(utilisateur.getEmail())
+            || inscriptionService.telephoneExist(utilisateur.getTelephone())) {
+
+        model.addAttribute("message", "utilisatur déja enregistré");
         return "view_inscription";
-    }
-    if(!inscriptionService.emailExist(utilisateur.getEmail())) {
+    }else{
 
-        model.addAttribute("message", "email déja use");
-        return "view_inscription";
-    }
-    if(!inscriptionService.telephoneExist(utilisateur.getTelephone())) {
+        inscriptionService.create(utilisateur);
 
-        model.addAttribute("message", "telephone déja attribué");
-        return "view_inscription";
+
+        return "login";
     }
 
-    model.addAttribute("message", "inscription reussit");
+        /*if (!validPassword ) {
+            model.addAttribute("message", "Mot de passe invalide");
+            return "redirect:/inscription";
+        }*/
 
 
 
 
-
-        return "loginAsupp";
 }
 
 
