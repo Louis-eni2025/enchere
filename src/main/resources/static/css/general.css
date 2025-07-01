@@ -18,8 +18,22 @@ main {
     margin-right: 5vw;
 }
 
-
+/*Home*/
 #filtres {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+}
+
+#filtres > button {
+    height: 75px;
+    width: 100px;
+    position: relative;
+    bottom: 0;
+    align-self: end;
+}
+
+#filtres_inputs {
     width: 40vw;
     display: flex;
     flex-direction: column;
@@ -43,4 +57,21 @@ main {
 #home__title {
     width: 100%;
     text-align: center;
+}
+
+/*Gestion des cards*/
+#resultats {
+    margin-top: 2vw;
+    display: flex;
+    gap: 2vw;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.resultats__card {
+    display: flex;
+    width: 30%;
+    gap: 1vw;
+}
+.resultats__card > img {
+    width: 30%;
 }

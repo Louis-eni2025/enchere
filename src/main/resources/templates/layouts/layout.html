@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- Déclaration du fragment principal – le layout layout-demo -->
+<!-- Paramétrer le layout pour des valeurs dynamiques -->
+<!-- Rendre variable le contenu de la page -->
+<!-- Rendre variable le titre de la page -->
+<!-- Permettre d’ajouter ou non des ressources CSS -->
+<!-- faire varier le bloc de navigation -->
+<html data-th-fragment="layout" >
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ENI-Enchere</title>
+
+</head>
+<body>
+<header>
+    <h2>ENI-Enchères</h2>
+    <nav>
+        <ul>
+            <li data-sec-authorize="!isAuthenticated()"><a href="/login">Se connecter/S'inscrire</a></li>
+            <li data-sec-authorize="isAuthenticated()"><a href="/logout">Se déconnecter</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main data-th-replace="${contenuPage} ?: ~{}"></main>
+
+
+
+</body>
+</html>
