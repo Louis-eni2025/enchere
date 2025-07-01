@@ -4,7 +4,7 @@ package fr.eni.tp.enchere.bll;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,11 +12,12 @@ public class InscriptionServiceImpl implements  InscriptionService {
 
 
     private final UtilisateurDAO utilisateurDAO ;
-    private final UtilisateurDAOImpl utilisateurDAOImpl;
+    private final PasswordEncoder passwordEncoder ;
 
-    public InscriptionServiceImpl(UtilisateurDAO utilisateurDAO, UtilisateurDAOImpl utilisateurDAOImpl) {
+    public InscriptionServiceImpl(UtilisateurDAO utilisateurDAO, PasswordEncoder passwordEncoder) {
         this.utilisateurDAO = utilisateurDAO;
-        this.utilisateurDAOImpl = utilisateurDAOImpl;
+        this.passwordEncoder = passwordEncoder;
+
     }
 
 
@@ -24,6 +25,8 @@ public class InscriptionServiceImpl implements  InscriptionService {
     public void create(Utilisateur utilisateur) {
 
 
+        String Cryptage = passwordEncoder.encode(utilisateur.getMotDePasse());
+        utilisateur.setMotDePasse(Cryptage);
         utilisateurDAO.create(utilisateur);
 
     }

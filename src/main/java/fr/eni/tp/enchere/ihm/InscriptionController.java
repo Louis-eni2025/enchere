@@ -37,11 +37,17 @@ public class InscriptionController {
 
     boolean validPassword = password.matches(regex);
 
+    if (!validPassword ) {
+        model.addAttribute("message", "Mot de passe invalide");
+        return "view_inscription";
+    }
 
 
     if(inscriptionService.pseudoExist(utilisateur.getPseudo())
             || inscriptionService.emailExist(utilisateur.getEmail())
             || inscriptionService.telephoneExist(utilisateur.getTelephone())) {
+
+
 
         model.addAttribute("message", "utilisatur déja enregistré");
         return "view_inscription";
@@ -53,15 +59,15 @@ public class InscriptionController {
         return "login";
     }
 
-        /*if (!validPassword ) {
-            model.addAttribute("message", "Mot de passe invalide");
-            return "redirect:/inscription";
-        }*/
+
+
 
 
 
 
 }
+
+
 
 
 
