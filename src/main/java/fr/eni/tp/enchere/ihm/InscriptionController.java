@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class InscriptionController {
@@ -28,13 +29,18 @@ public class InscriptionController {
     }
 
     @PostMapping("/inscription")
-    public String inscription(@ModelAttribute Utilisateur utilisateur, Model model) {
+    public String inscription(@ModelAttribute Utilisateur utilisateur,@RequestParam("confrimation") String confrimation, Model model) {
 
     //verification
         String password = utilisateur.getMotDePasse();
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
 
         boolean validPassword = password.matches(regex);
+
+        if(!confrimation.equals(password)) {
+            model.addAttribute("message", "Les mot de passe ne correspondent pas");
+            return "view_inscription";
+        }
 
         if (!validPassword ) {
             model.addAttribute("message", "Mot de passe invalide");

@@ -8,17 +8,27 @@
 <body>
 
 <form th:action="@{/inscription} " method="post" >
-  <input name="pseudo" type="text" required>
-  <input name="nom" type="text" required>
-  <input name="prenom" type="text" required>
+  <div class="gauche">
+    <input name="pseudo" type="text" required>
+    <input name="nom" type="text" required>
+    <input name="prenom" type="text" required>
     <input name="email" type="text" required>
     <input name="telephone" type="text" required>
+  </div>
+  <div class="droite">
     <input name="rue" type="text" required>
     <input name="codePostal" type="text" required>
     <input name="ville" type="text" required>
     <input name="motDePasse" type="password" required>
-  <p th:text="${message}"></p>
-  <button type="submit" name="validate" value="valider" id="btn-validate">inskri twa lolilol</button>
+      <input name="confrimation" type="password" required>
+
+
+
+ </div>
+  <div class="footerDroite">
+    <p th:text="${message}"></p>
+    <button type="submit" name="validate" value="valider" id="btn-validate">inskri twa lolilol</button>
+  </div>
 
 
 </form>
