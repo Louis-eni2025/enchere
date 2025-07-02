@@ -104,8 +104,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     @Override
     public boolean pseudoExist(String pseudo) {
 
-
-
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("pseudo", pseudo);
 
@@ -171,5 +169,4 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             return utilisateur;
         }
     }
-
 }

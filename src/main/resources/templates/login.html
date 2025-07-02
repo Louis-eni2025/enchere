@@ -1,6 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<main>
+<!-- Mise en place du layout -->
+<html xmlns:th="http://www.thymeleaf.org"
+      data-th-replace="~{layouts/layout :: layout(
+									contenuPage=~{:: .main})}">
+<head>
+    <link rel="stylesheet" href="AuthStyle.css">
+</head>
+<main class="main">
     <form data-th-action="@{/login}" method="post">
         <h1>Login</h1>
         <div class="error" data-th-if="${param.error}" >Login/Password Error</div>

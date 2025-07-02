@@ -14,6 +14,7 @@ public interface InscriptionService {
     boolean telephoneExist(String telephone);
 
     Utilisateur read(int id);
+    Utilisateur read(String email);
 
     void update(Utilisateur utilisateur);
 

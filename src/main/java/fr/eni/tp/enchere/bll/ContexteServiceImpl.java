@@ -5,7 +5,9 @@ import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ContexteServiceImpl implements ContexteService {
     private final UtilisateurDAO utilisateurDAO;
 

@@ -48,28 +48,24 @@ public class InscriptionServiceImpl implements  InscriptionService {
         return utilisateurDAO.telephoneExist(telephone);
     }
 
-
-
-
-
-
-
     @Override
     public Utilisateur read(int id) {
-        return null;
+        return utilisateurDAO.read(id);
     }
 
-
-
+    @Override
+    public Utilisateur read(String email) {
+        return utilisateurDAO.read(email);
+    }
 
 
     @Override
     public void update(Utilisateur utilisateur) {
-
+        utilisateurDAO.update(utilisateur);
     }
 
     @Override
     public void delete(int id) {
-
+        utilisateurDAO.delete(id);
     }
 }
