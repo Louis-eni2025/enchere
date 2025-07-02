@@ -2,6 +2,10 @@ body {
     background-color: #f2f0f0;
 }
 
+a{
+    text-decoration: none;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -74,4 +78,49 @@ main {
 }
 .resultats__card > img {
     width: 30%;
+}
+
+.gauche{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.droite{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: auto;
+}
+
+.formInscription{
+
+    display: flex;
+    margin-left: 25%;
+    margin-top: 110px;
+    font-size: 25px;
+}
+
+.footerInscription{
+    position: absolute;
+    margin-top: 33%;
+    margin-left: 17%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#btn-validate{
+    border-radius: 5px;
+    position: absolute;
+    margin-top: -40px;
+    margin-left: 15vh;
+}
+
+#btn-annuler{
+    border-radius: 5px;
+    position: absolute;
+    margin-top: -40px;
+    margin-left: 75vh;
+
 }
