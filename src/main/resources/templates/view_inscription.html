@@ -9,17 +9,27 @@
 
 <form th:action="@{/inscription} " method="post" >
   <div class="gauche">
-    <input name="pseudo" type="text" placeholder="Votre pseudo" required>
+      <label>Pseudo</label>
+    <input name="pseudo" type="text" required>
+      <label>Nom</label>
     <input name="nom" type="text" placeholder="Votre nom" required>
+      <label>prenom</label>
     <input name="prenom" type="text" placeholder="Votre prenom" required>
+      <label>mail</label>
     <input name="email" type="email" placeholder="votre email" required>
+      <label>Phone</label>
     <input name="telephone" type="text" placeholder="votre numero de telephone" required>
   </div>
   <div class="droite">
+      <label>Rue</label>
     <input name="rue" type="text" required>
+      <label>Code Postal</label>
     <input name="codePostal" type="text" required>
+      <label>Ville</label>
     <input name="ville" type="text" required>
+      <label>Mot de passe</label>
     <input name="motDePasse" type="password" required>
+      <label>Confirmation</label>
       <input name="confrimation" type="password" required>
 
 
@@ -27,7 +37,7 @@
  </div>
   <div class="footerDroite">
     <p th:text="${message}" class="msgError"></p>
-    <button type="submit" name="validate" value="valider" id="btn-validate">inskri twa lolilol</button>
+    <button type="submit" name="validate" value="valider" id="btn-validate">S'inscrire</button>
   </div>
 
 
