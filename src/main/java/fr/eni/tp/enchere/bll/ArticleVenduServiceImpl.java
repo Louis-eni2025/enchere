@@ -4,6 +4,8 @@ import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.dal.ArticleVenduDAO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleVenduServiceImpl implements ArticleVenduService {
 
@@ -22,8 +24,10 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 
     }
 
+
+
     @Override
-    public void readById(int id){
-        articleVenduDAO.readById(id);
+    public List<ArticleVendu> displayArticles(){
+        return articleVenduDAO.findAll();
     }
 }

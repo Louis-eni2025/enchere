@@ -22,9 +22,20 @@
         </div>
         <button type="submit">Rechercher</button>
     </form>
-    <div id="resultats">
-        <article data-th-each="i : ${#numbers.sequence(1, 8)}" class="resultats__card">
+    <div id="resultats" name="IdArticle">
+        <article data-th-each="i : ${#numbers.sequence(1, 8)}" class="resultats__card" >
             <img src="https://placehold.co/400x400">
+            <tr data-th-each="item : ${articleVenduLst}">
+                <td data-th-text="${item.nomArticle}"></td>
+                <td data-th-text="${item.dateDebutEnchere}"></td>
+                <td data-th-text="${item.dateFinEnchere}"></td>
+                <td data-th-text="${item.miseAPrix}"></td>
+                <td data-th-text="${item.prixVente}"></td>
+                <td data-th-text="${item.etatVente}"></td>
+                <td data-th-text="${item.categorie}"></td>
+                <td data-th-text="${item.utilisateur}"></td>
+            </tr>
+
             <div>
                 <h1>PC Gamer pour travailler</h1>
                 <p>Prix: <span>210</span> points</p>
