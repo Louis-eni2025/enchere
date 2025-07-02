@@ -38,7 +38,7 @@ public class InscriptionController {
         boolean validPassword = password.matches(regex);
 
         if(!confrimation.equals(password)) {
-            model.addAttribute("message", "Les mot de passe ne correspondent pas");
+            model.addAttribute("message", "Les mot de passe ne correspondent pas ...");
             return "view_inscription";
         }
 

@@ -35,6 +35,7 @@ input{
     font-size: 25px;
     border-radius: 10px;
     margin-left: 150px;
+    position: absolute;
 }
 
 .footerDroite{
@@ -43,4 +44,18 @@ input{
     margin-top: 20%;
     display: flex;
     flex-direction: column-reverse;
+}
+
+.msgError{
+    font-style: oblique;
+
+    opacity:0;
+    animation: fadin 2.6s ease-in forwards;
+}
+
+@keyframes fadin {
+    to{
+        opacity: 1;
+    }
+
 }
