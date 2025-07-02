@@ -36,6 +36,8 @@
                 <td data-th-text="${item.utilisateur}"></td>
             </tr>
 
+
+
             <div>
                 <h1>PC Gamer pour travailler</h1>
                 <p>Prix: <span>210</span> points</p>
@@ -45,5 +47,11 @@
         </article>
         <!--            Prévoir du grid: 3 cartes / row -->
     </div>
+
+    <data-th-block
+            data-sec-authorize="isAuthenticated()">
+
+        <a href="/addArticle">Ajouter un articles</a>
+    </data-th-block>
 </main>
 
