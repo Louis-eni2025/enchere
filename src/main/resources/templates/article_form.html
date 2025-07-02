@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- Mise en place du layout -->
+<html xmlns:th="http://www.thymeleaf.org"
+      data-th-replace="~{layouts/layout :: layout(
+									contenuPage=~{:: .main})}">
+<main class="main">
+    <h1>Nouvelle vente</h1>
+    <div>
+        <label for="nom">Article</label>
+        <input id="nom" name="nom" type="text" placeholder="Nom de l'article">
+    </div>
+    <div>
+        <label for="description">Description</label>
+        <input id="description" name="description" type="text" placeholder="Description de l'article">
+    </div>
+    <div>
+        <label for="categorie">Catégorie</label>
+        <select id="categorie" name="categorie">
+            <option value="informatique">Informatique</option>
+            <option value="ameublement">Ameublement</option>
+            <option value="vetements">Vêtements</option>
+            <option value="sportLoisir">Sports & Loisirs</option>
+        </select>
+    </div>
+    <div>
+        <label for="mise_a_prix">Mise à prix</label>
+        <input id="mise_a_prix" name="mise_a_prix" type="number">
+    </div>
+    <div>
+        <label for="date_debut_enchere">Début de l'enchère</label>
+        <input id="date_debut_enchere" name="date_debut_enchere" type="date">
+    </div>
+    <div>
+        <label for="date_fin_enchere">Fin de l'enchère</label>
+        <input id="date_fin_enchere" name="date_fin_enchere" type="date">
+    </div>
+    <div>
+        <h2>Retrait</h2>
+        <div>
+            <label for="retrait_rue">Rue</label>
+            <input id="retrait_rue" name="retrait_rue" type="text">
+        </div>
+        <div>
+            <label for="retrait_code_postal">Code Postal</label>
+            <input id="retrait_code_postal" name="retrait_code_postal" type="text">
+        </div>
+        <div>
+            <label for="retrait_ville">Ville</label>
+            <input id="retrait_ville" name="retrait_ville" type="text">
+        </div>
+    </div>
+    <button type="submit">Enregistrer</button>
+    <a href="/">Annuler</a>
+
+</main>
+
