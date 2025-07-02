@@ -1,24 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      data-th-replace="~{layouts/layout :: layout(
+      contenuPage=~{:: .main})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <link rel="stylesheet" href="/css/AuthStyle.css">
-</head>
-<body>
 
-<form th:action="@{/inscription} " method="post" >
-  <input name="pseudo" type="text" required>
-  <input name="nom" type="text" required>
-  <input name="prenom" type="text" required>
-    <input name="email" type="text" required>
-    <input name="telephone" type="text" required>
+</head>
+<body class="main">
+
+<form th:action="@{/inscription} " method="post" class="formInscription">
+  <div class="gauche">
+      <label>Pseudo</label>
+    <input name="pseudo" type="text" required>
+      <label>Nom</label>
+    <input name="nom" type="text" placeholder="Votre nom" required>
+      <label>prenom</label>
+    <input name="prenom" type="text" placeholder="Votre prenom" required>
+      <label>mail</label>
+    <input name="email" type="email" placeholder="votre email" required>
+      <label>Phone</label>
+    <input name="telephone" type="text" placeholder="votre numero de telephone" required>
+  </div>
+  <div class="droite">
+      <label>Rue</label>
     <input name="rue" type="text" required>
+      <label>Code Postal</label>
     <input name="codePostal" type="text" required>
+      <label>Ville</label>
     <input name="ville" type="text" required>
+      <label>Mot de passe</label>
     <input name="motDePasse" type="password" required>
-  <p th:text="${message}"></p>
-  <button type="submit" name="validate" value="valider" id="btn-validate">inskri twa lolilol</button>
+      <label>Confirmation</label>
+      <input name="confrimation" type="password" required>
+
+
+
+ </div>
+  <div class="footerInscription">
+    <p data-th-text="${message}" data-th-if="${message}"  class="msgError"></p>
+    <button type="submit" name="validate" value="valider" id="btn-validate">S'inscrire</button>
+      <button type="submit" name="validate" value="valider" id="btn-annuler"><a href="/">Annuler</a></button>
+  </div>
 
 
 </form>
