@@ -2,6 +2,7 @@ package fr.eni.tp.enchere.dal;
 
 import com.fasterxml.jackson.databind.util.Named;
 import fr.eni.tp.enchere.bo.ArticleVendu;
+import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -18,7 +19,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     private String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
     private String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = :no_article";
-
+    private String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur, no_categorie = :no_categorie) WHERE no_article = :no_article";
+    private String DELETE = "DELETE ARTICLES_VENDUS WHERE no_article = :no_article";
 
     public ArticleVenduDAOImpl(NamedParameterJdbcTemplate jdbc) {
         this.jdbc = jdbc;
@@ -54,18 +56,28 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     }
 
     @Override
-    public ArticleVendu readByEmail(String email) {
-        return null;
-    }
-
-    @Override
     public void update(ArticleVendu articleVendu) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("nom_article", articleVendu.getNomArticle());
+        map.addValue("description", articleVendu.getDescription());
+        map.addValue("date_debut_encheres", articleVendu.getDateDebutEnchere());
+        map.addValue("date_fin_encheres", articleVendu.getDateFinEnchere());
+        map.addValue("prix_initial", articleVendu.getMiseAPrix());
+        map.addValue("prix_vente", articleVendu.getPrixVente());
+        map.addValue("no_utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
+        map.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
+
+        jdbc.update(UPDATE, map);
+
 
     }
 
     @Override
     public void delete(int id) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("noUtilisateur", id);
 
+        jdbc.update(DELETE, map);
     }
 
     private class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
@@ -80,7 +92,15 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             article.setDateFinEnchere(rs.getDate("date_fin_encheres"));
             article.setMiseAPrix(rs.getInt("prix_initial"));
             article.setPrixVente(rs.getInt("prix_vente"));
-//            article.setUtilisateur();
+
+            final Utilisateur utilisateur = new Utilisateur();
+            utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+            article.setUtilisateur(utilisateur);
+
+            final Categorie categorie = new Categorie();
+            categorie.setNoCategorie(rs.getInt("no_categorie"));
+            article.setCategorie(categorie);
+
 
             return article;
         }
