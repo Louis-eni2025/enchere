@@ -57,7 +57,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     @Override
     public Utilisateur read(int id) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("noUtilisateur", id);
+        map.addValue("no_utilisateur", id);
 
         return jdbc.queryForObject(SELECT_BY_ID, map, new UtilisateurRowMapper());
     }
@@ -85,7 +85,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("administrateur", utilisateur.isAdministrateur());
 
         // On ajoute l'identifiant de l'utilisateur pour la clause WHERE
-        map.addValue("noUtilisateur", utilisateur.getNoUtilisateur());
+        map.addValue("no_utilisateur", utilisateur.getNoUtilisateur());
 
         jdbc.update(UPDATE, map);
     }
@@ -153,16 +153,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         @Override
         public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
             final Utilisateur utilisateur = new Utilisateur();
-            utilisateur.setNoUtilisateur(rs.getInt("noUtilisateur"));
+            utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
             utilisateur.setPseudo(rs.getString("pseudo"));
             utilisateur.setNom(rs.getString("nom"));
             utilisateur.setPrenom(rs.getString("prenom"));
             utilisateur.setEmail(rs.getString("email"));
             utilisateur.setTelephone(rs.getString("telephone"));
             utilisateur.setRue(rs.getString("rue"));
-            utilisateur.setCodePostal(rs.getString("codePostal"));
+            utilisateur.setCodePostal(rs.getString("code_postal"));
             utilisateur.setVille(rs.getString("ville"));
-            utilisateur.setMotDePasse(rs.getString("motDePasse"));
+            utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
             utilisateur.setCredit(rs.getInt("credit"));
             utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
 

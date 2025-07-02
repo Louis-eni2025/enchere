@@ -3,9 +3,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       data-th-replace="~{layouts/layout :: layout(
 									contenuPage=~{:: .main})}">
-<main>
-<h1 data-th-text="${utilisateur.pseudo}">Bonjour, </h1>
-  <h2>Profile</h2>
+<main class="main">
+<h2>Mon Profil</h2>
   <ul>
     <li>
       <label for="idPrenom">Prénom</label>
@@ -47,6 +46,10 @@
       <label for="idLstEnchere">Liste des Enchères</label>
       <input id="idLstEnchere" type=text data-th-field="${utilisateur.LstEnchere}" readonly/>
     </li>
+    <div>
+      <a href="/modifierProfile" class="faussebutton">Modifier</a>
+    </div>
+
   </ul>
 </main>
 </html>

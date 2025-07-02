@@ -1,0 +1,41 @@
+.form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.username {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    margin: 20px;
+}
+
+.password {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    margin: 20px;
+}
+
+.btn {
+    margin: 20px;
+}
+
+.container {
+    display: flex;
+}
+
+.container > div {
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+}

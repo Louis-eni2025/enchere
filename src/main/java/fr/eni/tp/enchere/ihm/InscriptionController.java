@@ -44,6 +44,7 @@ public class InscriptionController {
 
         if (!validPassword ) {
             model.addAttribute("message", "Mot de passe invalide");
+
             return "view_inscription";
         }
 

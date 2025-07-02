@@ -20,6 +20,8 @@ public class ContexteServiceImpl implements ContexteService {
         try {
             return utilisateurDAO.read(email);
         } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+
             throw new BusinessException(BusinessCode.VALIDATION_UTILISATEUR_INCONNU);
         }
     }
