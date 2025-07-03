@@ -6,14 +6,18 @@
 <main class="main">
     <h1>Nouvelle vente</h1>
 
+<form data-th-action="@{/addArticle}"
+      method="post"
+      data-th-object="${articleVendu}">
+
 
     <div>
         <label for="nom">Article</label>
-        <input id="nom" name="nom" type="text" placeholder="Nom de l'article">
+        <input id="nom" name="nom" type="text" placeholder="Nom de l'article" data-th-field="*{nomArticle}">
     </div>
     <div>
         <label for="description">Description</label>
-        <input id="description" name="description" type="text" placeholder="Description de l'article">
+        <input id="description" name="description" type="text" placeholder="Description de l'article" data-th-field="*{description}">
     </div>
     <div>
         <label for="categorie">Catégorie</label>
@@ -26,32 +30,42 @@
     </div>
     <div>
         <label for="mise_a_prix">Mise à prix</label>
-        <input id="mise_a_prix" name="mise_a_prix" type="number">
+        <input id="mise_a_prix" name="mise_a_prix" type="number" data-th-field="*{miseAPrix}">
     </div>
     <div>
         <label for="date_debut_enchere">Début de l'enchère</label>
-        <input id="date_debut_enchere" name="date_debut_enchere" type="date">
+        <input id="date_debut_enchere" name="dateDebutEnchere" type="date" data-th-field="*{dateDebutEnchere}">
     </div>
     <div>
         <label for="date_fin_enchere">Fin de l'enchère</label>
-        <input id="date_fin_enchere" name="date_fin_enchere" type="date">
+        <input id="date_fin_enchere" name="dateFinEnchere" type="date" data-th-field="*{dateFinEnchere}">
     </div>
+
+    <!--
     <div>
+
         <h2>Retrait</h2>
-        <div>
-            <label for="retrait_rue">Rue</label>
-            <input id="retrait_rue" name="retrait_rue" type="text">
-        </div>
-        <div>
-            <label for="retrait_code_postal">Code Postal</label>
-            <input id="retrait_code_postal" name="retrait_code_postal" type="text">
-        </div>
-        <div>
-            <label for="retrait_ville">Ville</label>
-            <input id="retrait_ville" name="retrait_ville" type="text">
-        </div>
-    </div>
+
+            <div>
+                <label for="retrait_rue">Rue</label>
+                <input id="retrait_rue" name="utilisateur" type="text" data-th-field="*{nomArticle}" >
+            </div>
+            <div>
+                <label for="retrait_code_postal">Code Postal</label>
+                <input id="retrait_code_postal" name="categorie" type="text" data-th-field="*{nomArticle}" >
+            </div>
+            <div>
+                <label for="retrait_ville">Ville</label>
+                <input id="retrait_ville" name="retrait" type="text" data-th-field="*{nomArticle}">
+            </div>
+    </div>-->
+
+
     <button type="submit">Enregistrer</button>
+
+</form>
+
+
     <a href="/">Annuler</a>
 
 </main>

@@ -51,6 +51,7 @@ public class EniSecurityConfig {
                             .requestMatchers(HttpMethod.GET, "/.well-known/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/inscription/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/addArticle").authenticated()
+                            .requestMatchers(HttpMethod.POST, "/addArticle").authenticated()
                             /*.requestMatchers(HttpMethod.GET, "/avis").permitAll()
                             .requestMatchers(HttpMethod.GET, "/films/details").authenticated()
                             .requestMatchers(HttpMethod.GET, "/avis/ajouter").hasRole("MEMBRE")
