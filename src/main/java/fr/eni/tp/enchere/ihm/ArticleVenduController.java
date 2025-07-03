@@ -32,7 +32,10 @@ public class ArticleVenduController {
     @GetMapping("/")
     public String index(Model model) {
         List<ArticleVendu> article = articleVenduService.displayArticles();
+
+
         model.addAttribute("articleVenduLst", article);
+
 
         return "index";
     }
@@ -40,6 +43,10 @@ public class ArticleVenduController {
     @GetMapping("/addArticle")
     public String addArticle(Categorie categorie,Model model) {
         model.addAttribute("articleVendu", new ArticleVendu());
+
+        List<Categorie> categories = articleVenduService.categories();
+        model.addAttribute("categorieLst", categories);
+
 
         return "article_form";
     }

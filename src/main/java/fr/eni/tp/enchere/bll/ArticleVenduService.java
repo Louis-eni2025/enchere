@@ -10,4 +10,8 @@ public interface ArticleVenduService {
     void createArticleVendu(ArticleVendu articleVendu) ;
     List<ArticleVendu> displayArticles();
 
+
+    Categorie categorieById();
+
+    List<Categorie> categories();
 }

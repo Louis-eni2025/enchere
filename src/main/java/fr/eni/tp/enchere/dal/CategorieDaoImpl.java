@@ -35,7 +35,7 @@ public class CategorieDaoImpl implements CategorieDAO {
     }
 
     @Override
-    public List<Categorie> findAll() {
+    public List<Categorie> findAllCategories() {
         return jdbc.getJdbcTemplate().query(SELECT_ALL, new CategorieRowMapper());
     }
 

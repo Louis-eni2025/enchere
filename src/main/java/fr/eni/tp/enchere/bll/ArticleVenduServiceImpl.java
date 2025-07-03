@@ -8,7 +8,6 @@ import fr.eni.tp.enchere.dal.CategorieDAO;
 import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +18,7 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     private final UtilisateurDAOImpl utilisateurDAOImpl;
 
 
-    public List<Categorie> categories = new ArrayList<>();
+
 
     public ArticleVenduServiceImpl(
             ArticleVenduDAO articleVenduDAO,
@@ -43,6 +42,21 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         }
 
         return articleVenduDAO.findAll();
+    }
+
+
+    //a travailler pour converter
+    @Override
+    public Categorie categorieById() {
+        return null;
+    }
+
+
+    @Override
+    public List<Categorie> categories(){
+
+        return categorieDAO.findAllCategories();
+
     }
 
     private void loadRelations(ArticleVendu articleVendu){
