@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!-- Mise en place du layout -->
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:data-th="http://www.w3.org/1999/xhtml"
       data-th-replace="~{layouts/layout :: layout(
 									contenuPage=~{:: .main})}">
     <body>
         <link rel="stylesheet" href="userStyle.css">
         <main class="main">
-            <form method="post" class="container">
+            <form data-th:action="@{/modifierProfile} " method="post" class="container">
                 <div class="gauche">
                     <label>Pseudo</label>
                     <input name="pseudo" type="text" required>
@@ -40,14 +40,12 @@
                 </div>
                 <label for="idCredit">Credit</label>
                 <input id="idCredit" type=text data-th-field="${utilisateur.credit}" readonly/>
-
+                <div>
+                    <button type="submit" class="btn">Enregister</button>
+                    <!--<button type="submit" class="btn">Supprimer mon compte</button>-->
+                </div>
             </form>
-            <div>
-                <button type="submit" class="btn">Enregister</button>
-                <button type="submit" class="btn">Supprimer mon compte</button>
-            </div>
 
         </main>
     </body>
-
 </html>

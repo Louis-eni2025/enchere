@@ -68,13 +68,20 @@ public class InscriptionServiceImpl implements  InscriptionService {
     }
 
     @Override
-    public boolean validPassword(Utilisateur utilisateur, String motDePasse) {
-        String mdp = utilisateur.getMotDePasse();
-        return mdp.equals(motDePasse);
+    public boolean validPassword(String email, String motDePasse) {
+
+        String Cryptage = passwordEncoder.encode(motDePasse);
+        String mdp = utilisateurDAO.passwordValid(email);
+        return mdp.equals(Cryptage);
     }
 
     @Override
     public void delete(int id) {
         utilisateurDAO.delete(id);
+    }
+
+    @Override
+    public boolean validPseudo(String email, String pseudo) {
+        return utilisateurDAO.validPseudo(email, pseudo);
     }
 }

@@ -20,7 +20,9 @@ public interface InscriptionService {
 
     boolean confirmPassword(String password1, String password2);
 
-    boolean validPassword(Utilisateur utilisateur, String motDePasse);
+    boolean validPassword(String email, String motDePasse);
 
     void delete(int id);
+
+    boolean validPseudo(String email, String pseudo);
 }

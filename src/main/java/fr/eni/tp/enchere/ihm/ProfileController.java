@@ -2,7 +2,9 @@ package fr.eni.tp.enchere.ihm;
 
 import fr.eni.tp.enchere.bll.ContexteService;
 import fr.eni.tp.enchere.bll.InscriptionService;
+import fr.eni.tp.enchere.bll.InscriptionServiceImpl;
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
 import fr.eni.tp.enchere.exceptions.BusinessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,24 +61,33 @@ public class ProfileController {
     }
 
     @PostMapping("/modifierProfile")
-    public String modifierProfile(@ModelAttribute Utilisateur utilisateur, @RequestParam("confirmation") String confirmation,
+    public String modifierProfile (@ModelAttribute Utilisateur utilisateur, @RequestParam("confirmation") String confirmation,
                                   @RequestParam("motDePasseActuel") String motDePasseActuel,
                                   @RequestParam("nouveauMotDePasse") String nouveauMotDePasse,
+                                  @RequestParam("pseudo") String pseudo,
+                                  @RequestParam("email") String email,
                                   Model model, BindingResult bindingResult, Principal principal)
     {
-        boolean validUser = true;
-        validUser &= inscriptionService.confirmPassword(nouveauMotDePasse, confirmation);
-        validUser &= inscriptionService.validPassword(utilisateur, motDePasseActuel);
+        System.out.println("on va modifier le profile");
+        /*String nom = utilisateur.getNom(); // Objet utilisateur qui provient du formulaire
+        String nom2 = principal.getName(); // Utilisateur connecté avec Spring Security*/
+        // String nom3 = UtilisateurDAO.read(id) (RETOURNE UN USER)  // Utilisateur en base de donnée ayant l'id id
+        if(principal != null) {
+            boolean validUser = true;
+            boolean validPseudo = inscriptionService.validPseudo(principal.getName(), pseudo);
+            boolean validEmail = email.equals(principal.getName()) || !inscriptionService.emailExist(email);
 
-        if(validUser) {
-            if (principal != null) {
+            validUser &= validPseudo;
+            validUser &= validEmail;
+            validUser &= inscriptionService.validPassword(principal.getName(), motDePasseActuel);
+            validUser &= inscriptionService.confirmPassword(nouveauMotDePasse, confirmation);
+
+            if (validUser) {
                 if (bindingResult.hasErrors()) {
-
                     return "modifierProfile";
                 }
                 try {
                     inscriptionService.update(utilisateur);
-
                     return "redirect:/profile";
                 } catch (BusinessException be) {
                     //ajout de la liste des participant (realisateur ou acteurs
@@ -90,10 +101,6 @@ public class ProfileController {
                     return "modifierProfile";
                 }
             }
-            else {
-                model.addAttribute("message", "Veuillez saisir le même mot de passe");
-            }
-
         }
         return "redirect:/login";
     }

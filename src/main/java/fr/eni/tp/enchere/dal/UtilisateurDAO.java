@@ -18,4 +18,8 @@ public interface UtilisateurDAO {
     boolean emailExist(String email);
 
     boolean telephoneExist(String telephone);
+
+    String passwordValid(String email);
+
+    boolean validPseudo(String email, String pseudo);
 }
