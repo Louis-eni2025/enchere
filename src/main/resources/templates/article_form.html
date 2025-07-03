@@ -20,13 +20,17 @@
         <input id="description" name="description" type="text" placeholder="Description de l'article" data-th-field="*{description}">
     </div>
     <div>
-        <label for="categorie">Catégorie</label>
-        <select id="categorie" name="categorie">
-            <option value="informatique">Informatique</option>
-            <option value="ameublement">Ameublement</option>
-            <option value="vetements">Vêtements</option>
-            <option value="sportLoisir">Sports & Loisirs</option>
-        </select>
+        <form data-th-each="item: ${categorie}">
+            <label for="categorie">Catégorie</label>
+            <select id="categorie" name="categorie">
+                <option value="informatique" >Informatique</option>
+                <option value="ameublement">Ameublement</option>
+                <option value="vetements">Vêtements</option>
+                <option value="sportLoisir">Sports & Loisirs</option>
+            </select>
+
+        </form>
+
     </div>
     <div>
         <label for="mise_a_prix">Mise à prix</label>

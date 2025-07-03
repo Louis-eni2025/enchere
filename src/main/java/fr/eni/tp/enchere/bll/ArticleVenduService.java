@@ -10,4 +10,5 @@ public interface ArticleVenduService {
 
 
     List<ArticleVendu> displayArticles();
+
 }

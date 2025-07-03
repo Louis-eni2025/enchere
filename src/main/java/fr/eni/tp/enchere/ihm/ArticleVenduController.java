@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class ArticleVenduController {
         this.articleVenduService = articleVenduService;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index(Model model) {
         List<ArticleVendu> article = articleVenduService.displayArticles();
         model.addAttribute("articleVenduLst", article);
@@ -38,7 +39,10 @@ public class ArticleVenduController {
 
     @GetMapping("/addArticle")
     public String addArticle(Model model) {
-        model.addAttribute("articleVendu", new ArticleVendu());
+
+
+
+
 
         //model.addAttribute("articleVenduLst", articleVenduService.displayArticles());
         return "article_form";
