@@ -88,7 +88,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("administrateur", utilisateur.isAdministrateur());
 
         // On ajoute l'identifiant de l'utilisateur pour la clause WHERE
-        map.addValue("no_utilisateur", utilisateur.getNoUtilisateur());
+        map.addValue("noUtilisateur", utilisateur.getNoUtilisateur());
 
         jdbc.update(UPDATE, map);
     }

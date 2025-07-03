@@ -39,8 +39,6 @@ public class EniSecurityConfig {
         return userDetailsManager;
     }
 
-
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
@@ -53,8 +51,7 @@ public class EniSecurityConfig {
                             .requestMatchers(HttpMethod.GET, "/login/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/profile/*").authenticated()
                             .requestMatchers(HttpMethod.GET, "/modifierProfile/*").authenticated()
-
-
+                            .requestMatchers(HttpMethod.POST, "/modifierProfile/*").authenticated()
 
                             .requestMatchers("/css/*").permitAll()
                             .requestMatchers("/images/*").permitAll()
@@ -84,4 +81,3 @@ public class EniSecurityConfig {
         return http.build();
     }
 }
-
