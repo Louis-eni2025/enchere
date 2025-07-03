@@ -1,6 +1,5 @@
 package fr.eni.tp.enchere.dal;
 
-import com.fasterxml.jackson.databind.util.Named;
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Utilisateur;
@@ -13,12 +12,15 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     private NamedParameterJdbcTemplate jdbc;
 
+    private String SELECT_ALL = "select * from ARTICLES_VENDUS";
+    private String SELECT_ALL_CAT = "select * from CATEGORIES";
     private String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
     private String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = :no_article";
     private String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur, no_categorie = :no_categorie) WHERE no_article = :no_article";
@@ -47,6 +49,15 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         if(keyHolder.getKey() != null) {
             articleVendu.setNoArticle(keyHolder.getKey().intValue());
         }
+    }
+
+    @Override
+    public List<ArticleVendu> findAll(){
+        return jdbc.getJdbcTemplate().query(SELECT_ALL, new ArticleVenduRowMapper());
+    }
+
+    public List<ArticleVendu> findAllCategorie(){
+        return jdbc.getJdbcTemplate().query(SELECT_ALL_CAT, new ArticleVenduRowMapper());
     }
 
     @Override

@@ -22,17 +22,23 @@
         </div>
         <button type="submit">Rechercher</button>
     </form>
-    <div id="resultats">
-        <article data-th-each="i : ${#numbers.sequence(1, 8)}" class="resultats__card">
+    <div id="resultats" name="IdArticle">
+        <article data-th-each="item : ${articleVenduLst}" class="resultats__card" >
             <img src="https://placehold.co/400x400">
             <div>
-                <h1>PC Gamer pour travailler</h1>
-                <p>Prix: <span>210</span> points</p>
-                <p>Fin de l'enchère: <span>10/08/2018</span></p>
-                <p>Vendeur: <span>jojo44</span></p>
+                <h1 data-th-text="${item.nomArticle}"></h1>
+                <p>Prix: <span data-th-text="${item.prixVente}"></span> points</p>
+                <p>Fin de l'enchère: <span data-th-text="${item.dateFinEnchere}"></span></p>
+                <p>Vendeur: <span data-th-text="${item.utilisateur.pseudo}"></span></p>
             </div>
         </article>
-        <!--            Prévoir du grid: 3 cartes / row -->
+
     </div>
+
+    <data-th-block
+            data-sec-authorize="isAuthenticated()">
+
+        <a href="/addArticle">Ajouter un articles</a>
+    </data-th-block>
 </main>
 

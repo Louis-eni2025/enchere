@@ -1,5 +1,7 @@
 package fr.eni.tp.enchere.bo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +10,13 @@ public class ArticleVendu {
     private int noArticle;
     private String nomArticle;
     private String description;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDebutEnchere;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFinEnchere;
+
     private int miseAPrix;
     private int prixVente;
     private String etatVente;
