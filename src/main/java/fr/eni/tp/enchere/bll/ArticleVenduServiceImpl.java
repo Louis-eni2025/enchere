@@ -11,24 +11,17 @@ import java.util.List;
 @Service
 public class ArticleVenduServiceImpl implements ArticleVenduService {
 
-
     private final ArticleVenduDAO articleVenduDAO;
-
-    public List<Categorie> categories = new ArrayList<>();
 
     public ArticleVenduServiceImpl(ArticleVenduDAO articleVenduDAO) {
         this.articleVenduDAO = articleVenduDAO;
     }
-
-
 
     @Override
     public void createArticleVendu(ArticleVendu articleVendu) {
         articleVenduDAO.create(articleVendu);
 
     }
-
-
 
     @Override
     public List<ArticleVendu> displayArticles(){

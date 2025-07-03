@@ -1,7 +1,7 @@
 package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
-import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.Categorie;
 
 import java.util.List;
 

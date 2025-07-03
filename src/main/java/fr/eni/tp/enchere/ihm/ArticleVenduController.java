@@ -3,6 +3,7 @@ package fr.eni.tp.enchere.ihm;
 
 import fr.eni.tp.enchere.bll.ArticleVenduService;
 import fr.eni.tp.enchere.bo.ArticleVendu;
+import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import jakarta.validation.Valid;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,13 +38,9 @@ public class ArticleVenduController {
     }
 
     @GetMapping("/addArticle")
-    public String addArticle(Model model) {
+    public String addArticle(Categorie categorie,Model model) {
+        model.addAttribute("articleVendu", new ArticleVendu());
 
-
-
-
-
-        //model.addAttribute("articleVenduLst", articleVenduService.displayArticles());
         return "article_form";
     }
 
