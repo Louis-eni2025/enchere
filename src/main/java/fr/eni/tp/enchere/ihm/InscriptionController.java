@@ -29,25 +29,19 @@ public class InscriptionController {
     }
 
     @PostMapping("/inscription")
-    public String inscription(@ModelAttribute Utilisateur utilisateur,@RequestParam("confrimation") String confrimation, Model model) {
+    public String inscription(@ModelAttribute Utilisateur utilisateur,@RequestParam("confirmation") String confirmation, Model model) {
 
-    //verification
-        String password = utilisateur.getMotDePasse();
+ /*   //verification
+
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
 
         boolean validPassword = password.matches(regex);
-
-        if(!confrimation.equals(password)) {
+*/
+        String password = utilisateur.getMotDePasse();
+        if(!confirmation.equals(password)) {
             model.addAttribute("message", "Les mot de passe ne correspondent pas ...");
             return "view_inscription";
         }
-
-        if (!validPassword ) {
-            model.addAttribute("message", "Mot de passe invalide");
-
-            return "view_inscription";
-        }
-
 
         if(inscriptionService.pseudoExist(utilisateur.getPseudo()) || inscriptionService.emailExist(utilisateur.getEmail()) || inscriptionService.telephoneExist(utilisateur.getTelephone())) {
             model.addAttribute("message", "Utilisateur déja enregistré");

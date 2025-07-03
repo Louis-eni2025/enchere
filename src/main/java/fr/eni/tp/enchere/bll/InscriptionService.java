@@ -18,5 +18,9 @@ public interface InscriptionService {
 
     void update(Utilisateur utilisateur);
 
+    boolean confirmPassword(String password1, String password2);
+
+    boolean validPassword(Utilisateur utilisateur, String motDePasse);
+
     void delete(int id);
 }

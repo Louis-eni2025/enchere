@@ -59,16 +59,16 @@ public class ProfileController {
     }
 
     @PostMapping("/modifierProfile")
-    public String modifierProfile(@ModelAttribute Utilisateur utilisateur, @RequestParam("confrimation") String confrimation, Model model, BindingResult bindingResult, Principal principal) {
+    public String modifierProfile(@ModelAttribute Utilisateur utilisateur, @RequestParam("confirmation") String confirmation,
+                                  @RequestParam("motDePasseActuel") String motDePasseActuel,
+                                  @RequestParam("nouveauMotDePasse") String nouveauMotDePasse,
+                                  Model model, BindingResult bindingResult, Principal principal)
+    {
+        boolean validUser = true;
+        validUser &= inscriptionService.confirmPassword(nouveauMotDePasse, confirmation);
+        validUser &= inscriptionService.validPassword(utilisateur, motDePasseActuel);
 
-        //verification
-        String password = utilisateur.getMotDePasse();
-        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
-
-        boolean validPassword = password.matches(regex);
-
-
-
+        if(validUser) {
             if (principal != null) {
                 if (bindingResult.hasErrors()) {
 
@@ -89,9 +89,13 @@ public class ProfileController {
                     );
                     return "modifierProfile";
                 }
-
             }
-            return "redirect:/login";
+            else {
+                model.addAttribute("message", "Veuillez saisir le même mot de passe");
+            }
+
         }
+        return "redirect:/login";
+    }
 }
 
