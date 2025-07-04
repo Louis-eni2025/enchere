@@ -20,10 +20,13 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     private NamedParameterJdbcTemplate jdbc;
 
     private String SELECT_ALL = "select * from ARTICLES_VENDUS";
+    private String SELECT_ALL_BY_RECHERCHE = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from ARTICLES_VENDUS WHERE nom_article LIKE :recherche";
+    private String SELECT_ALL_BY_CATEGORIE_AND_RECHERCHE = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie  from ARTICLES_VENDUS WHERE nom_article LIKE :recherche AND no_categorie = :no_categorie";
+    private String SELECT_ALL_BY_CATEGORIE = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from ARTICLES_VENDUS WHERE no_categorie = :no_categorie";
     private String SELECT_ALL_CAT = "select * from CATEGORIES";
     private String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
     private String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = :no_article";
-    private String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur, no_categorie = :no_categorie) WHERE no_article = :no_article";
+    private String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur, no_categorie = :no_categorie WHERE no_article = :no_article";
     private String DELETE = "DELETE ARTICLES_VENDUS WHERE no_article = :no_article";
 
     public ArticleVenduDAOImpl(NamedParameterJdbcTemplate jdbc) {
@@ -54,6 +57,24 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     @Override
     public List<ArticleVendu> findAll(){
         return jdbc.getJdbcTemplate().query(SELECT_ALL, new ArticleVenduRowMapper());
+    }
+
+    @Override
+    public List<ArticleVendu> findAllByRecherche(String recherche) {
+        return List.of();
+    }
+
+    @Override
+    public List<ArticleVendu> findAllByCategorieAndRecherche(Integer idCategorie, String recherche) {
+        return List.of();
+    }
+
+    @Override
+    public List<ArticleVendu> findAllByCategorie(Integer categorieId) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("no_categorie", categorieId);
+        List<ArticleVendu> articles = jdbc.queryForList(SELECT_ALL_BY_CATEGORIE, map, ArticleVendu.class);
+        return articles;
     }
 
     public List<ArticleVendu> findAllCategorie(){

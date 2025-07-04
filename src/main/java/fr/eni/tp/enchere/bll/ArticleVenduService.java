@@ -10,5 +10,8 @@ public interface ArticleVenduService {
 
 
     List<ArticleVendu> displayArticles();
+    List<ArticleVendu> displayArticlesByCategorieAndRecherche(Integer categorieId, String recherche);
+    List<ArticleVendu> displayArticlesByCategorie(Integer categorieId);
+    List<ArticleVendu> displayArticlesRecherche(String recherche);
 
 }
