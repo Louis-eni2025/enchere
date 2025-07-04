@@ -14,6 +14,7 @@ import java.sql.SQLException;
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 
+
     private final NamedParameterJdbcTemplate jdbc;
 
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
@@ -24,6 +25,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private String COMPARE_PSEUDO = "select count(*) from utilisateurs where pseudo = :pseudo";
     private String COMPARE_MAIL = "select count(*) from utilisateurs where email = :email";
     private String COMPARE_PHONE = "select count(*) from utilisateurs where telephone = :telephone";
+    private String SELECT_MDP = "SELECT mot_de_passe FROM utilisateurs WHERE email=:email";
+    private String SELECT_PSEUDO = "SELECT pseudo FROM utilisateurs WHERE email=:email";
 
     public UtilisateurDAOImpl( NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 
@@ -104,8 +107,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     @Override
     public boolean pseudoExist(String pseudo) {
 
-
-
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("pseudo", pseudo);
 
@@ -149,6 +150,28 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     }
 
+    @Override
+    public String passwordValid(String email) {
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("email", email);
+        String mdp = jdbc.queryForObject(SELECT_MDP, map, String.class);
+
+        return mdp;
+
+    }
+
+    @Override
+    public boolean validPseudo(String email, String pseudo) {
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("email", email);
+        String pseudoAncien = jdbc.queryForObject(SELECT_PSEUDO, map, String.class);
+        boolean meme = pseudo.equals(pseudoAncien);
+
+        return meme || !pseudoExist(pseudo);
+    }
+
 
     private class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 
@@ -171,5 +194,4 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             return utilisateur;
         }
     }
-
 }

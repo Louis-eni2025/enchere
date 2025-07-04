@@ -1,15 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div>
-    <form data-th-action="@{/profileTestDelete}">
-        <button type="submit" name="supp" value="supprimmer" id="btn-supp">Supprimmer le profil</button>
+<!-- Mise en place du layout -->
+<html xmlns:th="http://www.thymeleaf.org"
+      data-th-replace="~{layouts/layout :: layout(
+									contenuPage=~{:: .main})}">
+<main class="main">
+<h2>Mon Profil</h2>
+  <ul>
+    <li>
+      <label for="idPrenom">Prénom</label>
+      <input id="idPrenom" type=text data-th-field="${utilisateur.prenom}" readonly/>
+    </li>
+    <li>
+      <label for="idNom">Nom</label>
+      <input id="idNom" type=text data-th-field="${utilisateur.nom}" readonly/>
+    </li>
+    <li>
+      <label for="idEmail">Email</label>
+      <input id="idEmail" type=text data-th-field="${utilisateur.email}" readonly/>
+    </li>
+    <li>
+      <label for="idTelephone">Telephone</label>
+      <input id="idTelephone" type=text data-th-field="${utilisateur.telephone}" readonly/>
+    </li>
+    <li>
+      <label for="idRue">Rue</label>
+      <input id="idRue" type=text data-th-field="${utilisateur.rue}" readonly/>
+    </li>
+    <li>
+      <label for="idCodePostal">Code Postal</label>
+      <input id="idCodePostal" type=text data-th-field="${utilisateur.codePostal}" readonly/>
+    </li>
+    <li>
+      <label for="idVille">Ville</label>
+      <input id="idVille" type=text data-th-field="${utilisateur.ville}" readonly/>
+    </li>
+    <li>
+      <label for="idCredit">Credit</label>
+      <input id="idCredit" type=text data-th-field="${utilisateur.credit}" readonly/>
+    </li>
+    <li>
+      <label for="idLstArticle">Liste des Arcticles Vendus</label>
+      <input id="idLstArticle" type=text data-th-field="${utilisateur.LstArticle}" readonly/>
+    </li>
+    <li>
+      <label for="idLstEnchere">Liste des Enchères</label>
+      <input id="idLstEnchere" type=text data-th-field="${utilisateur.LstEnchere}" readonly/>
+    </li>
+    <div>
+      <a href="/modifierProfile" class="faussebutton">Modifier</a>
+    </div>
 
-    </form>
-</div>
-</body>
+  </ul>
+</main>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- Mise en place du layout -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:data-th="http://www.w3.org/1999/xhtml"
+      data-th-replace="~{layouts/layout :: layout(
+									contenuPage=~{:: .main})}">
+    <body>
+        <main class="main">
+            <form data-th:action="@{/modifierProfile} " method="post" class="container">
+                <div class="gauche">
+                    <label>Pseudo</label>
+                    <input name="pseudo" type="text" required>
+
+                    <label>Prénom</label>
+                    <input name="prenom" type="text" placeholder="Votre prenom" required>
+
+                    <label>Téléphone</label>
+                    <input name="telephone" type="text" placeholder="Votre numero de telephone" required>
+                    <label>Code Postal</label>
+                    <input name="codePostal" type="text" required>
+                    <label>Mot de passe actuel</label>
+                    <input name="motDePasseActuel" type="password" required>
+                    <label>Nouveau mot de passe</label>
+                    <input name="nouveauMotDePasse" type="password" required>
+                </div>
+                <div class="droite">
+                    <label>Nom</label>
+                    <input name="nom" type="text" placeholder="Votre nom" required>
+                    <label>Email</label>
+                    <input name="email" type="email" placeholder="votre email" required>
+                    <label>Rue</label>
+                    <input name="rue" type="text" required>
+
+                    <label>Ville</label>
+                    <input name="ville" type="text" required>
+
+                    <label>Confirmation</label>
+                    <input name="confirmation" type="password" required>
+
+                </div>
+                <div class = "pied">
+                <label for="idCredit">Credit</label>
+                <input id="idCredit" type=text data-th-field="${utilisateur.credit}" readonly/>
+
+                    <button type="submit" class="btn">Enregister</button>
+                    <!--<button type="submit" class="btn">Supprimer mon compte</button>-->
+                </div>
+            </form>
+
+        </main>
+    </body>
+</html>

@@ -14,8 +14,15 @@ public interface InscriptionService {
     boolean telephoneExist(String telephone);
 
     Utilisateur read(int id);
+    Utilisateur read(String email);
 
     void update(Utilisateur utilisateur);
 
+    boolean confirmPassword(String password1, String password2);
+
+    boolean validPassword(String email, String motDePasse);
+
     void delete(int id);
+
+    boolean validPseudo(String email, String pseudo);
 }

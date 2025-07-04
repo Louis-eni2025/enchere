@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<main>
-    <form data-th-action="@{/login}" method="post">
+<!-- Mise en place du layout -->
+<html xmlns:th="http://www.thymeleaf.org"
+      data-th-replace="~{layouts/layout :: layout(
+									contenuPage=~{:: .main})}">
+<head>
+    <link rel="stylesheet" href="userStyle.css">
+</head>
+<main class="main">
+    <form data-th-action="@{/login}" method="post" class="form">
         <h1>Login</h1>
         <div class="error" data-th-if="${param.error}" >Login/Password Error</div>
         <div data-th-if="${param.logout}"> Error Logout</div>
 
-        <ul class="flex-outer">
+        <ul class="login">
             <li>
                 <label for="username" >Email</label>
                 <input id="username" name="username">
@@ -16,19 +22,16 @@
                 <input id="password" name="password" type="password">
             </li>
 
-                <button type="submit">Se connecter</button>
-
-            <a href="/inscription">S'inscrire</a>
+            <button type="submit" class="btn">Connexion</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Se souvenir de moi
+                </label>
+                <span class="forgotPassword"><a href="/resetPassword">Mot de passe oublié</a></span>
+            <div>
+                <a href="/inscription" class="faussebutton">Créer un compte</a>
+            </div>
 
         </ul>
-        <div class = "remember">
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Se souvenir de moi
-            </label>
-        </div>
-        <div>
-            <span class="forgotPassword">Oublié <a href="/resetPassword">Mot de passe?</a></span>
-        </div>
     </form>
 </main>
 </html>

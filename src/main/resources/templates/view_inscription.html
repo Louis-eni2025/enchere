@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
 </head>
+
 <body class="main">
 
 <form th:action="@{/inscription} " method="post" class="formInscription">
@@ -32,18 +32,13 @@
       <label>Mot de passe</label>
     <input name="motDePasse" type="password" required>
       <label>Confirmation</label>
-      <input name="confrimation" type="password" required>
-
-
-
+      <input name="confirmation" type="password" required>
  </div>
   <div class="footerInscription">
     <p data-th-text="${message}" data-th-if="${message}"  class="msgError"></p>
     <button type="submit" name="validate" value="valider" id="btn-validate">S'inscrire</button>
       <button type="submit" name="validate" value="valider" id="btn-annuler"><a href="/">Annuler</a></button>
   </div>
-
-
 </form>
 
 </body>
