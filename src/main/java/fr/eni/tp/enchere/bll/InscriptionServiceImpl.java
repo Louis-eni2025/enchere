@@ -58,8 +58,8 @@ public class InscriptionServiceImpl implements  InscriptionService {
 
 
     @Override
-    public void update(Utilisateur utilisateur) {
-        utilisateurDAO.update(utilisateur);
+    public void update(String email) {
+        utilisateurDAO.update(email);
     }
 
     @Override

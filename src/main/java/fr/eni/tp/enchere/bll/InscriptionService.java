@@ -16,7 +16,7 @@ public interface InscriptionService {
     Utilisateur read(int id);
     Utilisateur read(String email);
 
-    void update(Utilisateur utilisateur);
+    void update(String email);
 
     boolean confirmPassword(String password1, String password2);
 

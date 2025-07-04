@@ -72,14 +72,16 @@ public class ProfileController {
         /*String nom = utilisateur.getNom(); // Objet utilisateur qui provient du formulaire
         String nom2 = principal.getName(); // Utilisateur connecté avec Spring Security*/
         // String nom3 = UtilisateurDAO.read(id) (RETOURNE UN USER)  // Utilisateur en base de donnée ayant l'id id
+
         if(principal != null) {
+            String userEmail = principal.getName();
             boolean validUser = true;
-            boolean validPseudo = inscriptionService.validPseudo(principal.getName(), pseudo);
-            boolean validEmail = email.equals(principal.getName()) || !inscriptionService.emailExist(email);
+            boolean validPseudo = inscriptionService.validPseudo(userEmail, pseudo);
+            boolean validEmail = email.equals(userEmail) || !inscriptionService.emailExist(email);
 
             validUser &= validPseudo;
             validUser &= validEmail;
-            validUser &= inscriptionService.validPassword(principal.getName(), motDePasseActuel);
+            validUser &= inscriptionService.validPassword(userEmail, motDePasseActuel);
             validUser &= inscriptionService.confirmPassword(nouveauMotDePasse, confirmation);
 
             if (validUser) {
@@ -87,7 +89,7 @@ public class ProfileController {
                     return "modifierProfile";
                 }
                 try {
-                    inscriptionService.update(utilisateur);
+                    inscriptionService.update(userEmail);
                     return "redirect:/profile";
                 } catch (BusinessException be) {
                     //ajout de la liste des participant (realisateur ou acteurs
