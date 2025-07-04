@@ -4,6 +4,7 @@ package fr.eni.tp.enchere.bll;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
+import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,6 @@ public class InscriptionServiceImpl implements  InscriptionService {
     }
 
     //Verification pseudo,email ou telephone déja existant
-
-
 
     @Override
     public boolean pseudoExist(String pseudo) {
@@ -83,5 +82,29 @@ public class InscriptionServiceImpl implements  InscriptionService {
     @Override
     public boolean validPseudo(String email, String pseudo) {
         return utilisateurDAO.validPseudo(email, pseudo);
+    }
+
+    @Override
+    public void validUser(Utilisateur utilisateur, String userEmail) {
+        BusinessException be = new BusinessException();
+        String pseudo = utilisateur.getPseudo();
+        String email = utilisateur.getEmail();
+        boolean validEmail = email.equals(userEmail) || !emailExist(email);
+
+        if(validPseudo(userEmail, pseudo))
+        {
+            System.out.println("Pseudo valide");
+        } else {
+            be.add(BusinessCode.VALIDATION_UTILISATEUR_PSEUDOEXIST);
+            throw be;
+        }
+
+        if(validEmail)
+        {
+            System.out.println("Email valide");
+        } else {
+            be.add(BusinessCode.VALIDATION_UTILISATEUR_EMAILEXIST);
+            throw be;
+        }
     }
 }

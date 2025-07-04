@@ -25,4 +25,6 @@ public interface InscriptionService {
     void delete(int id);
 
     boolean validPseudo(String email, String pseudo);
+
+    void validUser(Utilisateur utilisateur, String userEmail);
 }

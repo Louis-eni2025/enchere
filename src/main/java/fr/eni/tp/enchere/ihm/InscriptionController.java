@@ -31,12 +31,6 @@ public class InscriptionController {
     @PostMapping("/inscription")
     public String inscription(@ModelAttribute Utilisateur utilisateur,@RequestParam("confirmation") String confirmation, Model model) {
 
- /*   //verification
-
-        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
-
-        boolean validPassword = password.matches(regex);
-*/
         String password = utilisateur.getMotDePasse();
         if(!confirmation.equals(password)) {
             model.addAttribute("message", "Les mot de passe ne correspondent pas ...");

@@ -46,11 +46,6 @@ public class ArticleVenduController {
             List<ArticleVendu> articles = articleVenduService.displayArticles();
             model.addAttribute("articleVenduLst", articles);
         }
-
-
-
-
-
         return "index";
     }
 

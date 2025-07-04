@@ -5,6 +5,7 @@ import fr.eni.tp.enchere.bll.InscriptionService;
 import fr.eni.tp.enchere.bll.InscriptionServiceImpl;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
+import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,47 +62,75 @@ public class ProfileController {
     }
 
     @PostMapping("/modifierProfile")
-    public String modifierProfile (@ModelAttribute Utilisateur utilisateur, @RequestParam("confirmation") String confirmation,
-                                  @RequestParam("motDePasseActuel") String motDePasseActuel,
-                                  @RequestParam("nouveauMotDePasse") String nouveauMotDePasse,
-                                  @RequestParam("pseudo") String pseudo,
-                                  @RequestParam("email") String email,
-                                  Model model, BindingResult bindingResult, Principal principal)
+    public String modifierProfile(
+            @ModelAttribute Utilisateur utilisateur,
+            @RequestParam("confirmation") String confirmation,
+            @RequestParam("motDePasseActuel") String motDePasseActuel,
+            @RequestParam("nouveauMotDePasse") String nouveauMotDePasse,
+            Model model,
+            BindingResult bindingResult,
+            Principal principal)
     {
+
         System.out.println("on va modifier le profile");
         /*String nom = utilisateur.getNom(); // Objet utilisateur qui provient du formulaire
         String nom2 = principal.getName(); // Utilisateur connecté avec Spring Security*/
         // String nom3 = UtilisateurDAO.read(id) (RETOURNE UN USER)  // Utilisateur en base de donnée ayant l'id id
 
-        if(principal != null) {
+        if (principal != null) {
+
             String userEmail = principal.getName();
-            boolean validUser = true;
-            boolean validPseudo = inscriptionService.validPseudo(userEmail, pseudo);
-            boolean validEmail = email.equals(userEmail) || !inscriptionService.emailExist(email);
 
-            validUser &= validPseudo;
-            validUser &= validEmail;
-            validUser &= inscriptionService.validPassword(userEmail, motDePasseActuel);
-            validUser &= inscriptionService.confirmPassword(nouveauMotDePasse, confirmation);
+            try {
+                inscriptionService.validPassword(userEmail, motDePasseActuel);
+                System.out.println("mdp valide");
+            } catch (BusinessException e) {
+                e.add(BusinessCode.VALIDATION_UTILISATEUR_MDP_INVALIDE);
+                e.getClefsExternalisations().forEach(
+                        key -> {
+                            ObjectError error = new ObjectError("globalError", key);
+                            bindingResult.addError(error);
+                        }
+                );
+            }
+            try {
+                inscriptionService.confirmPassword(nouveauMotDePasse, confirmation);
+                System.out.println("mdp identique");
+            } catch (BusinessException e) {
+                e.add(BusinessCode.VALIDATION_UTILISATEUR_MDP_NONIDENTIQUE);
+                e.getClefsExternalisations().forEach(
+                        key -> {
+                            ObjectError error = new ObjectError("globalError", key);
+                            bindingResult.addError(error);
+                        }
+                );
+            }
 
-            if (validUser) {
+            try {
+                inscriptionService.validUser(utilisateur, userEmail);
+                System.out.println("user valide");
                 if (bindingResult.hasErrors()) {
                     return "modifierProfile";
                 }
                 try {
                     inscriptionService.update(userEmail);
+                    System.out.println("update fait");
                     return "redirect:/profile";
                 } catch (BusinessException be) {
-                    //ajout de la liste des participant (realisateur ou acteurs
-
                     be.getClefsExternalisations().forEach(
                             key -> {
                                 ObjectError error = new ObjectError("globalError", key);
                                 bindingResult.addError(error);
                             }
                     );
-                    return "modifierProfile";
                 }
+            } catch (BusinessException be) {
+                be.getClefsExternalisations().forEach(
+                        key -> {
+                            ObjectError error = new ObjectError("globalError", key);
+                            bindingResult.addError(error);
+                        }
+                );
             }
         }
         return "redirect:/login";
