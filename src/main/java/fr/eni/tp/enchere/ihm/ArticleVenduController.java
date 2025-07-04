@@ -39,11 +39,6 @@ public class ArticleVenduController {
 
     @GetMapping("/addArticle")
     public String addArticle(Model model) {
-
-
-
-
-
         //model.addAttribute("articleVenduLst", articleVenduService.displayArticles());
         return "article_form";
     }

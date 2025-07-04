@@ -53,7 +53,6 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     private void loadRelations(ArticleVendu articleVendu){
         Categorie categorie = categorieDAO.readById(articleVendu.getCategorie().getNoCategorie());
         articleVendu.setCategorie(categorie);
-
         Utilisateur utilisateur = utilisateurDAOImpl.read(articleVendu.getUtilisateur().getNoUtilisateur());
         articleVendu.setUtilisateur(utilisateur);
     }
