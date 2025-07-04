@@ -47,13 +47,27 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
             articles.forEach(this::loadRelations);
         }
 
-        return articleVenduDAO.findAll();
+        return articles;
+    }
+
+    @Override
+    public List<ArticleVendu> displayArticlesByCategorieAndRecherche(Integer categorieId, String recherche) {
+        return List.of();
+    }
+
+    @Override
+    public List<ArticleVendu> displayArticlesByCategorie(Integer categorieId) {
+        return articleVenduDAO.findAllByCategorie(categorieId);
+    }
+
+    @Override
+    public List<ArticleVendu> displayArticlesRecherche(String recherche) {
+        return List.of();
     }
 
     private void loadRelations(ArticleVendu articleVendu){
         Categorie categorie = categorieDAO.readById(articleVendu.getCategorie().getNoCategorie());
         articleVendu.setCategorie(categorie);
-
         Utilisateur utilisateur = utilisateurDAOImpl.read(articleVendu.getUtilisateur().getNoUtilisateur());
         articleVendu.setUtilisateur(utilisateur);
     }
