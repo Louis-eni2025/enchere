@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.ArrayList;
@@ -30,9 +31,25 @@ public class ArticleVenduController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
-        List<ArticleVendu> article = articleVenduService.displayArticles();
-        model.addAttribute("articleVenduLst", article);
+    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche) {
+
+        if((categorie != null && !categorie.isEmpty()) && (recherche != null && !recherche.isEmpty())){
+            List<ArticleVendu> articles = articleVenduService.displayArticlesByCategorieAndRecherche(Integer.valueOf(categorie), recherche);
+            model.addAttribute("articleVenduLst", articles);
+        } else if ((categorie != null && !categorie.isEmpty())) {
+            List<ArticleVendu> articles = articleVenduService.displayArticlesByCategorie(Integer.valueOf(categorie));
+            model.addAttribute("articleVenduLst", articles);
+        } else if (recherche != null && !recherche.isEmpty()) {
+            List<ArticleVendu> articles = articleVenduService.displayArticlesRecherche(recherche);
+            model.addAttribute("articleVenduLst", articles);
+        } else {
+            List<ArticleVendu> articles = articleVenduService.displayArticles();
+            model.addAttribute("articleVenduLst", articles);
+        }
+
+
+
+
 
         return "index";
     }
