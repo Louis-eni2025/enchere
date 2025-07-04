@@ -5,12 +5,22 @@
 									contenuPage=~{:: .main})}">
 <main class="main">
     <h1 id="home__title">Listes des enchères</h1>
+
+
+
+
+
+
     <form id="filtres" method="get">
         <div id="filtres_inputs">
+
             <h2>Filtres</h2>
+
+            <a href="/addArticle" class="btn-addArticle">Ajouter un articles</a>
+
             <input name="recherche" id="filtre" placeholder="Le nom de l'article contient">
             <div id="filtres__categories">
-                <label for="categorie">Catégorie :</label>
+                <label for="categorie" class="labelCategorie">Catégorie :</label>
                 <select id="categorie" name="categorie">
                     <option value="0">Toutes</option>
                     <option value="1">Informatique</option>
@@ -20,7 +30,7 @@
                 </select>
             </div>
         </div>
-        <button type="submit">Rechercher</button>
+        <button type="submit" class="btn-search">Rechercher</button>
     </form>
     <div id="resultats" name="IdArticle">
         <article data-th-each="item : ${articleVenduLst}" class="resultats__card" >
@@ -40,10 +50,7 @@
     <data-th-block
             data-sec-authorize="isAuthenticated()">
 
-        <div class="btn-acceuil">
-            <a href="/addArticle" class="btn-addArticle">Ajouter un articles</a>
-            <a href="/" class="btn-addArticle">Retour</a>
-        </div>
+
 
     </data-th-block>
 </main>

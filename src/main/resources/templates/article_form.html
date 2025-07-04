@@ -4,11 +4,25 @@
       data-th-replace="~{layouts/layout :: layout(
 									contenuPage=~{:: .main})}">
 <main class="main">
+
+
     <h1>Nouvelle vente</h1>
+
+
 
 <form data-th-action="@{/addArticle}"
       method="post"
       data-th-object="${articleVendu}">
+<div class="leSelect">
+
+    <label  for="categorie">
+
+        <select id="categorie" name="categorie" data-th-field="*{categorie}">
+            <option  data-th-each="item: ${categorieLst}" data-th-value="${item.noCategorie}" data-th-text="${item.libelle}"></option>
+        </select>
+
+    </label>
+</div>
 
 
     <div>
@@ -21,15 +35,7 @@
     </div>
     <div>
 
-            <label  for="categorie">
 
-
-
-            <select id="categorie" name="categorie" data-th-field="*{categorie}">
-                <option  data-th-each="item: ${categorieLst}" data-th-value="${item.noCategorie}" data-th-text="${item.libelle}"></option>
-
-            </select>
-        </label>
 
 
     </div>
@@ -66,12 +72,12 @@
     </div>
 
 
-    <button type="submit" >Enregistrer</button>
+    <div class="btn-pageAddArticle">
+        <button type="submit" class="btn-enregistre">Enregistrer</button>
+        <a href="/" class="btn-addArticle">Retour</a>
+
+    </div>
 
 </form>
-
-
-    <a href="/">Annuler</a>
-
 </main>
 
