@@ -11,7 +11,7 @@ public interface ArticleVenduService {
     List<ArticleVendu> displayArticles();
 
 
-    Categorie categorieById();
+    Categorie categorieById(int id);
 
     List<Categorie> categories();
 }

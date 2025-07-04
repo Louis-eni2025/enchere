@@ -13,10 +13,15 @@ public class categorieConverter implements Converter<String, Categorie> {
     @Autowired
     private ArticleVenduService service;
 
+    public categorieConverter(ArticleVenduService service) {
+        this.service = service;
+    }
 
     //a travailler pour convertir le select des categories
     @Override
     public Categorie convert(String source) {
-        return null;
+
+        int id = Integer.parseInt(source);
+        return service.categorieById(id);
     }
 }

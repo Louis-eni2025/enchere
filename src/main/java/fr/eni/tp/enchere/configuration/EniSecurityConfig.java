@@ -31,6 +31,8 @@ public class EniSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+
     @Bean
     UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);

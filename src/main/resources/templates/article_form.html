@@ -35,7 +35,7 @@
     </div>
     <div>
         <label for="mise_a_prix">Mise à prix</label>
-        <input id="mise_a_prix" name="mise_a_prix" type="number" data-th-field="*{miseAPrix}">
+        <input id="mise_a_prix" name="mise_a_prix" type="number" data-th-field="*{prixVente}">
     </div>
     <div>
         <label for="date_debut_enchere">Début de l'enchère</label>
@@ -53,20 +53,20 @@
 
             <div>
                 <label for="retrait_rue">Rue</label>
-                <input id="retrait_rue" name="utilisateur" type="text" data-th-field="*{nomArticle}" >
+                <input id="retrait_rue" name="utilisateur" type="text" data-th-field="*{utilisateur.rue}" >
             </div>
             <div>
                 <label for="retrait_code_postal">Code Postal</label>
-                <input id="retrait_code_postal" name="categorie" type="text" data-th-field="*{nomArticle}" >
+                <input id="retrait_code_postal" name="categorie" type="text" data-th-field="*{utilisateur.codePostal}" >
             </div>
             <div>
                 <label for="retrait_ville">Ville</label>
-                <input id="retrait_ville" name="retrait" type="text" data-th-field="*{nomArticle}">
+                <input id="retrait_ville" name="retrait" type="text" data-th-field="*{utilisateur.ville}">
             </div>
     </div>
 
 
-    <button type="submit">Enregistrer</button>
+    <button type="submit" >Enregistrer</button>
 
 </form>
 
