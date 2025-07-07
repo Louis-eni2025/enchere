@@ -20,7 +20,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String SELECT_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email = :email";
     private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
-    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse, credit = :credit, administrateur = :administrateur WHERE email=:email";
+    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse, credit = :credit, administrateur = :administrateur WHERE email=:emailAuth";
     private String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String COMPARE_PSEUDO = "select count(*) from utilisateurs where pseudo = :pseudo";
     private String COMPARE_MAIL = "select count(*) from utilisateurs where email = :email";
@@ -73,8 +73,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     }
 
     @Override
-    public void update(String email) {
-        Utilisateur utilisateur = read(email);
+    public void update(Utilisateur utilisateur, String email) {
         MapSqlParameterSource map = new MapSqlParameterSource();
 
         map.addValue("pseudo", utilisateur.getPseudo());
@@ -86,11 +85,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("codePostal", utilisateur.getCodePostal());
         map.addValue("ville", utilisateur.getVille());
         map.addValue("motDePasse", utilisateur.getMotDePasse());
-        map.addValue("credit", utilisateur.getCredit());
-        map.addValue("administrateur", utilisateur.isAdministrateur());
 
-        // On ajoute l'identifiant de l'utilisateur pour la clause WHERE
-        map.addValue("email", email);
+        map.addValue("emailAuth", email);
 
         jdbc.update(UPDATE, map);
     }

@@ -20,12 +20,14 @@ import java.security.Principal;
 
 @Controller
 public class ProfileController {
+    private final UtilisateurDAOImpl utilisateurDAOImpl;
     InscriptionService inscriptionService;
     ContexteService contexteService;
 
-    public ProfileController(InscriptionService inscriptionService, ContexteService contexteService) {
+    public ProfileController(InscriptionService inscriptionService, ContexteService contexteService, UtilisateurDAOImpl utilisateurDAOImpl) {
         this.inscriptionService = inscriptionService;
         this.contexteService = contexteService;
+        this.utilisateurDAOImpl = utilisateurDAOImpl;
     }
 
     @GetMapping("/profile")
@@ -66,7 +68,6 @@ public class ProfileController {
             @ModelAttribute Utilisateur utilisateur,
             @RequestParam("confirmation") String confirmation,
             @RequestParam("motDePasseActuel") String motDePasseActuel,
-            @RequestParam("nouveauMotDePasse") String nouveauMotDePasse,
             Model model,
             BindingResult bindingResult,
             Principal principal)
@@ -83,7 +84,12 @@ public class ProfileController {
 
             try {
                 inscriptionService.validPassword(userEmail, motDePasseActuel);
-                System.out.println("mdp valide");
+                if(inscriptionService.validPassword(userEmail, motDePasseActuel)) {
+                    System.out.println("mdp valide");
+                } else {
+                    System.out.println("mdp non valide");
+                }
+
             } catch (BusinessException e) {
                 e.add(BusinessCode.VALIDATION_UTILISATEUR_MDP_INVALIDE);
                 e.getClefsExternalisations().forEach(
@@ -94,8 +100,11 @@ public class ProfileController {
                 );
             }
             try {
-                inscriptionService.confirmPassword(nouveauMotDePasse, confirmation);
-                System.out.println("mdp identique");
+                inscriptionService.confirmPassword(utilisateur.getMotDePasse(), confirmation);
+                if(inscriptionService.confirmPassword(utilisateur.getMotDePasse(), confirmation)) {
+                    System.out.println("mdp identique");
+                } else {System.out.println("mdp non identique");}
+
             } catch (BusinessException e) {
                 e.add(BusinessCode.VALIDATION_UTILISATEUR_MDP_NONIDENTIQUE);
                 e.getClefsExternalisations().forEach(
@@ -113,7 +122,7 @@ public class ProfileController {
                     return "modifierProfile";
                 }
                 try {
-                    inscriptionService.update(userEmail);
+                    inscriptionService.update(utilisateur, userEmail);
                     System.out.println("update fait");
                     return "redirect:/profile";
                 } catch (BusinessException be) {
