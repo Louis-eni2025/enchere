@@ -6,6 +6,7 @@ import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,11 +68,14 @@ public class InscriptionServiceImpl implements  InscriptionService {
     }
 
     @Override
-    public boolean validPassword(String email, String motDePasse) {
+    public void validPassword(String email, String motDePasse) throws BusinessException {
+        String mdp = utilisateurDAO.passwordSelect(email);
 
-        String Cryptage = passwordEncoder.encode(motDePasse);
-        String mdp = utilisateurDAO.passwordValid(email);
-        return mdp.equals(Cryptage);
+        if (!passwordEncoder.matches(motDePasse, mdp)) {
+            BusinessException be = new BusinessException();
+            be.add(BusinessCode.VALIDATION_UTILISATEUR_MDP_INVALIDE);
+            throw be;
+        }
     }
 
     @Override
@@ -85,8 +89,8 @@ public class InscriptionServiceImpl implements  InscriptionService {
     }
 
     @Override
-    public void validUser(Utilisateur utilisateur, String userEmail) {
-        BusinessException be = new BusinessException();
+    public void validUser(Utilisateur utilisateur, String userEmail) throws BusinessException {
+
         String pseudo = utilisateur.getPseudo();
         String email = utilisateur.getEmail();
         boolean validEmail = email.equals(userEmail) || !emailExist(email);
@@ -95,6 +99,7 @@ public class InscriptionServiceImpl implements  InscriptionService {
         {
             System.out.println("Pseudo valide");
         } else {
+            BusinessException be = new BusinessException();
             be.add(BusinessCode.VALIDATION_UTILISATEUR_PSEUDOEXIST);
             throw be;
         }
@@ -103,6 +108,7 @@ public class InscriptionServiceImpl implements  InscriptionService {
         {
             System.out.println("Email valide");
         } else {
+            BusinessException be = new BusinessException();
             be.add(BusinessCode.VALIDATION_UTILISATEUR_EMAILEXIST);
             throw be;
         }

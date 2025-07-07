@@ -20,7 +20,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String SELECT_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email = :email";
     private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
-    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse, credit = :credit, administrateur = :administrateur WHERE email=:emailAuth";
+
+    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, " +
+            "email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville" +
+            " WHERE email=:emailAuth";
+
     private String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String COMPARE_PSEUDO = "select count(*) from utilisateurs where pseudo = :pseudo";
     private String COMPARE_MAIL = "select count(*) from utilisateurs where email = :email";
@@ -149,7 +153,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     }
 
     @Override
-    public String passwordValid(String email) {
+    public String passwordSelect(String email) {
 
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("email", email);

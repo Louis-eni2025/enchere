@@ -66,29 +66,19 @@ public class ProfileController {
     @PostMapping("/modifierProfile")
     public String modifierProfile(
             @ModelAttribute Utilisateur utilisateur,
-            @RequestParam("confirmation") String confirmation,
-            @RequestParam("motDePasseActuel") String motDePasseActuel,
-            Model model,
             BindingResult bindingResult,
-            Principal principal)
-    {
+           /* @RequestParam("confirmation") String confirmation,
+            @RequestParam("motDePasseActuel") String motDePasseActuel,*/
+            Model model,
 
-        System.out.println("on va modifier le profile");
-        /*String nom = utilisateur.getNom(); // Objet utilisateur qui provient du formulaire
-        String nom2 = principal.getName(); // Utilisateur connecté avec Spring Security*/
-        // String nom3 = UtilisateurDAO.read(id) (RETOURNE UN USER)  // Utilisateur en base de donnée ayant l'id id
+            Principal principal)
+    {   System.out.println("on va modifier le profile");
 
         if (principal != null) {
-
             String userEmail = principal.getName();
+          /*  try {
 
-            try {
                 inscriptionService.validPassword(userEmail, motDePasseActuel);
-                if(inscriptionService.validPassword(userEmail, motDePasseActuel)) {
-                    System.out.println("mdp valide");
-                } else {
-                    System.out.println("mdp non valide");
-                }
 
             } catch (BusinessException e) {
                 e.add(BusinessCode.VALIDATION_UTILISATEUR_MDP_INVALIDE);
@@ -99,13 +89,9 @@ public class ProfileController {
                         }
                 );
             }
-            try {
-                inscriptionService.confirmPassword(utilisateur.getMotDePasse(), confirmation);
-                if(inscriptionService.confirmPassword(utilisateur.getMotDePasse(), confirmation)) {
-                    System.out.println("mdp identique");
-                } else {System.out.println("mdp non identique");}
 
-            } catch (BusinessException e) {
+            if(!inscriptionService.confirmPassword(utilisateur.getMotDePasse(), confirmation)) {
+                BusinessException e = new BusinessException();;
                 e.add(BusinessCode.VALIDATION_UTILISATEUR_MDP_NONIDENTIQUE);
                 e.getClefsExternalisations().forEach(
                         key -> {
@@ -113,26 +99,17 @@ public class ProfileController {
                             bindingResult.addError(error);
                         }
                 );
-            }
+            }*/
 
             try {
-                inscriptionService.validUser(utilisateur, userEmail);
-                System.out.println("user valide");
                 if (bindingResult.hasErrors()) {
                     return "modifierProfile";
                 }
-                try {
-                    inscriptionService.update(utilisateur, userEmail);
-                    System.out.println("update fait");
-                    return "redirect:/profile";
-                } catch (BusinessException be) {
-                    be.getClefsExternalisations().forEach(
-                            key -> {
-                                ObjectError error = new ObjectError("globalError", key);
-                                bindingResult.addError(error);
-                            }
-                    );
-                }
+                inscriptionService.validUser(utilisateur, userEmail);
+                inscriptionService.update(utilisateur, userEmail);
+                System.out.println("update fait");
+                return "redirect:/profile";
+
             } catch (BusinessException be) {
                 be.getClefsExternalisations().forEach(
                         key -> {

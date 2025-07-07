@@ -19,7 +19,7 @@ public interface UtilisateurDAO {
 
     boolean telephoneExist(String telephone);
 
-    String passwordValid(String email);
+    String passwordSelect(String email);
 
     boolean validPseudo(String email, String pseudo);
 }
