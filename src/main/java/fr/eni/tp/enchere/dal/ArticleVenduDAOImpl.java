@@ -61,20 +61,30 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     @Override
     public List<ArticleVendu> findAllByRecherche(String recherche) {
-        return List.of();
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("recherche",  "%"+recherche+"%");
+
+        return jdbc.query(SELECT_ALL_BY_RECHERCHE, map, new ArticleVenduRowMapper());
     }
 
     @Override
     public List<ArticleVendu> findAllByCategorieAndRecherche(Integer idCategorie, String recherche) {
-        return List.of();
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("no_categorie", idCategorie);
+        map.addValue("recherche",  "%"+recherche+"%");
+
+        return jdbc.query(SELECT_ALL_BY_CATEGORIE_AND_RECHERCHE, map, new ArticleVenduRowMapper());
+
+
     }
 
     @Override
     public List<ArticleVendu> findAllByCategorie(Integer categorieId) {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("no_categorie", categorieId);
-        List<ArticleVendu> articles = jdbc.queryForList(SELECT_ALL_BY_CATEGORIE, map, ArticleVendu.class);
-        return articles;
+
+        return jdbc.query(SELECT_ALL_BY_CATEGORIE, map, new ArticleVenduRowMapper());
     }
 
     public List<ArticleVendu> findAllCategorie(){
