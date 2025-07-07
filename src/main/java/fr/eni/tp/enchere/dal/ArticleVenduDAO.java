@@ -9,9 +9,12 @@ public interface ArticleVenduDAO {
     void create(ArticleVendu articleVendu);
     ArticleVendu readById(int id);
     List<ArticleVendu> findAll();
-    List<ArticleVendu> findAllByRecherche(String recherche);
-    List<ArticleVendu> findAllByCategorieAndRecherche(Integer idCategorie, String recherche);
-    List<ArticleVendu> findAllByCategorie(Integer categorieId);
+
+    List<ArticleVendu> findAllByRecherche(String recherche, boolean enCours);
+    List<ArticleVendu> findAllByCategorieAndRecherche(Integer idCategorie, String recherche, boolean enCours);
+    List<ArticleVendu> findAllByCategorie(Integer categorieId, boolean enCours);
+    List<ArticleVendu> findAllEnCours();
+
     void update(ArticleVendu articleVendu);
     void delete(int id);
 }

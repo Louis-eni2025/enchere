@@ -31,20 +31,13 @@ public class ArticleVenduController {
     }
 
     @GetMapping("/")
-    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche) {
+    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche, @RequestParam(value = "enCours",required = false) Boolean enCours) {
 
-        List<ArticleVendu> articles;
-
-        if((categorie != null && !categorie.isEmpty()) && (recherche != null && !recherche.isEmpty())){
-            articles = articleVenduService.displayArticlesByCategorieAndRecherche(Integer.valueOf(categorie), recherche);
-        } else if ((categorie != null && !categorie.isEmpty())) {
-            articles = articleVenduService.displayArticlesByCategorie(Integer.valueOf(categorie));
-        } else if (recherche != null && !recherche.isEmpty()) {
-            articles = articleVenduService.displayArticlesRecherche(recherche);
-        } else {
-            articles = articleVenduService.displayArticles();
-
+        if(enCours == null){
+            enCours = false;
         }
+
+        List<ArticleVendu> articles = articleVenduService.manageRecherche(recherche, categorie, enCours);
         model.addAttribute("articleVenduLst", articles);
 
         return "index";

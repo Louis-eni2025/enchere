@@ -44,6 +44,30 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     public List<ArticleVendu> displayArticles(){
 
         List<ArticleVendu> articles = articleVenduDAO.findAll();
+        if(!articles.isEmpty()){
+            articles.forEach(this::loadRelations);
+        }
+        return articles;
+    }
+
+
+
+    @Override
+    public List<ArticleVendu> manageRecherche(String recherche, String categorie, boolean enCours) {
+
+        List<ArticleVendu> articles;
+
+        if((categorie != null && !categorie.isEmpty()) && (recherche != null && !recherche.isEmpty())){
+            articles = displayArticlesByCategorieAndRecherche(Integer.valueOf(categorie), recherche, enCours);
+        } else if ((categorie != null && !categorie.isEmpty())) {
+            articles = displayArticlesByCategorie(Integer.valueOf(categorie), enCours);
+        } else if (recherche != null && "".equals(recherche)) {
+            articles = displayArticlesRecherche(recherche, enCours);
+        } else if (enCours) {
+            articles = articleVenduDAO.findAllEnCours();
+        } else {
+            articles = displayArticles();
+        }
 
         if(!articles.isEmpty()){
             articles.forEach(this::loadRelations);
@@ -52,47 +76,34 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         return articles;
     }
 
+
     @Override
-    public List<ArticleVendu> displayArticlesByCategorieAndRecherche(Integer categorieId, String recherche) {
+    public List<ArticleVendu> displayArticlesByCategorieAndRecherche(Integer categorieId, String recherche, boolean enCours) {
         List<ArticleVendu> articles;
         if(categorieId == 0 ){
-            articles = articleVenduDAO.findAllByRecherche(recherche);
+            articles = articleVenduDAO.findAllByRecherche(recherche, enCours);
         } else {
-            articles = articleVenduDAO.findAllByCategorieAndRecherche(categorieId, recherche);
-        }
-
-        if(!articles.isEmpty()){
-            articles.forEach(this::loadRelations);
+            articles = articleVenduDAO.findAllByCategorieAndRecherche(categorieId, recherche, enCours);
         }
 
         return articles;
     }
 
     @Override
-    public List<ArticleVendu> displayArticlesByCategorie(Integer categorieId) {
+    public List<ArticleVendu> displayArticlesByCategorie(Integer categorieId, boolean enCours) {
         if(categorieId == 0 ){
             return displayArticles();
         }
 
-        List<ArticleVendu> articles = articleVenduDAO.findAllByCategorie(categorieId);
-
-        if(!articles.isEmpty()){
-            articles.forEach(this::loadRelations);
-        }
-
-        return articles;
+        return articleVenduDAO.findAllByCategorie(categorieId, enCours);
     }
 
     @Override
-    public List<ArticleVendu> displayArticlesRecherche(String recherche) {
-        List<ArticleVendu> articles = articleVenduDAO.findAllByRecherche(recherche);
+    public List<ArticleVendu> displayArticlesRecherche(String recherche, boolean enCours) {
 
-        if(!articles.isEmpty()){
-            articles.forEach(this::loadRelations);
-        }
-
-        return articles;
+        return articleVenduDAO.findAllByRecherche(recherche, enCours);
     }
+
 
     private void loadRelations(ArticleVendu articleVendu){
         Categorie categorie = categorieDAO.readById(articleVendu.getCategorie().getNoCategorie());
