@@ -42,7 +42,9 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 
     @Override
     public List<ArticleVendu> displayArticles(){
+
         List<ArticleVendu> articles = articleVenduDAO.findAll();
+
         if(!articles.isEmpty()){
             articles.forEach(this::loadRelations);
         }
@@ -52,17 +54,44 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 
     @Override
     public List<ArticleVendu> displayArticlesByCategorieAndRecherche(Integer categorieId, String recherche) {
-        return List.of();
+        List<ArticleVendu> articles;
+        if(categorieId == 0 ){
+            articles = articleVenduDAO.findAllByRecherche(recherche);
+        } else {
+            articles = articleVenduDAO.findAllByCategorieAndRecherche(categorieId, recherche);
+        }
+
+        if(!articles.isEmpty()){
+            articles.forEach(this::loadRelations);
+        }
+
+        return articles;
     }
 
     @Override
     public List<ArticleVendu> displayArticlesByCategorie(Integer categorieId) {
-        return articleVenduDAO.findAllByCategorie(categorieId);
+        if(categorieId == 0 ){
+            return displayArticles();
+        }
+
+        List<ArticleVendu> articles = articleVenduDAO.findAllByCategorie(categorieId);
+
+        if(!articles.isEmpty()){
+            articles.forEach(this::loadRelations);
+        }
+
+        return articles;
     }
 
     @Override
     public List<ArticleVendu> displayArticlesRecherche(String recherche) {
-        return List.of();
+        List<ArticleVendu> articles = articleVenduDAO.findAllByRecherche(recherche);
+
+        if(!articles.isEmpty()){
+            articles.forEach(this::loadRelations);
+        }
+
+        return articles;
     }
 
     private void loadRelations(ArticleVendu articleVendu){
