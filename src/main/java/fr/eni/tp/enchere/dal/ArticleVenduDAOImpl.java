@@ -2,6 +2,7 @@ package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -23,10 +24,16 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     private String SELECT_ALL_BY_CATEGORIE_AND_RECHERCHE = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie  from ARTICLES_VENDUS WHERE nom_article LIKE :recherche AND no_categorie = :no_categorie";
     private String SELECT_ALL_BY_CATEGORIE = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from ARTICLES_VENDUS WHERE no_categorie = :no_categorie";
     private String SELECT_ALL_CAT = "select * from CATEGORIES";
-    private String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from ARTICLES_VENDUS";
+    private String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres," +
+            " prix_initial, prix_vente, " +
+            "no_utilisateur, no_categorie from ARTICLES_VENDUS";
 //    private String SELECT_ALL_CAT = "SELECT no_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from CATEGORIES";
     private String SELECT_BY_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_article = :no_article";
-    private String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
+    private String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article, description, " +
+            "date_debut_encheres, date_fin_encheres, prix_initial, " +
+            "prix_vente, no_utilisateur, no_categorie) " +
+            "VALUES(:nom_article, :description, :date_debut_encheres, :date_fin_encheres,:prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
+
     private String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur, no_categorie = :no_categorie WHERE no_article = :no_article";
     private String DELETE = "DELETE ARTICLES_VENDUS WHERE no_article = :no_article";
 
@@ -35,7 +42,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     }
 
     @Override
-    public void create(ArticleVendu articleVendu) {
+    public ArticleVendu create(ArticleVendu articleVendu ) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource map = new MapSqlParameterSource();
@@ -48,17 +55,32 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         map.addValue("no_utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
         map.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
 
+
+
+
+
+
         jdbc.update(INSERT, map, keyHolder);
 
+
+        //attribution id
         if(keyHolder.getKey() != null) {
+
             articleVendu.setNoArticle(keyHolder.getKey().intValue());
+
+
         }
+        return articleVendu;
     }
+
+
 
     @Override
     public List<ArticleVendu> findAll(){
         return jdbc.getJdbcTemplate().query(SELECT_ALL, new ArticleVenduRowMapper());
     }
+
+
 
 //    /!\ N'a pas sa place dans cette classe, mais dans CategorieDAO
 //    public List<ArticleVendu> findAllCategorie(){
@@ -89,6 +111,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
         return jdbc.queryForObject(SELECT_BY_ID, map, new ArticleVenduRowMapper());
     }
+
+
 
     @Override
     public void update(ArticleVendu articleVendu) {
@@ -128,6 +152,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             article.setMiseAPrix(rs.getInt("prix_initial"));
             article.setPrixVente(rs.getInt("prix_vente"));
 
+
             final Utilisateur utilisateur = new Utilisateur();
             utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
             article.setUtilisateur(utilisateur);
@@ -135,6 +160,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             final Categorie categorie = new Categorie();
             categorie.setNoCategorie(rs.getInt("no_categorie"));
             article.setCategorie(categorie);
+
+
 
 
             return article;

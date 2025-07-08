@@ -5,7 +5,9 @@ import fr.eni.tp.enchere.bll.ArticleVenduService;
 import fr.eni.tp.enchere.bll.ContexteService;
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.ArticleForm;
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
@@ -51,11 +53,6 @@ public class ArticleVenduController {
             model.addAttribute("articleVenduLst", articles);
         }
 
-
-
-
-
-
         return "index";
     }
 
@@ -66,45 +63,46 @@ public class ArticleVenduController {
         //principal.getName();
 
     @GetMapping("/addArticle")
-    public String addArticle(Categorie categorie,Model model) {
-        model.addAttribute("articleVendu", new ArticleVendu());
+    public String addArticle(Categorie categorie, Model model) {
+
+          model.addAttribute("articleForm", new ArticleForm());
+
 
         List<Categorie> categories = articleVenduService.categories();
         model.addAttribute("categorieLst", categories);
 
-
         return "article_form";
     }
 
-    private boolean hasRole(Authentication auth, String role) {
-        return auth != null && auth.isAuthenticated()
-                && auth
-                .getAuthorities()
-                .stream()
-                .anyMatch(a -> a.getAuthority().equals(role));
-    }
 
 
     // a travailler
     @PostMapping("/addArticle")
-    public String addArticleVendu(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu, Principal principal, Model model) {
+    public String addArticleVendu(@Valid @ModelAttribute("articleForm") ArticleForm articleForm,
+                                 Principal principal, Model model) {
+        String mail = principal.getName();
+
+        Utilisateur utilisateur = contexteService.charger(mail);
+
+
+        ArticleVendu articleVenduVenantDuFormulaire = articleForm.getArticleVendu();
+        articleVenduVenantDuFormulaire.setUtilisateur(utilisateur);
+
+        ArticleVendu articleVenduVenantDeLaBDD = articleVenduService.createArticleVendu(articleVenduVenantDuFormulaire);
+
+
+        Retrait retrait = articleForm.getRetrait();
+        retrait.setArticleVendu(articleVenduVenantDuFormulaire);
+
+        articleVenduService.createRetrait(retrait);
 
 
 
-        if(principal!= null){
-            String mail = principal.getName();
+        System.out.println("articleVendu " + articleVenduVenantDeLaBDD);
+        System.out.println("retrait " + retrait);
 
-
-
-            Utilisateur utilisateur = contexteService.charger(mail);
-
-            articleVendu.setUtilisateur(utilisateur);
-
-            articleVenduService.createArticleVendu(articleVendu);
-
-            System.out.println("ok");
-        }
-
+        articleVenduVenantDeLaBDD.setUtilisateur(utilisateur);
+        articleVenduVenantDeLaBDD.setRetrait(retrait);
 
         return "redirect:/";
     }

@@ -2,11 +2,11 @@ package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
-import fr.eni.tp.enchere.dal.ArticleVenduDAO;
-import fr.eni.tp.enchere.dal.CategorieDAO;
-import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
+import fr.eni.tp.enchere.dal.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     private final ArticleVenduDAO articleVenduDAO;
     private final CategorieDAO categorieDAO;
     private final UtilisateurDAOImpl utilisateurDAOImpl;
+    private final RetraitDAO retraitDAO;
 
 
 
@@ -23,15 +24,35 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     public ArticleVenduServiceImpl(
             ArticleVenduDAO articleVenduDAO,
             CategorieDAO categorieDAO,
-            UtilisateurDAOImpl utilisateurDAOImpl) {
+            UtilisateurDAOImpl utilisateurDAOImpl, RetraitDAO retraitDAO) {
         this.articleVenduDAO = articleVenduDAO;
         this.categorieDAO = categorieDAO;
         this.utilisateurDAOImpl = utilisateurDAOImpl;
+        this.retraitDAO = retraitDAO;
     }
 
     @Override
-    public void createArticleVendu(ArticleVendu articleVendu) {
-        articleVenduDAO.create(articleVendu);
+    @Transactional
+    public ArticleVendu createArticleVendu(ArticleVendu articleVendu) {
+
+        System.out.println("service" + articleVendu);
+
+
+
+        ArticleVendu article = articleVenduDAO.create(articleVendu);
+
+
+        return article;
+    }
+
+    @Override
+    public Retrait createRetrait(Retrait retrait) {
+
+
+        System.out.println("Rue reçue par service: " + retrait.getRue());
+        retraitDAO.createRetrait(retrait);
+
+        return retrait;
     }
 
     @Override
