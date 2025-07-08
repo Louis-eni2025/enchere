@@ -2,10 +2,7 @@ package fr.eni.tp.enchere.ihm;
 
 import fr.eni.tp.enchere.bll.ContexteService;
 import fr.eni.tp.enchere.bll.InscriptionService;
-import fr.eni.tp.enchere.bll.InscriptionServiceImpl;
 import fr.eni.tp.enchere.bo.Utilisateur;
-import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
-import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,20 +11,17 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
 @Controller
 public class ProfileController {
-    private final UtilisateurDAOImpl utilisateurDAOImpl;
     InscriptionService inscriptionService;
     ContexteService contexteService;
 
-    public ProfileController(InscriptionService inscriptionService, ContexteService contexteService, UtilisateurDAOImpl utilisateurDAOImpl) {
+    public ProfileController(InscriptionService inscriptionService, ContexteService contexteService) {
         this.inscriptionService = inscriptionService;
         this.contexteService = contexteService;
-        this.utilisateurDAOImpl = utilisateurDAOImpl;
     }
 
     @GetMapping("/profile")
@@ -117,6 +111,22 @@ public class ProfileController {
                             bindingResult.addError(error);
                         }
                 );
+            }
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/deleteProfile")
+    public String deleteProfile(Model model, Principal principal) {
+
+        if (principal != null) {
+            try {
+                Utilisateur utilisateur = contexteService.charger(principal.getName());
+                int id = utilisateur.getNoUtilisateur();
+                inscriptionService.delete(id);
+                return "redirect:/logout";
+            } catch (BusinessException e) {
+                e.printStackTrace();
             }
         }
         return "redirect:/login";

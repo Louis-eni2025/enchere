@@ -14,7 +14,6 @@ import java.sql.SQLException;
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 
-
     private final NamedParameterJdbcTemplate jdbc;
 
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
@@ -98,10 +97,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     @Override
     public void delete(int id) {
         MapSqlParameterSource map = new MapSqlParameterSource();
+
         map.addValue("noUtilisateur", id);
 
         jdbc.update(DELETE, map);
-
     }
 
     //Verification pseudo,email ou telephone déja existant
@@ -149,7 +148,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         }else{
             return false; //pseudo déja use
         }
-
     }
 
     @Override

@@ -16,15 +16,12 @@ public class InscriptionController {
     InscriptionService inscriptionService;
 
     public InscriptionController(InscriptionService inscriptionService) {
-
         this.inscriptionService = inscriptionService;
     }
 
     @GetMapping("/inscription")
     public String inscription(Model model) {
-
         model.addAttribute("utilisateur", new Utilisateur());
-
         return "view_inscription";
     }
 
