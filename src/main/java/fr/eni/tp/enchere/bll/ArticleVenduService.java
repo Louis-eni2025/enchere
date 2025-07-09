@@ -1,6 +1,7 @@
 package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
+import fr.eni.tp.enchere.bo.Enchere;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface ArticleVenduService {
     List<ArticleVendu> displayArticlesByCategorie(Integer categorieId);
     List<ArticleVendu> displayArticlesRecherche(String recherche);
     void delete(int id);
+    Enchere encherir(Enchere enchere);
 }

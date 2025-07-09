@@ -2,6 +2,7 @@ package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Enchere;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.ArticleVenduDAO;
 import fr.eni.tp.enchere.dal.CategorieDAO;
@@ -18,7 +19,6 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     private final ArticleVenduDAO articleVenduDAO;
     private final CategorieDAO categorieDAO;
     private final UtilisateurDAOImpl utilisateurDAOImpl;
-
 
     public List<Categorie> categories = new ArrayList<>();
 
@@ -97,6 +97,11 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     @Override
     public void delete(int id) {
         articleVenduDAO.delete(id);
+    }
+
+    @Override
+    public Enchere encherir(Enchere enchere) {
+        return null;
     }
 
     private void loadRelations(ArticleVendu articleVendu){
