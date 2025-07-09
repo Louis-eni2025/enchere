@@ -13,22 +13,29 @@
         <div data-th-if="${param.logout}"> Error Logout</div>
 
         <ul class="login">
-            <li>
-                <label for="username" >Email</label>
-                <input id="username" name="username">
-            </li>
-            <li>
-                <label for="password" >Mot de passe</label>
-                <input id="password" name="password" type="password">
-            </li>
-            <li>
-            <button type="submit" class="btn">Connexion</button>
-            </li>
+            <div class="mailYPass">
+                <li>
+                    <label for="username" >Email</label>
+                    <input id="username" name="username">
+                </li>
+                <li>
+                    <label for="password" >Mot de passe</label>
+                    <input id="password" name="password" type="password">
+                </li>
                 <label>
-                    <input type="checkbox" checked="checked" name="remember"> Se souvenir de moi
-                </label>
+                <input type="checkbox" checked="checked" name="remember" id="remember"> Se souvenir de moi
+            </label>
+
+
+
+            </div>
+
+            <div class="rememberMe">
+
+                <button type="submit" class="btn">Connexion</button>
+
                 <span class="forgotPassword"><a href="/resetPassword">Mot de passe oublié</a></span>
-            <div>
+
                 <a href="/inscription" class="faussebutton">Créer un compte</a>
             </div>
 

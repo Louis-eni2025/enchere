@@ -5,12 +5,22 @@
 									contenuPage=~{:: .main})}">
 <main class="main">
     <h1 id="home__title">Listes des enchères</h1>
+
+
+
+
+
+
     <form id="filtres" method="get">
         <div id="filtres_inputs">
+
             <h2>Filtres</h2>
+
+            <a href="/addArticle" class="btn-addArticle">Ajouter un articles</a>
+
             <input name="recherche" id="filtre" placeholder="Le nom de l'article contient">
             <div id="filtres__categories">
-                <label for="categorie">Catégorie :</label>
+                <label for="categorie" class="labelCategorie">Catégorie :</label>
                 <select id="categorie" name="categorie">
                     <option value="0">Toutes</option>
                     <option value="1">Informatique</option>
@@ -20,7 +30,7 @@
                 </select>
             </div>
         </div>
-        <button type="submit">Rechercher</button>
+        <button type="submit" class="btn-search">Rechercher</button>
     </form>
     <div id="resultats" name="IdArticle">
         <article data-th-each="item : ${articleVenduLst}" class="resultats__card" >
@@ -30,15 +40,58 @@
                 <p>Prix: <span data-th-text="${item.miseAPrix}"></span> points</p>
                 <p>Fin de l'enchère: <span data-th-text="${item.dateFinEnchere}"></span></p>
                 <p>Vendeur: <span data-th-text="${item.utilisateur.pseudo}"></span></p>
+
             </div>
         </article>
+
+        <div class="wrapper">
+            <div class="candles">
+                <div class="light__wave"></div>
+                <div class="candle1">
+                    <div class="candle1__body">
+                        <div class="candle1__eyes">
+                            <span class="candle1__eyes-one"></span>
+                            <span class="candle1__eyes-two"></span>
+                        </div>
+                        <div class="candle1__mouth"></div>
+                    </div>
+                    <div class="candle1__stick"></div>
+                </div>
+
+                <div class="candle2">
+                    <div class="candle2__body">
+                        <div class="candle2__eyes">
+                            <div class="candle2__eyes-one"></div>
+                            <div class="candle2__eyes-two"></div>
+                        </div>
+                    </div>
+                    <div class="candle2__stick"></div>
+                </div>
+                <div class="candle2__fire"></div>
+                <div class="sparkles-one"></div>
+                <div class="sparkles-two"></div>
+                <div class="candle__smoke-one">
+
+                </div>
+                <div class="candle__smoke-two">
+
+                </div>
+
+            </div>
+            <div class="floor">
+            </div>
+
+
+        </div>
+
 
     </div>
 
     <data-th-block
             data-sec-authorize="isAuthenticated()">
 
-        <a href="/addArticle">Ajouter un articles</a>
+
+
     </data-th-block>
 </main>
 
