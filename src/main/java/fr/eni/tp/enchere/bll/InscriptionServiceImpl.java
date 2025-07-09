@@ -3,10 +3,8 @@ package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.UtilisateurDAO;
-import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,6 @@ public class InscriptionServiceImpl implements  InscriptionService {
     public InscriptionServiceImpl(UtilisateurDAO utilisateurDAO, PasswordEncoder passwordEncoder) {
         this.utilisateurDAO = utilisateurDAO;
         this.passwordEncoder = passwordEncoder;
-
     }
 
     @Override
@@ -81,6 +78,16 @@ public class InscriptionServiceImpl implements  InscriptionService {
     @Override
     public void delete(int id) {
         utilisateurDAO.delete(id);
+    }
+
+    @Override
+    public void deleteArticle(int idUser) {
+        utilisateurDAO.deleteArticle(idUser);
+    }
+
+    @Override
+    public void deleteEnchere(int idUser) {
+        utilisateurDAO.deleteEnchere(idUser);
     }
 
     @Override

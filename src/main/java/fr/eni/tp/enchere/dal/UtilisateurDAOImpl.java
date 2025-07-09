@@ -31,6 +31,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private String SELECT_MDP = "SELECT mot_de_passe FROM utilisateurs WHERE email=:email";
     private String SELECT_PSEUDO = "SELECT pseudo FROM utilisateurs WHERE email=:email";
 
+    private String DELETE_ARTICLE = "DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur=:noUtilisateur";
+
+    private String DELETE_ENCHERE = "DELETE FROM ENCHERES WHERE no_utilisateur=:noUtilisateur";
+
     public UtilisateurDAOImpl( NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 
         this.jdbc = namedParameterJdbcTemplate;
@@ -170,6 +174,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         boolean meme = pseudo.equals(pseudoAncien);
 
         return meme || !pseudoExist(pseudo);
+    }
+
+    @Override
+    public void deleteArticle(int idUser) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+
+        map.addValue("noUtilisateur", idUser);
+
+        jdbc.update(DELETE_ARTICLE, map);
+    }
+
+    @Override
+    public void deleteEnchere(int idUser) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+
+        map.addValue("noUtilisateur", idUser);
+
+        jdbc.update(DELETE_ENCHERE, map);
     }
 
 

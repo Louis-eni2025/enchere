@@ -94,6 +94,11 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         return articles;
     }
 
+    @Override
+    public void delete(int id) {
+        articleVenduDAO.delete(id);
+    }
+
     private void loadRelations(ArticleVendu articleVendu){
         Categorie categorie = categorieDAO.readById(articleVendu.getCategorie().getNoCategorie());
         articleVendu.setCategorie(categorie);

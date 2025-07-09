@@ -27,7 +27,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 //    private String SELECT_ALL_CAT = "SELECT no_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from CATEGORIES";
     private String SELECT_BY_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_article = :no_article";
     private String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
-    private String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur, no_categorie = :no_categorie WHERE no_article = :no_article";
+    private String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = :nom_article, description = :description," +
+                            "date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres," +
+                            "prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur," +
+                            "no_categorie = :no_categorie WHERE no_article = :no_article";
     private String DELETE = "DELETE ARTICLES_VENDUS WHERE no_article = :no_article";
 
     public ArticleVenduDAOImpl(NamedParameterJdbcTemplate jdbc) {
@@ -113,14 +116,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         map.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
 
         jdbc.update(UPDATE, map);
-
-
     }
 
     @Override
     public void delete(int id) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("noUtilisateur", id);
+        map.addValue("no_article", id);
 
         jdbc.update(DELETE, map);
     }

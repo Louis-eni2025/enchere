@@ -8,24 +8,24 @@ public class Enchere {
     private int noEnchere;
     private Date dateEnchere;
     private int montantEnchere;
-    private List<Utilisateur> LstUtilisateur = new ArrayList<>();
+    private Utilisateur utilisateur;
     private ArticleVendu articleVendu;
 
     public Enchere() {
     }
 
-    public Enchere(Date dateEnchere, int montantEnchere, List<Utilisateur> lstUtilisateur, ArticleVendu articleVendu) {
+    public Enchere(Utilisateur utilisateur, Date dateEnchere, int montantEnchere, ArticleVendu articleVendu) {
+        this.utilisateur = utilisateur;
         this.dateEnchere = dateEnchere;
         this.montantEnchere = montantEnchere;
-        LstUtilisateur = lstUtilisateur;
         this.articleVendu = articleVendu;
     }
 
-    public Enchere(int noEnchere, Date dateEnchere, int montantEnchere, List<Utilisateur> lstUtilisateur, ArticleVendu articleVendu) {
+    public Enchere(int noEnchere, Date dateEnchere, int montantEnchere, Utilisateur utilisateur, ArticleVendu articleVendu) {
         this.noEnchere = noEnchere;
         this.dateEnchere = dateEnchere;
         this.montantEnchere = montantEnchere;
-        LstUtilisateur = lstUtilisateur;
+        this.utilisateur = utilisateur;
         this.articleVendu = articleVendu;
     }
 
@@ -53,19 +53,19 @@ public class Enchere {
         this.montantEnchere = montantEnchere;
     }
 
-    public List<Utilisateur> getLstUtilisateur() {
-        return LstUtilisateur;
-    }
-
-    public void setLstUtilisateur(List<Utilisateur> lstUtilisateur) {
-        LstUtilisateur = lstUtilisateur;
-    }
-
     public ArticleVendu getArticleVendu() {
         return articleVendu;
     }
 
     public void setArticleVendu(ArticleVendu articleVendu) {
         this.articleVendu = articleVendu;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

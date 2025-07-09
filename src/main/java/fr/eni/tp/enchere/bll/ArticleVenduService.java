@@ -13,5 +13,5 @@ public interface ArticleVenduService {
     List<ArticleVendu> displayArticlesByCategorieAndRecherche(Integer categorieId, String recherche);
     List<ArticleVendu> displayArticlesByCategorie(Integer categorieId);
     List<ArticleVendu> displayArticlesRecherche(String recherche);
-
+    void delete(int id);
 }
