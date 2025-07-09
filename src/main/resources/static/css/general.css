@@ -122,6 +122,15 @@ main {
     position: absolute;
     margin-top: -40px;
     margin-left: 75vh;
-
 }
 
+#filtres__checkboxes {
+    display: flex;
+    width: 40%;
+    margin-top: 1vw;
+    justify-content: space-between;
+}
+
+.filtres__sous-options {
+    margin-left: 2vw;
+}
