@@ -11,44 +11,159 @@ public class ArticleVenduDTO {
     private int noArticle;
     private String nomArticle;
     private String description;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDebutEnchere;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFinEnchere;
-
     private int miseAPrix;
     private int prixVente;
     private String etatVente;
     private List<Enchere> LstEnchere = new ArrayList<>();
     private Retrait retrait;
 
+    //CUSTOM
     private Categorie categorie;
     private Utilisateur createur;
-
     private boolean isEnchereEnded;
     private boolean isEnchereStarted;
     private Utilisateur utilisateurGagnant;
 
     private ArticleVenduDTO() {}
 
-    public ArticleVenduDTO createArticleVendu(ArticleVendu article){
-        this.noArticle = article.getNoArticle();
-        this.nomArticle = article.getNomArticle();
-        this.description = article.getDescription();
-        this.dateDebutEnchere = article.getDateDebutEnchere();
-        this.dateFinEnchere = article.getDateFinEnchere();
-        this.miseAPrix = article.getMiseAPrix();
-        this.prixVente = article.getPrixVente();
-        this.etatVente = article.getEtatVente();
-        this.LstEnchere = article.getLstEnchere();
-        this.retrait = article.getRetrait();
-        this.categorie = article.getCategorie();
-        this.createur = article.getUtilisateur();
+    public ArticleVenduDTO createFromArticleVendu(ArticleVendu article){
+        ArticleVenduDTO articleVenduDTO = new ArticleVenduDTO();
 
-        //ENCHERE DTO
+        articleVenduDTO.setNoArticle(article.getNoArticle());
+        articleVenduDTO.setNomArticle(article.getNomArticle());
+        articleVenduDTO.setDescription(article.getDescription());
+        articleVenduDTO.setDateDebutEnchere(article.getDateDebutEnchere());
+        articleVenduDTO.setDateFinEnchere(article.getDateFinEnchere());
+        articleVenduDTO.setMiseAPrix(article.getMiseAPrix());
+        articleVenduDTO.setPrixVente(article.getPrixVente());
+        articleVenduDTO.setEtatVente(article.getEtatVente());
+        articleVenduDTO.setLstEnchere(article.getLstEnchere());
+        articleVenduDTO.setRetrait(article.getRetrait());
+        articleVenduDTO.setCategorie(article.getCategorie());
+        articleVenduDTO.setCreateur(article.getUtilisateur());
 
-        return this;
+        return articleVenduDTO;
+    }
+
+    public int getNoArticle() {
+        return noArticle;
+    }
+
+    public void setNoArticle(int noArticle) {
+        this.noArticle = noArticle;
+    }
+
+    public String getNomArticle() {
+        return nomArticle;
+    }
+
+    public void setNomArticle(String nomArticle) {
+        this.nomArticle = nomArticle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDateDebutEnchere() {
+        return dateDebutEnchere;
+    }
+
+    public void setDateDebutEnchere(Date dateDebutEnchere) {
+        this.dateDebutEnchere = dateDebutEnchere;
+    }
+
+    public Date getDateFinEnchere() {
+        return dateFinEnchere;
+    }
+
+    public void setDateFinEnchere(Date dateFinEnchere) {
+        this.dateFinEnchere = dateFinEnchere;
+    }
+
+    public int getMiseAPrix() {
+        return miseAPrix;
+    }
+
+    public void setMiseAPrix(int miseAPrix) {
+        this.miseAPrix = miseAPrix;
+    }
+
+    public int getPrixVente() {
+        return prixVente;
+    }
+
+    public void setPrixVente(int prixVente) {
+        this.prixVente = prixVente;
+    }
+
+    public String getEtatVente() {
+        return etatVente;
+    }
+
+    public void setEtatVente(String etatVente) {
+        this.etatVente = etatVente;
+    }
+
+    public List<Enchere> getLstEnchere() {
+        return LstEnchere;
+    }
+
+    public void setLstEnchere(List<Enchere> lstEnchere) {
+        LstEnchere = lstEnchere;
+    }
+
+    public Retrait getRetrait() {
+        return retrait;
+    }
+
+    public void setRetrait(Retrait retrait) {
+        this.retrait = retrait;
+    }
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    public Utilisateur getCreateur() {
+        return createur;
+    }
+
+    public void setCreateur(Utilisateur createur) {
+        this.createur = createur;
+    }
+
+    public boolean isEnchereEnded() {
+        return isEnchereEnded;
+    }
+
+    public void setEnchereEnded(boolean enchereEnded) {
+        isEnchereEnded = enchereEnded;
+    }
+
+    public boolean isEnchereStarted() {
+        return isEnchereStarted;
+    }
+
+    public void setEnchereStarted(boolean enchereStarted) {
+        isEnchereStarted = enchereStarted;
+    }
+
+    public Utilisateur getUtilisateurGagnant() {
+        return utilisateurGagnant;
+    }
+
+    public void setUtilisateurGagnant(Utilisateur utilisateurGagnant) {
+        this.utilisateurGagnant = utilisateurGagnant;
     }
 }
