@@ -123,10 +123,11 @@ public class ProfileController {
             try {
                 Utilisateur utilisateur = contexteService.charger(principal.getName());
                 int id = utilisateur.getNoUtilisateur();
-                inscriptionService.delete(id);
-                inscriptionService.deleteArticle(id);
-                inscriptionService.deleteEnchere(id);
 
+                inscriptionService.deleteEnchere(id);
+                inscriptionService.delete(id);
+
+                System.out.println("delete fait");
                 return "redirect:/logout";
             } catch (BusinessException e) {
                 e.printStackTrace();

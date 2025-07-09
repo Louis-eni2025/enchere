@@ -80,10 +80,10 @@ public class InscriptionServiceImpl implements  InscriptionService {
         utilisateurDAO.delete(id);
     }
 
-    @Override
+    /*@Override
     public void deleteArticle(int idUser) {
         utilisateurDAO.deleteArticle(idUser);
-    }
+    }*/
 
     @Override
     public void deleteEnchere(int idUser) {

@@ -24,7 +24,7 @@ public interface InscriptionService {
 
     void delete(int id);
 
-    void deleteArticle(int idUser);
+    /*void deleteArticle(int idUser);*/
 
     void deleteEnchere(int idUser);
 
