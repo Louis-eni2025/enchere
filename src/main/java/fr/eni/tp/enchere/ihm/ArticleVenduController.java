@@ -2,8 +2,12 @@ package fr.eni.tp.enchere.ihm;
 
 
 import fr.eni.tp.enchere.bll.ArticleVenduService;
+import fr.eni.tp.enchere.bll.ContexteService;
 import fr.eni.tp.enchere.bo.ArticleVendu;
+import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.ArticleForm;
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
@@ -17,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import java.util.ArrayList;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -25,9 +29,11 @@ public class ArticleVenduController {
 
 
     ArticleVenduService articleVenduService;
+    ContexteService contexteService;
 
-    public ArticleVenduController(ArticleVenduService articleVenduService) {
+    public ArticleVenduController(ArticleVenduService articleVenduService, ContexteService contexteService) {
         this.articleVenduService = articleVenduService;
+        this.contexteService= contexteService;
     }
 
     @GetMapping("/")
@@ -51,28 +57,47 @@ public class ArticleVenduController {
     }
 
     @GetMapping("/addArticle")
-    public String addArticle(Model model) {
-        //model.addAttribute("articleVenduLst", articleVenduService.displayArticles());
+    public String addArticle(Categorie categorie, Model model) {
+
+          model.addAttribute("articleForm", new ArticleForm());
+
+
+        List<Categorie> categories = articleVenduService.categories();
+        model.addAttribute("categorieLst", categories);
+
         return "article_form";
     }
 
-    private boolean hasRole(Authentication auth, String role) {
-        return auth != null && auth.isAuthenticated()
-                && auth
-                .getAuthorities()
-                .stream()
-                .anyMatch(a -> a.getAuthority().equals(role));
-    }
 
 
     // a travailler
     @PostMapping("/addArticle")
-    public String addArticleVendu(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu, Model model) {
+    public String addArticleVendu(@Valid @ModelAttribute("articleForm") ArticleForm articleForm,
+                                 Principal principal, Model model) {
+        String mail = principal.getName();
 
-        model.addAttribute("articleVendu", new ArticleVendu());
+        Utilisateur utilisateur = contexteService.charger(mail);
 
 
-        articleVenduService.createArticleVendu(articleVendu);
-        return "index";
+        ArticleVendu articleVenduVenantDuFormulaire = articleForm.getArticleVendu();
+        articleVenduVenantDuFormulaire.setUtilisateur(utilisateur);
+
+        ArticleVendu articleVenduVenantDeLaBDD = articleVenduService.createArticleVendu(articleVenduVenantDuFormulaire);
+
+
+        Retrait retrait = articleForm.getRetrait();
+        retrait.setArticleVendu(articleVenduVenantDuFormulaire);
+
+        articleVenduService.createRetrait(retrait);
+
+
+
+        System.out.println("articleVendu " + articleVenduVenantDeLaBDD);
+        System.out.println("retrait " + retrait);
+
+        articleVenduVenantDeLaBDD.setUtilisateur(utilisateur);
+        articleVenduVenantDeLaBDD.setRetrait(retrait);
+
+        return "redirect:/";
     }
 }

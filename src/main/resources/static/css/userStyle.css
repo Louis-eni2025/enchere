@@ -1,8 +1,25 @@
 
 .login {
-    display: flex;
     width: 80%;
     justify-content: space-between;
+}
+
+.rememberMe{
+    display: flex;
+    flex-direction: column;
+    width: 359px;
+    position: absolute;
+    margin-left: -147px;
+    gap: 30px;
+    margin-top: 75px;
+}
+
+input#remember{
+    transition: none !important;
+}
+
+.mailYPass{
+    margin-left: -145px;
 }
 
 .username {
@@ -22,7 +39,8 @@
 }
 
 .btn {
-    margin: 20px;
+
+    margin-left: 175px;
 }
 
 form.container {

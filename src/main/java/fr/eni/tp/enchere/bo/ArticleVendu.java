@@ -151,4 +151,22 @@ public class ArticleVendu {
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
+
+    @Override
+    public String toString() {
+        return "ArticleVendu{" +
+                "noArticle=" + noArticle +
+                ", nomArticle='" + nomArticle + '\'' +
+                ", description='" + description + '\'' +
+                ", dateDebutEnchere=" + dateDebutEnchere +
+                ", dateFinEnchere=" + dateFinEnchere +
+                ", miseAPrix=" + miseAPrix +
+                ", prixVente=" + prixVente +
+                ", etatVente='" + etatVente + '\'' +
+                ", LstEnchere=" + LstEnchere +
+                ", retrait=" + retrait +
+                ", categorie=" + categorie +
+                ", utilisateur=" + utilisateur +
+                '}';
+    }
 }

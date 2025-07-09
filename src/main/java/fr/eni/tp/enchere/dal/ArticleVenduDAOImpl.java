@@ -2,6 +2,7 @@ package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -23,7 +24,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     private String SELECT_ALL_BY_CATEGORIE_AND_RECHERCHE = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie  from ARTICLES_VENDUS WHERE nom_article LIKE :recherche AND no_categorie = :no_categorie";
     private String SELECT_ALL_BY_CATEGORIE = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from ARTICLES_VENDUS WHERE no_categorie = :no_categorie";
     private String SELECT_ALL_CAT = "select * from CATEGORIES";
-    private String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from ARTICLES_VENDUS";
+    private String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres," +
+            " prix_initial, prix_vente, " +
+            "no_utilisateur, no_categorie from ARTICLES_VENDUS";
 //    private String SELECT_ALL_CAT = "SELECT no_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from CATEGORIES";
     private String SELECT_BY_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_article = :no_article";
     private String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES(:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
@@ -38,7 +41,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     }
 
     @Override
-    public void create(ArticleVendu articleVendu) {
+    public ArticleVendu create(ArticleVendu articleVendu ) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource map = new MapSqlParameterSource();
