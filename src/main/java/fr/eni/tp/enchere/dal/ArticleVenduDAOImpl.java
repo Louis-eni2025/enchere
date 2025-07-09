@@ -59,6 +59,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         if(keyHolder.getKey() != null) {
             articleVendu.setNoArticle(keyHolder.getKey().intValue());
         }
+        return articleVendu;
     }
 
     @Override

@@ -4,6 +4,7 @@ import fr.eni.tp.enchere.bll.ContexteService;
 import fr.eni.tp.enchere.bll.InscriptionService;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.exceptions.BusinessException;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,7 +60,8 @@ public class ProfileController {
 
     @PostMapping("/modifierProfile")
     public String modifierProfile(
-            @ModelAttribute Utilisateur utilisateur,
+
+            @Valid @ModelAttribute Utilisateur utilisateur,
             BindingResult bindingResult,
            /* @RequestParam("confirmation") String confirmation,
             @RequestParam("motDePasseActuel") String motDePasseActuel,*/
@@ -97,6 +99,7 @@ public class ProfileController {
 
             try {
                 if (bindingResult.hasErrors()) {
+                    model.addAttribute("errors", bindingResult.getAllErrors());
                     return "modifierProfile";
                 }
                 inscriptionService.validUser(utilisateur, userEmail);

@@ -45,14 +45,14 @@ public class EniSecurityConfig {
                     auth
                             .requestMatchers(HttpMethod.GET, "/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/login").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/.well-known/*").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/inscription/*").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/inscription").permitAll()
                             .requestMatchers(HttpMethod.GET, "/addArticle").authenticated()
                             .requestMatchers(HttpMethod.POST, "/addArticle").authenticated()
                             .requestMatchers(HttpMethod.GET, "/login/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/profile/*").authenticated()
-                            .requestMatchers(HttpMethod.GET, "/modifierProfile/*").authenticated()
-                            .requestMatchers(HttpMethod.POST, "/modifierProfile/*").authenticated()
+                            .requestMatchers(HttpMethod.GET, "/modifierProfile").authenticated()
+                            .requestMatchers(HttpMethod.POST, "/modifierProfile").authenticated()
 
                             .requestMatchers("/css/*").permitAll()
                             .requestMatchers("/images/*").permitAll()

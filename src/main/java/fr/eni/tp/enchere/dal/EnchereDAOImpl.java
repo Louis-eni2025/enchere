@@ -28,7 +28,7 @@ public class EnchereDAOImpl implements EnchereDAO {
     private String DELETE = "DELETE ENCHERES WHERE no_enchere = :no_enchere";
 
     @Override
-    public void create(Enchere enchere) {
+    public Enchere create(Enchere enchere) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource map = new MapSqlParameterSource();
@@ -43,6 +43,7 @@ public class EnchereDAOImpl implements EnchereDAO {
         if(keyHolder.getKey() != null) {
             enchere.setNoEnchere(keyHolder.getKey().intValue());
         }
+        return enchere;
     }
 
     @Override
