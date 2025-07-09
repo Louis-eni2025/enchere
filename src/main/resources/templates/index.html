@@ -18,6 +18,7 @@
 
             <a href="/addArticle" class="btn-addArticle">Ajouter un articles</a>
 
+            <div class="laRecherche">
             <input name="recherche" id="filtre" placeholder="Le nom de l'article contient">
             <div id="filtres__categories">
                 <label for="categorie" class="labelCategorie">Catégorie :</label>
@@ -31,9 +32,14 @@
             </div>
         </div>
         <button type="submit" class="btn-search">Rechercher</button>
+        </div>
     </form>
     <div id="resultats" name="IdArticle">
-        <article data-th-each="item : ${articleVenduLst}" class="resultats__card" >
+        <article data-th-each="item : ${articleVenduLst}" class="resultats__card">
+
+            <a data-th-href="@{/detailsArticle(no_article=${item.noArticle})}">
+
+
             <img src="https://placehold.co/400x400">
             <div>
                 <h1 data-th-text="${item.nomArticle}"></h1>
@@ -42,6 +48,7 @@
                 <p>Vendeur: <span data-th-text="${item.utilisateur.pseudo}"></span></p>
 
             </div>
+            </a>
         </article>
 
         <div class="wrapper">

@@ -16,39 +16,43 @@ public class Utilisateur {
     @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String pseudo;
 
-    @NotBlank
+    /*@NotBlank
     @Size(min=2, max = 30)
-    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")*/
     private String nom;
 
-    @NotBlank
+    /*@NotBlank
     @Size(min=2, max = 30)
-    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")*/
     private String prenom;
 
     @NotBlank
     @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
     private String email;
 
-    @NotBlank
-    @Pattern(regexp = "^((\\+33\\s?|0)[1-9](\\s?\\d{2}){4})$")
+   /* @NotBlank
+    @Pattern(regexp = "^((\\+33\\s?|0)[1-9](\\s?\\d{2}){4})$")*/
     private String telephone;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ'\\.\\-\\s]{3,100}$")
+   /* @NotBlank
+    @Pattern(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ'\\.\\-\\s]{3,100}$")*/
     private String rue;
 
     @NotBlank
     @Pattern(regexp = "^\\d{5}$")
     private String codePostal;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\-\\s]{2,50}$")
+    /*@NotBlank
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\-\\s]{2,50}$")*/
     private String ville;
 
     @NotBlank
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$")
     private String motDePasse;
+
+
+
+
 
     private int credit;
     private boolean administrateur;
@@ -70,6 +74,7 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.credit = credit;
         this.administrateur = administrateur;
+
         LstArticle = lstArticle;
         LstEnchere = lstEnchere;
     }
@@ -87,6 +92,7 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.credit = credit;
         this.administrateur = administrateur;
+
         LstArticle = lstArticle;
         LstEnchere = lstEnchere;
     }

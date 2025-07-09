@@ -53,14 +53,13 @@ public class EniSecurityConfig {
 
                             .requestMatchers(HttpMethod.GET, "/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/.well-known/*").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/inscription/*").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/inscription").permitAll()
                             .requestMatchers(HttpMethod.GET, "/login/*").permitAll()
-
-
 
                             .requestMatchers("/css/*").permitAll()
                             .requestMatchers("/images/*").permitAll()
-                            .anyRequest().denyAll();
+                            .anyRequest().permitAll();
                 }
         );
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ArticleVenduDAO {
     ArticleVendu create(ArticleVendu articleVendu);
-    ArticleVendu readById(int id);
+    ArticleVendu readById(Integer no_article);
 
 
 

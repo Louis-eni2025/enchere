@@ -27,10 +27,6 @@ public class InscriptionServiceImpl implements  InscriptionService {
         utilisateurDAO.create(utilisateur);
     }
 
-    //Verification pseudo,email ou telephone déja existant
-
-
-
     @Override
     public boolean pseudoExist(String pseudo) {
         return utilisateurDAO.pseudoExist(pseudo);

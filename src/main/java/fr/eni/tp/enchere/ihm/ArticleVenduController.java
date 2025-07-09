@@ -3,6 +3,7 @@ package fr.eni.tp.enchere.ihm;
 
 import fr.eni.tp.enchere.bll.ArticleVenduService;
 import fr.eni.tp.enchere.bll.ContexteService;
+import fr.eni.tp.enchere.bll.DetailArticleService;
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Retrait;
@@ -30,6 +31,7 @@ public class ArticleVenduController {
 
     ArticleVenduService articleVenduService;
     ContexteService contexteService;
+    DetailArticleService detailArticleService;
 
     public ArticleVenduController(ArticleVenduService articleVenduService, ContexteService contexteService) {
         this.articleVenduService = articleVenduService;
@@ -52,6 +54,10 @@ public class ArticleVenduController {
             List<ArticleVendu> articles = articleVenduService.displayArticles();
             model.addAttribute("articleVenduLst", articles);
         }
+
+
+
+
 
         return "index";
     }
@@ -76,7 +82,7 @@ public class ArticleVenduController {
 
 
 
-    // a travailler
+
     @PostMapping("/addArticle")
     public String addArticleVendu(@Valid @ModelAttribute("articleForm") ArticleForm articleForm,
                                  Principal principal, Model model) {

@@ -81,7 +81,7 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     }
 
 
-    //a travailler pour converter
+
     @Override
     public Categorie categorieById(int id) {
         return categorieDAO.readById(id);

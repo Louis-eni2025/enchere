@@ -4,6 +4,7 @@ import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -55,11 +56,6 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         map.addValue("no_utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
         map.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
 
-
-
-
-
-
         jdbc.update(INSERT, map, keyHolder);
 
 
@@ -67,20 +63,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         if(keyHolder.getKey() != null) {
 
             articleVendu.setNoArticle(keyHolder.getKey().intValue());
-
-
         }
         return articleVendu;
     }
-
-
 
     @Override
     public List<ArticleVendu> findAll(){
         return jdbc.getJdbcTemplate().query(SELECT_ALL, new ArticleVenduRowMapper());
     }
-
-
 
 //    /!\ N'a pas sa place dans cette classe, mais dans CategorieDAO
 //    public List<ArticleVendu> findAllCategorie(){
@@ -103,13 +93,16 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         List<ArticleVendu> articles = jdbc.queryForList(SELECT_ALL_BY_CATEGORIE, map, ArticleVendu.class);
         return articles;
     }
-
     @Override
-    public ArticleVendu readById(int no_article) {
+    public ArticleVendu readById(Integer no_article) {
+
+        System.out.println("Recherche article avec no_article = " + no_article);
+
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("no_article", no_article);
 
-        return jdbc.queryForObject(SELECT_BY_ID, map, new ArticleVenduRowMapper());
+            System.out.println("article trouvé" + no_article + SELECT_BY_ID);
+            return jdbc.queryForObject(SELECT_BY_ID, map, new ArticleVenduRowMapper());
     }
 
 

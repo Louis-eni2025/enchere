@@ -9,7 +9,7 @@ a{
 }
 
 label{
-    position: absolute;
+
 
 }
 
@@ -171,6 +171,8 @@ main {
     background-color: antiquewhite;
     box-shadow: 0px 2px 0px 1px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
+    width: 20vh;
+    margin-left: 45vh;
 }
 
 .btn-pageAddArticle{
@@ -185,6 +187,48 @@ main {
     box-shadow: 0px 2px 0px 1px rgba(0, 0, 0, 0.3);
 }
 
+.detailArticle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px
+}
+
+.titreDetailArticle{
+    font-size: 50px;
+    margin-left: 10vh;
+    margin-top: 3vh;
+    animation: colorSwitch 3s ease-in-out infinite;
+}
+
+@keyframes colorSwitch {
+    0%{
+        color: red;
+    }
+    50%{
+        color: #FFC107;
+    }
+    100%{
+        color: red;
+    }
+
+}
+
+.descriptionDetailArticle{
+    font-size: 25px;
+}
+
+.middlePage{
+    display: flex;
+    flex-direction: row;
+    margin-left: 35vh;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.dateEnchere{
+    margin-top: 50px;
+}
 input{
     margin-bottom: 10px;
     position: relative;
@@ -214,7 +258,108 @@ input{
 
 
 
+/* Responsive -*/
 
+@media (max-width: 480px) {
+
+    .wrapper{
+        display: none;
+    }
+
+    .candles{
+        display: none;
+    }
+
+    .candle1{
+        display: none;
+    }
+
+    #filtres{
+        display: flex;
+        flex-direction: column;
+        width: 35vh;
+        align-items: center;
+
+    }
+    #filtre{
+        width: 25vh;
+    }
+
+    #filtres_inputs{
+        margin-right: 25vh;
+    }
+
+    #filtres__categories
+{
+    display: flex;
+    justify-content: space-between;
+    width: 34vh;
+}
+    #resultats{
+        width: 50vh;
+    }
+
+    .btn-addArticle{
+        margin-bottom: 10vh;
+    }
+
+    .btn-search{
+        width: 20vh;
+        margin-left: 14vh;
+    }
+
+    .btn-logout{
+        font-size: 2vh;
+        margin-left: -8vh;
+    }
+
+    .label_enchere{
+        margin-left: -7vh;
+    }
+
+    .laRecherche{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn{
+        margin-left: 122px;
+        width: 20vh;
+    }
+
+    .resultats__card{
+        display: flex;
+        width: 30%;
+        gap: 1vw;
+    }
+
+    .formAddArticle{
+        margin-right: 5vh;
+    }
+
+    .btn-pageAddArticle{
+
+        display: flex;
+        gap: 50px;
+        margin-top: 20px;
+        flex-direction: column;
+        margin-left: 10vh;
+
+    }
+
+    .middlePage{
+
+        display: flex;
+        flex-direction: column;
+        margin-left: 0vh;
+        gap: 10px;
+        font-size: 20px;
+    }
+
+
+
+
+}
 
 
 
@@ -235,7 +380,7 @@ input{
 .candles {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 20%;
     width: 250px;
     height: 150px;
     transform: translate(-50%, -100%);
@@ -710,4 +855,3 @@ input{
 
 
 
-Resources

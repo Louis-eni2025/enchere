@@ -3,6 +3,7 @@ package fr.eni.tp.enchere.ihm;
 
 import fr.eni.tp.enchere.bll.InscriptionService;
 import fr.eni.tp.enchere.bo.Utilisateur;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,21 +24,19 @@ public class InscriptionController {
     @GetMapping("/inscription")
     public String inscription(Model model) {
 
-        model.addAttribute("utilisateur", new Utilisateur());
+        model.addAttribute("inscriptionForm",
+                new Utilisateur());
 
         return "view_inscription";
     }
 
     @PostMapping("/inscription")
-    public String inscription(@ModelAttribute Utilisateur utilisateur,@RequestParam("confirmation") String confirmation, Model model) {
+    public String inscription(@Valid @ModelAttribute("inscriptionForm") Utilisateur utilisateur, @RequestParam("confirmation") String confirmation, Model model) {
 
- /*   //verification
+        System.out.println("controller ok");
 
-        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$";
-
-        boolean validPassword = password.matches(regex);
-*/
         String password = utilisateur.getMotDePasse();
+
         if(!confirmation.equals(password)) {
             model.addAttribute("message", "Les mot de passe ne correspondent pas ...");
             return "view_inscription";
@@ -48,8 +47,9 @@ public class InscriptionController {
             return "view_inscription";
         } else {
 
+
             inscriptionService.create(utilisateur);
-            model.addAttribute("message", "Inscription réussie");
+
 
             return "redirect:/login";
         }
