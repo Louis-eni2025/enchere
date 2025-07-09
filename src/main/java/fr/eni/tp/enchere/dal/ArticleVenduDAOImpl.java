@@ -59,6 +59,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         if(keyHolder.getKey() != null) {
             articleVendu.setNoArticle(keyHolder.getKey().intValue());
         }
+        return articleVendu;
     }
 
     @Override
@@ -94,8 +95,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     public List<ArticleVendu> findAllByCategorie(Integer categorieId) {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("no_categorie", categorieId);
-
-        return jdbc.query(SELECT_ALL_BY_CATEGORIE, map, new ArticleVenduRowMapper());
+        List<ArticleVendu> articles = jdbc.queryForList(SELECT_ALL_BY_CATEGORIE, map, ArticleVendu.class);
+        return articles;
     }
 
     @Override
@@ -119,12 +120,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         map.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
 
         jdbc.update(UPDATE, map);
+
+
     }
 
     @Override
     public void delete(int id) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("no_article", id);
+        map.addValue("noUtilisateur", id);
 
         jdbc.update(DELETE, map);
     }
