@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/userStyle.css">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>ENI-Enchere</title>
 
@@ -23,6 +24,10 @@
             <li data-sec-authorize="isAuthenticated()"><a href="/logout">Se déconnecter</a></li>
         </ul>
     </nav>
+
+    <data-th-block data-sec-authorize="isAuthenticated()">
+        <a data-th-text="'['+ ${#authentication.name}+']'" href="/profile"></a>
+    </data-th-block>
 </header>
 
 <main data-th-replace="${contenuPage} ?: ~{}"></main>

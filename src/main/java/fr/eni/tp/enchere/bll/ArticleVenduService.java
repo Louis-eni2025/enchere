@@ -14,4 +14,6 @@ public interface ArticleVenduService {
     List<ArticleVendu> displayArticlesByCategorie(Integer categorieId, boolean finie);
     List<ArticleVendu> displayArticlesRecherche(String recherche, boolean finie);
     List<ArticleVendu> manageRecherche(String recherche, String categorieId, boolean finie);
+    void delete(int id);
+
 }

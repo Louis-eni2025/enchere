@@ -5,7 +5,9 @@ import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ContexteServiceImpl implements ContexteService {
     private final UtilisateurDAO utilisateurDAO;
 
@@ -18,6 +20,8 @@ public class ContexteServiceImpl implements ContexteService {
         try {
             return utilisateurDAO.read(email);
         } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+
             throw new BusinessException(BusinessCode.VALIDATION_UTILISATEUR_INCONNU);
         }
     }

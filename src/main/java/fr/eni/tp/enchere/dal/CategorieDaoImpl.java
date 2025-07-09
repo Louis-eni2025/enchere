@@ -26,7 +26,6 @@ public class CategorieDaoImpl implements CategorieDAO {
         this.jdbc = namedParameterJdbcTemplate;
     }
 
-
     @Override
     public Categorie readById(int id) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();

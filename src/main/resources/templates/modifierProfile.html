@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- Mise en place du layout -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:data-th="http://www.w3.org/1999/xhtml"
+      data-th-replace="~{layouts/layout :: layout(
+									contenuPage=~{:: .main})}">
+    <body>
+        <main class="main">
+            <form data-th-action="@{/modifierProfile} " method="post" class="container"
+                  data-th-object="${utilisateur}">
+                <div class="error" th:if="${#fields.hasErrors('*')}">
+                    <h2>ATTENTION - ERREURS</h2>
+
+                    <div data-th-if="${#fields.hasGlobalErrors()}">
+                        <p data-th-each="err : ${#fields.errors('global')}"  data-th-text="#{${err}}"></p>
+                    </div>
+                </div>
+                <br>
+                <div class="gauche">
+                    <label>Pseudo</label>
+                    <input name="pseudo" type="text" required data-th-field="*{pseudo}">
+
+                    <label>Prénom</label>
+                    <input name="prenom" type="text" placeholder="Votre prenom" required data-th-field="*{prenom}">
+
+                    <label>Téléphone</label>
+                    <input name="telephone" type="text" placeholder="Votre numero de telephone" required data-th-field="*{telephone}">
+                    <label>Code Postal</label>
+                    <input name="codePostal" type="text" required data-th-field="*{codePostal}">
+<!--                    <label>Mot de passe actuel</label>
+                    <input name="motDePasseActuel" type="password" required>
+                    <label>Nouveau mot de passe</label>
+                    <input name="nouveauMotDePasse" type="password" required data-th-field="*{motDePasse}">-->
+                </div>
+                <div class="droite">
+                    <label>Nom</label>
+                    <input name="nom" type="text" placeholder="Votre nom" required data-th-field="*{nom}">
+                    <label>Email</label>
+                    <input name="email" type="email" placeholder="votre email" required data-th-field="*{email}">
+                    <label>Rue</label>
+                    <input name="rue" type="text" required data-th-field="*{rue}">
+
+                    <label>Ville</label>
+                    <input name="ville" type="text" required data-th-field="*{ville}">
+                    <!--<label>Confirmation</label>
+                    <input name="confirmation" type="password" required> -->
+                </div>
+                <div class = "pied">
+                <label for="idCredit">Credit</label>
+                <input id="idCredit" type=text data-th-field="${utilisateur.credit}" readonly/>
+                </div>
+
+                <button type="submit" class="btn">Enregister</button>
+                <a href="/deleteProfile" class="faussebutton">Supprimer mon compte</a>
+            </form>
+        </main>
+    </body>
+</html>

@@ -8,7 +8,8 @@ public interface UtilisateurDAO {
 
     Utilisateur read(String email);
 
-    void update(Utilisateur utilisateur);
+    void update(Utilisateur utilisateur, String email);
+
     void delete(int id);
 
     //Verification pseudo,email ou telephone déja existant
@@ -18,4 +19,12 @@ public interface UtilisateurDAO {
     boolean emailExist(String email);
 
     boolean telephoneExist(String telephone);
+
+    String passwordSelect(String email);
+
+    boolean validPseudo(String email, String pseudo);
+
+    void deleteArticle(int idUser);
+
+    void deleteEnchere(int idUser);
 }

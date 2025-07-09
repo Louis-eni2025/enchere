@@ -19,11 +19,21 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String SELECT_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email = :email";
     private String INSERT_USER = "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) values(:pseudo,:nom, :prenom, :email,:telephone,:rue,:codePostal, :ville, :motDePasse,:credit,:administrateur)";
-    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse, credit = :credit, administrateur = :administrateur WHERE no_utilisateur=:noUtilisateur";
+
+    private String UPDATE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, " +
+            "email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville" +
+            " WHERE email=:emailAuth";
+
     private String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String COMPARE_PSEUDO = "select count(*) from utilisateurs where pseudo = :pseudo";
     private String COMPARE_MAIL = "select count(*) from utilisateurs where email = :email";
     private String COMPARE_PHONE = "select count(*) from utilisateurs where telephone = :telephone";
+    private String SELECT_MDP = "SELECT mot_de_passe FROM utilisateurs WHERE email=:email";
+    private String SELECT_PSEUDO = "SELECT pseudo FROM utilisateurs WHERE email=:email";
+
+    private String DELETE_ARTICLE = "DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur=:noUtilisateur";
+
+    private String DELETE_ENCHERE = "DELETE FROM ENCHERES WHERE no_utilisateur=:noUtilisateur";
 
     public UtilisateurDAOImpl( NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 
@@ -70,8 +80,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     }
 
     @Override
-    public void update(Utilisateur utilisateur) {
+    public void update(Utilisateur utilisateur, String email) {
         MapSqlParameterSource map = new MapSqlParameterSource();
+
         map.addValue("pseudo", utilisateur.getPseudo());
         map.addValue("nom", utilisateur.getNom());
         map.addValue("prenom", utilisateur.getPrenom());
@@ -81,11 +92,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("codePostal", utilisateur.getCodePostal());
         map.addValue("ville", utilisateur.getVille());
         map.addValue("motDePasse", utilisateur.getMotDePasse());
-        map.addValue("credit", utilisateur.getCredit());
-        map.addValue("administrateur", utilisateur.isAdministrateur());
 
-        // On ajoute l'identifiant de l'utilisateur pour la clause WHERE
-        map.addValue("noUtilisateur", utilisateur.getNoUtilisateur());
+        map.addValue("emailAuth", email);
 
         jdbc.update(UPDATE, map);
     }
@@ -93,18 +101,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     @Override
     public void delete(int id) {
         MapSqlParameterSource map = new MapSqlParameterSource();
+
         map.addValue("noUtilisateur", id);
 
         jdbc.update(DELETE, map);
-
     }
 
     //Verification pseudo,email ou telephone déja existant
 
     @Override
     public boolean pseudoExist(String pseudo) {
-
-
 
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("pseudo", pseudo);
@@ -146,7 +152,46 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         }else{
             return false; //pseudo déja use
         }
+    }
 
+    @Override
+    public String passwordSelect(String email) {
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("email", email);
+        String mdp = jdbc.queryForObject(SELECT_MDP, map, String.class);
+
+        return mdp;
+
+    }
+
+    @Override
+    public boolean validPseudo(String email, String pseudo) {
+
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("email", email);
+        String pseudoAncien = jdbc.queryForObject(SELECT_PSEUDO, map, String.class);
+        boolean meme = pseudo.equals(pseudoAncien);
+
+        return meme || !pseudoExist(pseudo);
+    }
+
+    @Override
+    public void deleteArticle(int idUser) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+
+        map.addValue("noUtilisateur", idUser);
+
+        jdbc.update(DELETE_ARTICLE, map);
+    }
+
+    @Override
+    public void deleteEnchere(int idUser) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+
+        map.addValue("noUtilisateur", idUser);
+
+        jdbc.update(DELETE_ENCHERE, map);
     }
 
 
@@ -171,5 +216,4 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             return utilisateur;
         }
     }
-
 }

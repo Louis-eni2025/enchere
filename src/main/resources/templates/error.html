@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PageError</title>
+</head>
+<body>
+    <main>
+        <h1>Y'a une erreur</h1>
+        <form>
+            <div data-th-switch="${status}">
+                <label data-th-case="403" >T'as pas le droit d''aller là</label>
+                <label data-th-case="404" >Bah non y a pas</label>
+                <label data-th-case="500" >t'as tout cassé le serveur</label>
+                <label data-th-case="1000" data-th-text="${errorMessage}"></label>
+                <label data-th-case="*" data-th-text="'j''avoue je comprend pas bien ce que t''as fait'"></label>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

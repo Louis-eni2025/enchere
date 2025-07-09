@@ -26,27 +26,21 @@ public class EniSecurityConfig {
         userDetailsManager.setUsersByUsernameQuery("select email, mot_de_passe, 1 from utilisateurs where email=?");
         userDetailsManager.setAuthoritiesByUsernameQuery("select email, CASE WHEN administrateur = 1 THEN 'ROLE_ADMIN' ELSE 'ROLE_USER' END from utilisateurs where email=?");
         return userDetailsManager;
-
     }
-
-
-
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
                     auth
-                            .requestMatchers(HttpMethod.GET, "/").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/*").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/login").permitAll()
                             .requestMatchers(HttpMethod.GET, "/.well-known/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/inscription/*").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/modifierProfile").authenticated()
+                            .requestMatchers(HttpMethod.POST, "/modifierProfile").authenticated()
                             .requestMatchers(HttpMethod.GET, "/addArticle").authenticated()
                             .requestMatchers(HttpMethod.POST, "/addArticle").authenticated()
-                            /*.requestMatchers(HttpMethod.GET, "/avis").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/films/details").authenticated()
-                            .requestMatchers(HttpMethod.GET, "/avis/ajouter").hasRole("MEMBRE")
-                            .requestMatchers(HttpMethod.POST, "/avis/ajouter").hasRole("MEMBRE")
-
-                            .requestMatchers(HttpMethod.POST, "/films/ajouter").hasAnyRole("ADMIN", "MEMBRE")*/
+                            .requestMatchers(HttpMethod.GET, "/profile/*").authenticated()
 
                             .requestMatchers("/css/*").permitAll()
                             .requestMatchers("/scripts/*").permitAll()
@@ -77,4 +71,3 @@ public class EniSecurityConfig {
         return http.build();
     }
 }
-
