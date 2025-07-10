@@ -111,7 +111,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     }
 
     @Override
-    public void update(UserProfileDTO userProfileDTO) {
+    public void update(UserProfileDTO userProfileDTO, int id) {
         MapSqlParameterSource map = new MapSqlParameterSource();
 
         map.addValue("pseudo", userProfileDTO.getPseudo());
@@ -123,7 +123,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("codePostal", userProfileDTO.getCodePostal());
         map.addValue("ville", userProfileDTO.getVille());
 
-        map.addValue("noUtilisateur", userProfileDTO.getNoUtilisateur());
+        map.addValue("noUtilisateur", id);
 
         jdbc.update(UPDATE_PROFILE, map);
     }
