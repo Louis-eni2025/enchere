@@ -42,6 +42,14 @@ input#remember{
 
     margin-left: 175px;
 }
+@media (max-width: 480px) {
+
+    .btn{
+        margin-left: 100px;
+        width: 20vh;
+    }
+}
+
 
 form.container {
     display: flex;

@@ -7,10 +7,6 @@
     <h1 id="home__title">Listes des enchères</h1>
 
 
-
-
-
-
     <form id="filtres" method="get">
         <div id="filtres_inputs">
 
@@ -18,6 +14,7 @@
 
             <a href="/addArticle" class="btn-addArticle">Ajouter un articles</a>
 
+            <div class="laRecherche">
             <input name="recherche" id="filtre" placeholder="Le nom de l'article contient">
             <div id="filtres__categories">
                 <label for="categorie" class="labelCategorie">Catégorie :</label>
@@ -31,6 +28,7 @@
             </div>
         </div>
         <button type="submit" class="btn-search">Rechercher</button>
+        </div>
     </form>
 
     <div id="filtres__checkboxes">
@@ -78,15 +76,21 @@
 
 
     <div id="resultats" name="IdArticle">
-        <article data-th-each="item : ${articleVenduLst}" class="resultats__card" >
+        <article data-th-each="item : ${articleVenduLst}" class="resultats__card">
+
+            <a data-th-href="@{/detailsArticle(no_article=${item.noArticle})}">
+
+
             <img src="https://placehold.co/400x400">
-            <div>
+            <div class="textArticle">
                 <h1 data-th-text="${item.nomArticle}"></h1>
                 <p>Prix: <span data-th-text="${item.miseAPrix}"></span> points</p>
                 <p>Fin de l'enchère: <span data-th-text="${item.dateFinEnchere}"></span></p>
                 <p>Vendeur: <span data-th-text="${item.createur.pseudo}"></span></p>
             </div>
+            </a>
         </article>
+        </div>
 
         <div class="wrapper">
             <div class="candles">

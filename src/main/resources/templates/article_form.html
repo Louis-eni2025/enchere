@@ -12,7 +12,7 @@
 
 <form data-th-action="@{/addArticle}"
       method="post"
-      data-th-object="${articleForm}">
+      data-th-object="${articleForm}" class="formAddArticle">
     <div class="leSelect">
 
         <label  for="categorie">
@@ -38,11 +38,11 @@
         <input id="mise_a_prix" name="mise_a_prix" type="number" data-th-field="*{articleVendu.miseAPrix}">
     </div>
     <div>
-        <label for="date_debut_enchere">Début de l'enchère</label>
+        <label for="date_debut_enchere" class="label_enchere">Début de l'enchère</label>
         <input id="date_debut_enchere" name="dateDebutEnchere" type="date" data-th-field="*{articleVendu.dateDebutEnchere}">
     </div>
     <div>
-        <label for="date_fin_enchere">Fin de l'enchère</label>
+        <label for="date_fin_enchere" class="label_enchere">Fin de l'enchère</label>
         <input id="date_fin_enchere" name="dateFinEnchere" type="date" data-th-field="*{articleVendu.dateFinEnchere}">
     </div>
     <div>
