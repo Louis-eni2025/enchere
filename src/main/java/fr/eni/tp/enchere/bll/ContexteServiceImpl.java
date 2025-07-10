@@ -1,6 +1,7 @@
 package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.UserProfileDTO;
 import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
@@ -24,6 +25,24 @@ public class ContexteServiceImpl implements ContexteService {
 
             throw new BusinessException(BusinessCode.VALIDATION_UTILISATEUR_INCONNU);
         }
+    }
+
+    @Override
+    public UserProfileDTO read(String email) {
+        Utilisateur utilisateur = charger(email);
+        UserProfileDTO userProfileDTO = new UserProfileDTO();
+
+        userProfileDTO.setNom(utilisateur.getNom());
+        userProfileDTO.setPrenom(utilisateur.getPrenom());
+        userProfileDTO.setEmail(utilisateur.getEmail());
+        userProfileDTO.setNoUtilisateur(utilisateur.getNoUtilisateur());
+        userProfileDTO.setPseudo(utilisateur.getPseudo());
+        userProfileDTO.setCodePostal(utilisateur.getCodePostal());
+        userProfileDTO.setVille(utilisateur.getVille());
+        userProfileDTO.setRue(utilisateur.getRue());
+        userProfileDTO.setTelephone(utilisateur.getTelephone());
+
+        return userProfileDTO;
     }
 }
 

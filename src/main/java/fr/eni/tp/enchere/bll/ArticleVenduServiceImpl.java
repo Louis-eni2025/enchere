@@ -148,11 +148,6 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         articleVenduDAO.delete(id);
     }
 
-    @Override
-    public Enchere encherir(Enchere enchere) {
-        return null;
-    }
-
 
     //a travailler pour converter
     @Override
