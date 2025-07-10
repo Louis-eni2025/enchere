@@ -6,7 +6,7 @@
     <body>
         <main class="main">
             <form data-th-action="@{/modifierProfile} " method="post" class="container"
-                  data-th-object="${utilisateur}">
+                  data-th-object="${userProfileDTO}">
                 <!--<div th:if="${#fields.hasErrors(codePostal)}">
                     <p th:each="err : ${#fields.errors(codePostal)}"th:text="${err}"></p>
                 </div>-->
@@ -52,10 +52,6 @@
                     <label>Ville</label>
                     <input name="ville" type="text" required data-th-field="*{ville}">
 
-                </div>
-                <div class = "pied">
-                <label for="idCredit">Credit</label>
-                <input id="idCredit" type=text data-th-field="${utilisateur.credit}" readonly/>
                 </div>
 
                 <button type="submit" class="btn">Enregister</button>

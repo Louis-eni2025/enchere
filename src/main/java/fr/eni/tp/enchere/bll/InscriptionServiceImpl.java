@@ -2,6 +2,7 @@ package fr.eni.tp.enchere.bll;
 
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.UserProfileDTO;
 import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
@@ -57,6 +58,11 @@ public class InscriptionServiceImpl implements  InscriptionService {
     @Override
     public void update(Utilisateur utilisateur, String email) {
         utilisateurDAO.update(utilisateur, email);
+    }
+
+    @Override
+    public void update(UserProfileDTO userProfileDTO) {
+        utilisateurDAO.update(userProfileDTO);
     }
 
     @Override

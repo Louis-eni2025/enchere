@@ -1,6 +1,7 @@
 package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.UserProfileDTO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -28,6 +29,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             "email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville" +
             " WHERE email=:emailAuth";
 
+    private String UPDATE_PROFILE = "UPDATE utilisateurs SET pseudo = :pseudo, nom = :nom, prenom = :prenom, " +
+            "email = :email, telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville" +
+            " WHERE no_utilisateur=:noUtilisateur";
+
     private String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur=:noUtilisateur";
     private String COMPARE_PSEUDO = "select count(*) from utilisateurs where pseudo = :pseudo";
     private String COMPARE_MAIL = "select count(*) from utilisateurs where email = :email";
@@ -38,6 +43,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private String DELETE_ARTICLE = "DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur=:noUtilisateur";
 
     private String DELETE_ENCHERE = "DELETE FROM ENCHERES WHERE no_utilisateur=:noUtilisateur";
+
+    private String RESET_PASSWORD = "UPDATE utilisateurs SET mot_de_passe = :motDePasse" +
+            " WHERE no_utilisateur=:noUtilisateur";
 
     public UtilisateurDAOImpl( NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 
@@ -100,6 +108,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("emailAuth", email);
 
         jdbc.update(UPDATE, map);
+    }
+
+    @Override
+    public void update(UserProfileDTO userProfileDTO) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+
+        map.addValue("pseudo", userProfileDTO.getPseudo());
+        map.addValue("nom", userProfileDTO.getNom());
+        map.addValue("prenom", userProfileDTO.getPrenom());
+        map.addValue("email", userProfileDTO.getEmail());
+        map.addValue("telephone", userProfileDTO.getTelephone());
+        map.addValue("rue", userProfileDTO.getRue());
+        map.addValue("codePostal", userProfileDTO.getCodePostal());
+        map.addValue("ville", userProfileDTO.getVille());
+
+        map.addValue("noUtilisateur", userProfileDTO.getNoUtilisateur());
+
+        jdbc.update(UPDATE_PROFILE, map);
     }
 
     @Override
@@ -196,6 +222,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("noUtilisateur", idUser);
 
         jdbc.update(DELETE_ENCHERE, map);
+    }
+
+    @Override
+    public void resetPassword(int id, String nouveauPassword) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+
+        map.addValue("noUtilisateur", id);
+        map.addValue("motDePasse", nouveauPassword);
+
+        jdbc.update(RESET_PASSWORD, map);
     }
 
 

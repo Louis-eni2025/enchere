@@ -1,6 +1,7 @@
 package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.UserPasswordDTO;
 import fr.eni.tp.enchere.bo.dto.UserProfileDTO;
 import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
@@ -43,6 +44,21 @@ public class ContexteServiceImpl implements ContexteService {
         userProfileDTO.setTelephone(utilisateur.getTelephone());
 
         return userProfileDTO;
+    }
+
+    @Override
+    public UserPasswordDTO readPassword(String email) {
+        Utilisateur utilisateur = charger(email);
+        UserPasswordDTO userPasswordDTO = new UserPasswordDTO();
+
+        userPasswordDTO.setNoUtilisateur(utilisateur.getNoUtilisateur());
+
+        return userPasswordDTO;
+    }
+
+    @Override
+    public void resetPassword(int id, String nouveauPassword) {
+        utilisateurDAO.resetPassword(id, nouveauPassword);
     }
 }
 

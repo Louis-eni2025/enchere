@@ -1,6 +1,7 @@
 package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.UserProfileDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -17,6 +18,8 @@ public interface InscriptionService {
     Utilisateur read(String email);
 
     void update(Utilisateur utilisateur, String email);
+
+    void update(UserProfileDTO userProfileDTO);
 
     boolean confirmPassword(String password1, String password2);
 

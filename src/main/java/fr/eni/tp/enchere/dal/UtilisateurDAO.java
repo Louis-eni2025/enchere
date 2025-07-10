@@ -1,6 +1,7 @@
 package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.UserProfileDTO;
 
 public interface UtilisateurDAO {
     void create(Utilisateur utilisateur);
@@ -27,4 +28,9 @@ public interface UtilisateurDAO {
     void deleteArticle(int idUser);
 
     void deleteEnchere(int idUser);
+
+    void resetPassword(int id, String nouveauPassword);
+
+    void update(UserProfileDTO userProfileDTO);
+
 }
