@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const venteSousOptionsCheckboxes = document.querySelectorAll(".ventes__sous-option__checkbox");
     const achatsSousOptionsCheckboxes = document.querySelectorAll(".achats__sous-option__checkbox");
 
+
     achatsCheckbox.addEventListener("change", function () {
         if (achatsCheckbox.checked) {
             venteCheckbox.checked = false;
@@ -56,4 +57,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    // Quand je check #enCours, tout les articles ayant le data attribute data-en-cours sont affichés et les autres effacés
+    const enCoursCheckbox = document.getElementById("enCours");
+    const articles = document.querySelectorAll(".resultats__card");
+    enCoursCheckbox.addEventListener("change", function () {
+        articles.forEach(function (article) {
+            if (enCoursCheckbox.checked) {
+                if (article.dataset.enCours === "true") {
+                    article.style.display = "block";
+                } else {
+                    article.style.display = "none";
+                }
+            } else {
+                article.style.display = "block"; // Show all articles when unchecked
+            }
+        });
+    });
 })

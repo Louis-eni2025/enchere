@@ -56,11 +56,11 @@
                 </div>
                 <div>
                     <input type="checkbox" id="ventesNonDebutees" class="ventes__sous-option__checkbox" name="ventesNonDebutees">
-                    <label for="ventesNonDebutees">Mes enchères</label>
+                    <label for="ventesNonDebutees">Mes ventes non débutées</label>
                 </div>
                 <div>
                     <input type="checkbox" id="ventesTerminees" class="ventes__sous-option__checkbox" name="ventesTerminees">
-                    <label for="ventesTerminees">Mes enchères remportées</label>
+                    <label for="ventesTerminees">Mes ventes terminées</label>
                 </div>
             </div>
         </div>
@@ -68,7 +68,17 @@
 
 
     <div id="resultats" name="IdArticle">
-        <article data-th-each="item : ${articleVenduLst}" class="resultats__card" >
+        <article
+                data-th-each="item : ${articleVenduLst}"
+                class="resultats__card"
+                data-th-attr="
+                    data-createur-current-user=${item.isCurrentUserCreator},
+                    data-user-gagnant=${item.getUtilisateurGagnant()},
+                    data-has-current-bid=${item.isHasCurrentUserBid()},
+                    data-en-cours=${item.isEnchereStarted},
+                    data-enchere-fini=${item.isEnchereEnded()}
+                "
+        >
             <img src="https://placehold.co/400x400">
             <div>
                 <h1 data-th-text="${item.nomArticle}"></h1>
