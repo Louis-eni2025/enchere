@@ -6,18 +6,31 @@
     <body>
         <main class="main">
             <form data-th-action="@{/modifierProfile} " method="post" class="container"
-                  data-th-object="${utilisateur}">
+                  data-th-object="${userProfileDTO}">
+                <!--<div th:if="${#fields.hasErrors(codePostal)}">
+                    <p th:each="err : ${#fields.errors(codePostal)}"th:text="${err}"></p>
+                </div>-->
                 <div class="error" th:if="${#fields.hasErrors('*')}">
                     <h2>ATTENTION - ERREURS</h2>
 
-                    <div data-th-if="${#fields.hasGlobalErrors()}">
+                    <!--<div data-th-if="${#fields.hasGlobalErrors()}">
                         <p data-th-each="err : ${#fields.errors('global')}"  data-th-text="#{${err}}"></p>
+                    </div>-->
+                    <div data-th-if="${errors}">
+                        <p data-th-each="err : ${errors}"  data-th-text="${err}"></p>
                     </div>
                 </div>
+                <!--<div th:if="${#fields.hasErrors(inputName)}">
+                    <p th:each="err : ${#fields.errors(inputName)}"th:text="${err}"></p>
+                </div>-->
                 <br>
                 <div class="gauche">
                     <label>Pseudo</label>
                     <input name="pseudo" type="text" required data-th-field="*{pseudo}">
+
+                    <!--<div th:if="${#fields.hasErrors(pseudo)}">
+                        <p th:each="err : ${#fields.errors(inputName)}"th:text="${err}"></p>
+                    </div>-->
 
                     <label>Prénom</label>
                     <input name="prenom" type="text" placeholder="Votre prenom" required data-th-field="*{prenom}">
@@ -26,10 +39,7 @@
                     <input name="telephone" type="text" placeholder="Votre numero de telephone" required data-th-field="*{telephone}">
                     <label>Code Postal</label>
                     <input name="codePostal" type="text" required data-th-field="*{codePostal}">
-<!--                    <label>Mot de passe actuel</label>
-                    <input name="motDePasseActuel" type="password" required>
-                    <label>Nouveau mot de passe</label>
-                    <input name="nouveauMotDePasse" type="password" required data-th-field="*{motDePasse}">-->
+
                 </div>
                 <div class="droite">
                     <label>Nom</label>
@@ -41,16 +51,14 @@
 
                     <label>Ville</label>
                     <input name="ville" type="text" required data-th-field="*{ville}">
-                    <!--<label>Confirmation</label>
-                    <input name="confirmation" type="password" required> -->
-                </div>
-                <div class = "pied">
-                <label for="idCredit">Credit</label>
-                <input id="idCredit" type=text data-th-field="${utilisateur.credit}" readonly/>
+
                 </div>
 
                 <button type="submit" class="btn">Enregister</button>
                 <a href="/deleteProfile" class="faussebutton">Supprimer mon compte</a>
+                <div>
+                    <a href="/resetPassword" class="faussebutton">Réinitialiser le mot de passe</a>
+                </div>
             </form>
         </main>
     </body>

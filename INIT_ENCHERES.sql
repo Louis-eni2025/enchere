@@ -67,24 +67,23 @@
                              no_enchere  INTEGER IDENTITY(1,1) NOT NULL,
                              date_enchere datetime NOT NULL,
                              montant_enchere INTEGER NOT NULL,
-                             no_article INTEGER NULL,
+                             no_article INTEGER NOT NULL,
                              no_utilisateur INTEGER NULL
     )
 
     ALTER TABLE ENCHERES ADD constraint enchere_pk PRIMARY KEY ( no_enchere)
 
-    --1
     ALTER TABLE ARTICLES_VENDUS
         ADD CONSTRAINT ventes_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES UTILISATEURS ( no_utilisateur )
-            ON DELETE SET NULL
-    -- 2
+            ON DELETE CASCADE
+
     ALTER TABLE ENCHERES
         ADD CONSTRAINT encheres_no_article_fk FOREIGN KEY ( no_article ) REFERENCES ARTICLES_VENDUS ( no_article )
-            ON DELETE NO ACTION
+            ON DELETE CASCADE
 
     ALTER TABLE ENCHERES
         ADD CONSTRAINT encheres_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES UTILISATEURS ( no_utilisateur )
-            ON DELETE CASCADE
+            ON DELETE NO ACTION
 
     ALTER TABLE ARTICLES_VENDUS
         ADD CONSTRAINT articles_vendus_categories_fk FOREIGN KEY ( no_categorie )

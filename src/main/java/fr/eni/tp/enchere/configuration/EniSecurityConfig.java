@@ -41,8 +41,10 @@ public class EniSecurityConfig {
                             .requestMatchers(HttpMethod.GET, "/addArticle").authenticated()
                             .requestMatchers(HttpMethod.POST, "/addArticle").authenticated()
                             .requestMatchers(HttpMethod.GET, "/profile/*").authenticated()
-                            .requestMatchers(HttpMethod.GET, "/modifierProfile/*").authenticated()
-                            .requestMatchers(HttpMethod.POST, "/modifierProfile/*").authenticated()
+                            .requestMatchers(HttpMethod.GET, "/modifierProfile").authenticated()
+                            .requestMatchers(HttpMethod.POST, "/modifierProfile").authenticated()
+                            .requestMatchers(HttpMethod.GET, "/resetPassword").authenticated()
+                            .requestMatchers(HttpMethod.POST, "/resetPassword").authenticated()
 
 
                             .requestMatchers("/css/*").permitAll()

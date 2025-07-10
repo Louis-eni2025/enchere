@@ -2,6 +2,7 @@ package fr.eni.tp.enchere.bll;
 
 
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.UserProfileDTO;
 import fr.eni.tp.enchere.dal.UtilisateurDAO;
 import fr.eni.tp.enchere.exceptions.BusinessCode;
 import fr.eni.tp.enchere.exceptions.BusinessException;
@@ -60,6 +61,11 @@ public class InscriptionServiceImpl implements  InscriptionService {
     }
 
     @Override
+    public void update(UserProfileDTO userProfileDTO) {
+        utilisateurDAO.update(userProfileDTO);
+    }
+
+    @Override
     public boolean confirmPassword(String password1, String password2) {
         return password1.equals(password2);
     }
@@ -80,10 +86,10 @@ public class InscriptionServiceImpl implements  InscriptionService {
         utilisateurDAO.delete(id);
     }
 
-    @Override
+    /*@Override
     public void deleteArticle(int idUser) {
         utilisateurDAO.deleteArticle(idUser);
-    }
+    }*/
 
     @Override
     public void deleteEnchere(int idUser) {
