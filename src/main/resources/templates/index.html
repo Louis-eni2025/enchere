@@ -32,6 +32,51 @@
         </div>
         <button type="submit" class="btn-search">Rechercher</button>
     </form>
+
+    <div id="filtres__checkboxes">
+        <div>
+            <div>
+                <input type="checkbox" id="achats" name="achats">
+                <label for="achats">Achats</label>
+            </div>
+            <div class="filtres__sous-options" id="achats__sous-options">
+                <div>
+                    <input type="checkbox" id="enCours" class="achats__sous-option__checkbox" name="enCours">
+                    <label for="enCours">Enchères ouvertes</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="mesEncheres" class="achats__sous-option__checkbox" name="mesEncheres">
+                    <label for="mesEncheres">Mes enchères</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="mesEncheresRemportees" class="achats__sous-option__checkbox" name="mesEncheresRemportees">
+                    <label for="mesEncheresRemportees">Mes enchères remportées</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <input type="checkbox" id="ventes" name="ventes">
+                <ventes for="ventes">Ventes</ventes>
+            </div>
+            <div class="filtres__sous-options" id="ventes__sous-options">
+                <div>
+                    <input type="checkbox" class="ventes__sous-option__checkbox" id="ventesEnCours" name="ventesEnCours">
+                    <label for="ventesEnCours">Mes ventes en cours</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="ventesNonDebutees" class="ventes__sous-option__checkbox" name="ventesNonDebutees">
+                    <label for="ventesNonDebutees">Mes enchères</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="ventesTerminees" class="ventes__sous-option__checkbox" name="ventesTerminees">
+                    <label for="ventesTerminees">Mes enchères remportées</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div id="resultats" name="IdArticle">
         <article data-th-each="item : ${articleVenduLst}" class="resultats__card" >
             <img src="https://placehold.co/400x400">
@@ -39,8 +84,7 @@
                 <h1 data-th-text="${item.nomArticle}"></h1>
                 <p>Prix: <span data-th-text="${item.miseAPrix}"></span> points</p>
                 <p>Fin de l'enchère: <span data-th-text="${item.dateFinEnchere}"></span></p>
-                <p>Vendeur: <span data-th-text="${item.utilisateur.pseudo}"></span></p>
-
+                <p>Vendeur: <span data-th-text="${item.createur.pseudo}"></span></p>
             </div>
         </article>
 
@@ -87,11 +131,8 @@
 
     </div>
 
-    <data-th-block
-            data-sec-authorize="isAuthenticated()">
-
-
-
+    <data-th-block data-sec-authorize="isAuthenticated()">
+        <a href="/addArticle">Ajouter un articles</a>
     </data-th-block>
 </main>
 

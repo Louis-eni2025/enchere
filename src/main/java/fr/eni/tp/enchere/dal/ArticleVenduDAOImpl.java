@@ -35,6 +35,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
                             "prix_initial = :prix_initial, prix_vente = :prix_vente, no_utilisateur = :no_utilisateur," +
                             "no_categorie = :no_categorie WHERE no_article = :no_article";
     private String DELETE = "DELETE ARTICLES_VENDUS WHERE no_article = :no_article";
+    private String SELECT_ALL_EN_COURS = "select no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie from ARTICLES_VENDUS WHERE date_fin_encheres > GETDATE()";
 
     public ArticleVenduDAOImpl(NamedParameterJdbcTemplate jdbc) {
         this.jdbc = jdbc;
@@ -67,36 +68,50 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         return jdbc.getJdbcTemplate().query(SELECT_ALL, new ArticleVenduRowMapper());
     }
 
-//    /!\ N'a pas sa place dans cette classe, mais dans CategorieDAO
-//    public List<ArticleVendu> findAllCategorie(){
-//        return jdbc.getJdbcTemplate().query(SELECT_ALL_CAT, new ArticleVenduRowMapper());
-//    }
     @Override
-    public List<ArticleVendu> findAllByRecherche(String recherche) {
+    public List<ArticleVendu> findAllByRecherche(String recherche, boolean enCours) {
+        String sql = SELECT_ALL_BY_RECHERCHE;
+        if(enCours) {
+            sql += " AND date_fin_encheres > GETDATE()";
+        }
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("recherche",  "%"+recherche+"%");
 
-        return jdbc.query(SELECT_ALL_BY_RECHERCHE, map, new ArticleVenduRowMapper());
+
+        return jdbc.query(sql, map, new ArticleVenduRowMapper());
     }
 
     @Override
-    public List<ArticleVendu> findAllByCategorieAndRecherche(Integer idCategorie, String recherche) {
+    public List<ArticleVendu> findAllByCategorieAndRecherche(Integer idCategorie, String recherche, boolean enCours) {
+
+        String sql = SELECT_ALL_BY_CATEGORIE_AND_RECHERCHE;
+        if(enCours) {
+            sql += " AND date_fin_encheres > GETDATE()";
+        }
 
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("no_categorie", idCategorie);
         map.addValue("recherche",  "%"+recherche+"%");
 
-        return jdbc.query(SELECT_ALL_BY_CATEGORIE_AND_RECHERCHE, map, new ArticleVenduRowMapper());
-
-
+        return jdbc.query(sql, map, new ArticleVenduRowMapper());
     }
 
     @Override
-    public List<ArticleVendu> findAllByCategorie(Integer categorieId) {
+    public List<ArticleVendu> findAllByCategorie(Integer categorieId, boolean enCours) {
+        String sql = SELECT_ALL_BY_CATEGORIE;
+        if(enCours) {
+            sql += " AND date_fin_encheres > GETDATE()";
+        }
+
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("no_categorie", categorieId);
-        List<ArticleVendu> articles = jdbc.queryForList(SELECT_ALL_BY_CATEGORIE, map, ArticleVendu.class);
-        return articles;
+
+        return jdbc.query(sql, map, new ArticleVenduRowMapper());
+    }
+
+    @Override
+    public List<ArticleVendu> findAllEnCours() {
+        return jdbc.query(SELECT_ALL_EN_COURS, new ArticleVenduRowMapper());
     }
 
     @Override
