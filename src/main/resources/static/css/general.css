@@ -72,8 +72,11 @@ main {
     width: 30%;
     gap: 1vw;
 }
-.resultats__card > img {
+.resultats__card > a > img {
     width: 30%;
+}
+.resultats__card > a  {
+    display: flex;
 }
 
 #filtres__checkboxes {
