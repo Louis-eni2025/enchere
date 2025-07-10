@@ -90,6 +90,8 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
             articles = displayArticles();
         }
 
+
+        //MANAGE DTO
         if(!articles.isEmpty()) {
             articles.forEach(this::loadRelations);
             articles.forEach(article -> {

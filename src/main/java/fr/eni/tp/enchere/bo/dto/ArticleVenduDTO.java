@@ -25,6 +25,9 @@ public class ArticleVenduDTO {
     private boolean isEnchereStarted;
     private boolean hasCurrentUserBid;
     private Utilisateur utilisateurGagnant;
+    private boolean isCurrentUserCreator;
+
+
 
     private ArticleVenduDTO() {}
 
@@ -173,5 +176,13 @@ public class ArticleVenduDTO {
 
     public void setHasCurrentUserBid(boolean hasCurrentUserBid) {
         this.hasCurrentUserBid = hasCurrentUserBid;
+    }
+
+    public boolean isCurrentUserCreator() {
+        return isCurrentUserCreator;
+    }
+
+    public void setCurrentUserCreator(boolean currentUserCreator) {
+        isCurrentUserCreator = currentUserCreator;
     }
 }
