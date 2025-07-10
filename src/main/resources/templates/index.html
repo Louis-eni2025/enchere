@@ -7,10 +7,6 @@
     <h1 id="home__title">Listes des enchères</h1>
 
 
-
-
-
-
     <form id="filtres" method="get">
         <div id="filtres_inputs">
 
@@ -41,7 +37,7 @@
 
 
             <img src="https://placehold.co/400x400">
-            <div>
+            <div class="textArticle">
                 <h1 data-th-text="${item.nomArticle}"></h1>
                 <p>Prix: <span data-th-text="${item.miseAPrix}"></span> points</p>
                 <p>Fin de l'enchère: <span data-th-text="${item.dateFinEnchere}"></span></p>
@@ -50,6 +46,7 @@
             </div>
             </a>
         </article>
+        </div>
 
         <div class="wrapper">
             <div class="candles">

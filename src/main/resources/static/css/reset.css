@@ -24,8 +24,8 @@ body {
 
 /* 6. Improve media defaults */
 img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
+
+    max-width: 40%;
 }
 
 /* 7. Inherit fonts for form controls */

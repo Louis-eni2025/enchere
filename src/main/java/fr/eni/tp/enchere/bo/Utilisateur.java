@@ -26,8 +26,8 @@ public class Utilisateur {
     @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")*/
     private String prenom;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+    /*@NotBlank
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")*/
     private String email;
 
    /* @NotBlank
@@ -46,13 +46,10 @@ public class Utilisateur {
     @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\-\\s]{2,50}$")*/
     private String ville;
 
-    @NotBlank
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$")
+    /*@NotBlank
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$")*/
+    // "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/";
     private String motDePasse;
-
-
-
-
 
     private int credit;
     private boolean administrateur;
@@ -75,8 +72,14 @@ public class Utilisateur {
         this.credit = credit;
         this.administrateur = administrateur;
 
-        LstArticle = lstArticle;
-        LstEnchere = lstEnchere;
+        if (lstArticle != null) {
+            LstArticle = lstArticle;
+        }
+
+        if (lstEnchere != null) {
+            LstEnchere = lstEnchere;
+        }
+
     }
 
     public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur, List<ArticleVendu> lstArticle, List<Enchere> lstEnchere) {
@@ -93,6 +96,13 @@ public class Utilisateur {
         this.credit = credit;
         this.administrateur = administrateur;
 
+//        if (lstArticle != null) {
+//            LstArticle = lstArticle;
+//        }
+//
+//        if (lstEnchere != null) {
+//            LstEnchere = lstEnchere;
+//        }
         LstArticle = lstArticle;
         LstEnchere = lstEnchere;
     }

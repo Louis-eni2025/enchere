@@ -9,8 +9,12 @@ a{
 }
 
 label{
+    position: absolute;
 
+}
 
+.labelInscription{
+    position: relative;
 }
 
 .leSelect{
@@ -40,6 +44,13 @@ main {
     padding: 60px;
     opacity: 0;
     animation: fadin 2s ease-in forwards;
+}
+
+.textArticle{
+    float: right;
+    margin-top: -192px;
+    margin-left: 22vh;
+    font-size: 1.2vw;
 }
 
 @keyframes fadin {
@@ -92,6 +103,7 @@ main {
 /*Gestion des cards*/
 #resultats {
     margin-top: 2vw;
+    margin-left: 30vh;
     display: flex;
     gap: 2vw;
     flex-wrap: wrap;
@@ -99,7 +111,7 @@ main {
 }
 .resultats__card {
     display: flex;
-    width: 30%;
+    width: 27%;
     gap: 1vw;
 }
 .resultats__card > img {
@@ -239,7 +251,9 @@ input{
     animation: fadin2 2s ease-in forwards;
 }
 
-
+#remember{
+    width: 300px;
+}
 
 @keyframes fadin2 {
     from{
@@ -355,18 +369,7 @@ input{
         gap: 10px;
         font-size: 20px;
     }
-
-
-
-
 }
-
-
-
-
-
-
-
 
 .wrapper {
     position: absolute;
