@@ -1,13 +1,19 @@
 package fr.eni.tp.enchere.dal;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
-import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Retrait;
 
 import java.util.List;
 
 public interface ArticleVenduDAO {
-    void create(ArticleVendu articleVendu);
+    ArticleVendu create(ArticleVendu articleVendu);
     ArticleVendu readById(int id);
+
+
+
+    //void createRetrait(Retrait retrait);
+
     List<ArticleVendu> findAll();
 
     List<ArticleVendu> findAllByRecherche(String recherche, boolean enCours);

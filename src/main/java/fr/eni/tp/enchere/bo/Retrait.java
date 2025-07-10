@@ -2,6 +2,10 @@ package fr.eni.tp.enchere.bo;
 
 public class Retrait {
     private Integer noRetrait;
+    private int noArticle;
+
+
+
     private String rue;
     private String codePostal;
     private String ville;
@@ -17,12 +21,21 @@ public class Retrait {
         this.articleVendu = articleVendu;
     }
 
-    public Retrait(Integer noRetrait, String rue, String codePostal, String ville, ArticleVendu articleVendu) {
+    public Retrait(Integer noRetrait,int noArticle, String rue, String codePostal, String ville, ArticleVendu articleVendu) {
         this.noRetrait = noRetrait;
+        this.noArticle = noArticle;
         this.rue = rue;
         this.codePostal = codePostal;
         this.ville = ville;
         this.articleVendu = articleVendu;
+    }
+
+    public int getNoArticle() {
+        return noArticle;
+    }
+
+    public void setNoArticle(int noArticle) {
+        this.noArticle = noArticle;
     }
 
     public Integer getNoRetrait() {
