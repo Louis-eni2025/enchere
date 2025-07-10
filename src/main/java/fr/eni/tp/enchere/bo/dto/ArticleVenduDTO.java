@@ -1,7 +1,6 @@
-package fr.eni.tp.enchere.dto;
+package fr.eni.tp.enchere.bo.dto;
 
 import fr.eni.tp.enchere.bo.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,17 +17,18 @@ public class ArticleVenduDTO {
     private String etatVente;
     private List<Enchere> LstEnchere = new ArrayList<>();
     private Retrait retrait;
+    private Categorie categorie;
 
     //CUSTOM
-    private Categorie categorie;
     private Utilisateur createur;
     private boolean isEnchereEnded;
     private boolean isEnchereStarted;
+    private boolean hasCurrentUserBid;
     private Utilisateur utilisateurGagnant;
 
     private ArticleVenduDTO() {}
 
-    public ArticleVenduDTO createFromArticleVendu(ArticleVendu article){
+    public static ArticleVenduDTO createFromArticleVendu(ArticleVendu article){
         ArticleVenduDTO articleVenduDTO = new ArticleVenduDTO();
 
         articleVenduDTO.setNoArticle(article.getNoArticle());
@@ -165,5 +165,13 @@ public class ArticleVenduDTO {
 
     public void setUtilisateurGagnant(Utilisateur utilisateurGagnant) {
         this.utilisateurGagnant = utilisateurGagnant;
+    }
+
+    public boolean isHasCurrentUserBid() {
+        return hasCurrentUserBid;
+    }
+
+    public void setHasCurrentUserBid(boolean hasCurrentUserBid) {
+        this.hasCurrentUserBid = hasCurrentUserBid;
     }
 }

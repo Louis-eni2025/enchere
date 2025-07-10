@@ -2,8 +2,10 @@ package fr.eni.tp.enchere.ihm;
 
 
 import fr.eni.tp.enchere.bll.ArticleVenduService;
+import fr.eni.tp.enchere.bll.ContexteService;
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Utilisateur;
+import fr.eni.tp.enchere.bo.dto.ArticleVenduDTO;
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,19 +28,27 @@ public class ArticleVenduController {
 
 
     ArticleVenduService articleVenduService;
+    ContexteService contexteService;
 
-    public ArticleVenduController(ArticleVenduService articleVenduService) {
+    public ArticleVenduController(
+            ArticleVenduService articleVenduService,
+            ContexteService contexteService
+    ) {
         this.articleVenduService = articleVenduService;
+        this.contexteService = contexteService;
     }
 
     @GetMapping("/")
-    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche, @RequestParam(value = "enCours",required = false) Boolean enCours) {
-
+    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche, @RequestParam(value = "enCours",required = false) Boolean enCours, Principal principal) {
+        Utilisateur currentUser = null;
         if(enCours == null){
             enCours = false;
         }
+        if(principal != null){
+            currentUser = contexteService.charger(principal.getName());
+        }
 
-        List<ArticleVendu> articles = articleVenduService.manageRecherche(recherche, categorie, enCours);
+        List<ArticleVenduDTO> articles = articleVenduService.manageRecherche(recherche, categorie, enCours, currentUser);
         model.addAttribute("articleVenduLst", articles);
 
         return "index";

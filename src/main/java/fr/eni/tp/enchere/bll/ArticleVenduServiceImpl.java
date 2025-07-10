@@ -2,13 +2,16 @@ package fr.eni.tp.enchere.bll;
 
 import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
+import fr.eni.tp.enchere.bo.Enchere;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.dal.ArticleVenduDAO;
 import fr.eni.tp.enchere.dal.CategorieDAO;
 import fr.eni.tp.enchere.dal.UtilisateurDAOImpl;
+import fr.eni.tp.enchere.bo.dto.ArticleVenduDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -51,9 +54,10 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     }
 
     @Override
-    public List<ArticleVendu> manageRecherche(String recherche, String categorie, boolean enCours) {
+    public List<ArticleVenduDTO> manageRecherche(String recherche, String categorie, boolean enCours, Utilisateur utilisateur) {
 
         List<ArticleVendu> articles;
+        List<ArticleVenduDTO> articlesDTO = new ArrayList<>();
 
         if((categorie != null && !categorie.isEmpty()) && (recherche != null && !recherche.isEmpty())){
             articles = displayArticlesByCategorieAndRecherche(Integer.valueOf(categorie), recherche, enCours);
@@ -67,11 +71,29 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
             articles = displayArticles();
         }
 
-        if(!articles.isEmpty()){
+        if(!articles.isEmpty()) {
             articles.forEach(this::loadRelations);
+            articles.forEach(article -> {
+                ArticleVenduDTO articleVenduDTO = ArticleVenduDTO.createFromArticleVendu(article);
+
+                articleVenduDTO.setEnchereEnded(article.getDateFinEnchere().after(new java.util.Date()));
+                articleVenduDTO.setEnchereStarted(article.getDateDebutEnchere().after(new java.util.Date()));
+                if(articleVenduDTO.isEnchereEnded()){
+                    articleVenduDTO.setUtilisateurGagnant(article.getLstEnchere().stream()
+                            .max(Comparator.comparingInt(Enchere::getMontantEnchere))
+                            .map(Enchere::getUtilisateur)
+                            .orElse(null));
+                }
+                if(utilisateur != null){
+                    articleVenduDTO.setHasCurrentUserBid(article.getLstEnchere().stream()
+                            .anyMatch(enchere -> enchere.getUtilisateur().getNoUtilisateur() == utilisateur.getNoUtilisateur()));
+                }
+
+                articlesDTO.add(articleVenduDTO);
+            });
         }
 
-        return articles;
+        return articlesDTO;
     }
 
 
