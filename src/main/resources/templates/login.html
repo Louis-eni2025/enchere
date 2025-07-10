@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="userStyle.css">
 </head>
 <main class="main">
-    <form data-th-action="@{/login}" method="post" class="form">
-        <h1>Login</h1>
+
+    <div class="divLogin">
+
+
+
+    <h1>Login</h1>
+    <form data-th-action="@{/login}" method="post" class="formLogin">
+
         <div class="error" data-th-if="${param.error}" >Login/Password Error</div>
         <div data-th-if="${param.logout}"> Error Logout</div>
 
@@ -41,5 +47,6 @@
 
         </ul>
     </form>
+    </div>
 </main>
 </html>

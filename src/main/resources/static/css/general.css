@@ -1,6 +1,10 @@
 body {
     background-color: #f2f0f0;
 }
+a{
+    text-decoration: none;
+    color: black;
+}
 
 header {
     display: flex;
@@ -88,4 +92,83 @@ main {
 
 .filtres__sous-options {
     margin-left: 2vw;
+}
+
+.middlePage{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.descriptionDetailArticle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.titreDetailArticle{
+    margin-top: 10vh;
+    margin-left: 10vh;
+}
+
+.mailYPass{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.rememberMe{
+    display: flex;
+    flex-direction: column;
+    width: 359px;
+    position: absolute;
+    margin-left: -167px;
+    gap: 30px;
+    margin-top: 75px;
+    align-items: baseline;
+}
+
+.divLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divAjout{
+    display: flex;
+    justify-content: center;
+}
+
+.formAjout{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.divRetrait{
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+}
+
+.formInscription{
+    width: 10%;
+}
+
+.divInscription{
+    display: flex;
+    justify-content: center;
+}
+
+.footerInscription{
+    margin-top: 10px;
+    display: flex;
+    gap: 58px;
+}
+
+.divDetails{
+    margin-bottom: 105px;
 }
