@@ -44,7 +44,7 @@ public class InscriptionController {
         //Validation
         if(!confirmation.equals(password)) {
 
-            errorMessage =  "Les mots de passe ne correspondent pas ...";
+            model.addAttribute("message", "Les mots de passe ne correspondent pas ...");
         }
 
 

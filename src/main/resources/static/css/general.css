@@ -46,11 +46,13 @@ main {
     animation: fadin 2s ease-in forwards;
 }
 
+
+
 .textArticle{
-    float: right;
-    margin-top: -192px;
-    margin-left: 22vh;
-    font-size: 1.2vw;
+
+    margin-top: -170px;
+    margin-left: 23vh;
+    font-size: 15px;
 }
 
 @keyframes fadin {
@@ -103,9 +105,9 @@ main {
 /*Gestion des cards*/
 #resultats {
     margin-top: 2vw;
-    margin-left: 30vh;
+    margin-left: 17vh;
     display: flex;
-    gap: 2vw;
+    gap: 7vw;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -310,7 +312,17 @@ input{
     width: 34vh;
 }
     #resultats{
+
         width: 50vh;
+        margin-left: -4vh;
+        gap: 14vh;
+    }
+
+    .textArticle{
+        margin-top: -87px;
+        margin-left: 12vh;
+        font-size: 11px;
+        width: 15vh;
     }
 
     .btn-addArticle{
@@ -336,9 +348,10 @@ input{
         flex-direction: column;
     }
 
-    .btn{
-        margin-left: 122px;
+    .labelRemember{
+        display: flex;
         width: 20vh;
+        height: 35px;
     }
 
     .resultats__card{
@@ -369,6 +382,12 @@ input{
         gap: 10px;
         font-size: 20px;
     }
+
+    .formInscription{
+        display: block;
+        margin-left: 5%;
+        margin-top: 110px;
+    }
 }
 
 .wrapper {
@@ -378,7 +397,7 @@ input{
     transform: scale(1.5, 1.5) translate(-50%, -50%);
 }
 
-
+/*Bougies*/
 
 .candles {
     position: absolute;
