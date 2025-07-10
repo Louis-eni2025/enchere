@@ -393,7 +393,7 @@ input{
 .wrapper {
     position: absolute;
     left: 50%;
-    top: 70%;
+    top: 79%;
     transform: scale(1.5, 1.5) translate(-50%, -50%);
 }
 
@@ -487,28 +487,9 @@ input{
     animation: uff 3s infinite linear;
 }
 
-.candle__smoke-one {
-    position: absolute;
-    left: 30%;
-    top: 50%;
-    width: 30px;
-    height: 3px;
-    background: grey;
-    transform: translate(-50%, -50%);
-    animation: move-left 3s infinite linear;
-}
 
-.candle__smoke-two {
-    position: absolute;
-    left: 30%;
-    top: 40%;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    background: grey;
-    transform: translate(-50%, -50%);
-    animation: move-top 3s infinite linear;
-}
+
+
 
 .candle2 {
     position: absolute;
@@ -556,18 +537,7 @@ input{
     animation: changeto-greater 3s infinite linear;
 }
 
-.light__wave {
-    position: absolute;
-    top: 35%;
-    left: 35%;
-    width: 75px;
-    height: 75px;
-    border-radius: 100%;
-    z-index: 0;
-    transform: translate(-25%, -50%) scale(2.5, 2.5);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    animation: expand-light 3s infinite linear;
-}
+
 
 .candle2__fire {
     position: absolute;
