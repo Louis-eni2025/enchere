@@ -1,24 +1,5 @@
 body {
     background-color: #f2f0f0;
-
-}
-
-a{
-    text-decoration: none;
-    color: black;
-}
-
-label{
-    position: absolute;
-
-}
-
-.leSelect{
-    margin-bottom: 50px;
-}
-
-.labelCategorie{
-    position: relative;
 }
 
 header {
@@ -32,20 +13,9 @@ header {
 }
 
 main {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 45px;
-    padding: 60px;
-    opacity: 0;
-    animation: fadin 2s ease-in forwards;
-}
-
-@keyframes fadin {
-    to{
-        opacity: 1;
-    }
+    margin-top: 5vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 /*Home*/
@@ -106,120 +76,12 @@ main {
     width: 30%;
 }
 
-.gauche{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.droite{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: auto;
-}
-
-.formInscription{
-
-    display: flex;
-    margin-left: 25%;
-    margin-top: 110px;
-    font-size: 25px;
-}
-
-.footerInscription{
-    position: absolute;
-    margin-top: 33%;
-    margin-left: 17%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#btn-validate{
-    border-radius: 5px;
-    position: absolute;
-    margin-top: -40px;
-    margin-left: 15vh;
-}
-
-#btn-annuler{
-    border-radius: 5px;
-    position: absolute;
-    margin-top: -40px;
-    margin-left: 75vh;
-}
-
 #filtres__checkboxes {
     display: flex;
     width: 40%;
     margin-top: 1vw;
     justify-content: space-between;
 }
-
-.btn-addArticle{
-    border: solid black 2px;
-    width: 130px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    background-color: antiquewhite;
-    box-shadow: 0px 2px 0px 1px rgba(0, 0, 0, 0.3);
-
-}
-.btn-acceuil{
-    border: solid black 2px;
-    width: 130px;
-    border-radius: 5px;
-}
-
-.btn-search{
-    background-color: antiquewhite;
-    box-shadow: 0px 2px 0px 1px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-}
-
-.btn-pageAddArticle{
-    display: flex;
-    gap: 50px;
-    margin-top: 20px;
-}
-
-.btn-enregistre{
-    border-radius: 10px;
-    background-color: antiquewhite;
-    box-shadow: 0px 2px 0px 1px rgba(0, 0, 0, 0.3);
-}
-
-input{
-    margin-bottom: 10px;
-    position: relative;
-    opacity: 0;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-
-    animation: fadin2 2s ease-in forwards;
-}
-
-
-
-@keyframes fadin2 {
-    from{
-
-        margin-left: -50%;
-    }
-    to{
-       opacity: 1;
-        margin-left: 50%;
-    }
-}
-
-#categorie{
-    margin-bottom: 50px;
-}
-
-
-
 
 .filtres__sous-options {
     margin-left: 2vw;
