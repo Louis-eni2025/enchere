@@ -8,6 +8,7 @@ import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
 import fr.eni.tp.enchere.bo.dto.ArticleForm;
+import fr.eni.tp.enchere.bo.dto.ArticleVenduDTO;
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,26 +33,25 @@ public class ArticleVenduController {
     ArticleVenduService articleVenduService;
     ContexteService contexteService;
 
-    public ArticleVenduController(ArticleVenduService articleVenduService, ContexteService contexteService) {
+    public ArticleVenduController(
+            ArticleVenduService articleVenduService,
+            ContexteService contexteService
+    ) {
         this.articleVenduService = articleVenduService;
-        this.contexteService= contexteService;
+        this.contexteService = contexteService;
     }
 
     @GetMapping("/")
-    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche) {
-
-        List<ArticleVendu> articles;
-
-        if((categorie != null && !categorie.isEmpty()) && (recherche != null && !recherche.isEmpty())){
-            articles = articleVenduService.displayArticlesByCategorieAndRecherche(Integer.valueOf(categorie), recherche);
-        } else if ((categorie != null && !categorie.isEmpty())) {
-            articles = articleVenduService.displayArticlesByCategorie(Integer.valueOf(categorie));
-        } else if (recherche != null && !recherche.isEmpty()) {
-            articles = articleVenduService.displayArticlesRecherche(recherche);
-        } else {
-            articles = articleVenduService.displayArticles();
-
+    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche, @RequestParam(value = "enCours",required = false) Boolean enCours, Principal principal) {
+        Utilisateur currentUser = null;
+        if(enCours == null){
+            enCours = false;
         }
+        if(principal != null){
+            currentUser = contexteService.charger(principal.getName());
+        }
+
+        List<ArticleVenduDTO> articles = articleVenduService.manageRecherche(recherche, categorie, enCours, currentUser);
         model.addAttribute("articleVenduLst", articles);
 
         return "index";
