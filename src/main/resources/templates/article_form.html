@@ -8,45 +8,45 @@
 
     <h1>Nouvelle vente</h1>
 
+<div class="divAjout">
 
+    <form data-th-action="@{/addArticle}"
+          method="post"
+          data-th-object="${articleForm}" class="formAjout">
+        <div class="leSelect">
 
-<form data-th-action="@{/addArticle}"
-      method="post"
-      data-th-object="${articleForm}" class="formAddArticle">
-    <div class="leSelect">
+            <label  for="categorie">
 
-        <label  for="categorie">
+                <select id="categorie" name="categorie" data-th-field="*{articleVendu.categorie}">
+                    <option  data-th-each="item: ${categorieLst}" data-th-value="${item.noCategorie}" data-th-text="${item.libelle}"></option>
+                </select>
 
-            <select id="categorie" name="categorie" data-th-field="*{articleVendu.categorie}">
-                <option  data-th-each="item: ${categorieLst}" data-th-value="${item.noCategorie}" data-th-text="${item.libelle}"></option>
-            </select>
-
-        </label>
-    </div>
-    <div>
-        <label for="nom">Article</label>
-        <input id="nom" name="nom" type="text" placeholder="Nom de l'article" data-th-field="*{articleVendu.nomArticle}">
-    </div>
-    <div>
-        <label for="description">Description</label>
-        <input id="description" name="description" type="text" placeholder="Description de l'article" data-th-field="*{articleVendu.description}">
-    </div>
-    <div>
-    </div>
-    <div>
-        <label for="mise_a_prix">Mise à prix</label>
-        <input id="mise_a_prix" name="mise_a_prix" type="number" data-th-field="*{articleVendu.miseAPrix}">
-    </div>
-    <div>
-        <label for="date_debut_enchere" class="label_enchere">Début de l'enchère</label>
-        <input id="date_debut_enchere" name="dateDebutEnchere" type="date" data-th-field="*{articleVendu.dateDebutEnchere}">
-    </div>
-    <div>
-        <label for="date_fin_enchere" class="label_enchere">Fin de l'enchère</label>
-        <input id="date_fin_enchere" name="dateFinEnchere" type="date" data-th-field="*{articleVendu.dateFinEnchere}">
-    </div>
-    <div>
-        <h2>Retrait</h2>
+            </label>
+        </div>
+        <div>
+            <label for="nom">Article</label>
+            <input id="nom" name="nom" type="text" placeholder="Nom de l'article" data-th-field="*{articleVendu.nomArticle}">
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <input id="description" name="description" type="text" placeholder="Description de l'article" data-th-field="*{articleVendu.description}">
+        </div>
+        <div>
+        </div>
+        <div>
+            <label for="mise_a_prix">Mise à prix</label>
+            <input id="mise_a_prix" name="mise_a_prix" type="number" data-th-field="*{articleVendu.miseAPrix}">
+        </div>
+        <div>
+            <label for="date_debut_enchere">Début de l'enchère</label>
+            <input id="date_debut_enchere" name="dateDebutEnchere" type="date" data-th-field="*{articleVendu.dateDebutEnchere}">
+        </div>
+        <div>
+            <label for="date_fin_enchere">Fin de l'enchère</label>
+            <input id="date_fin_enchere" name="dateFinEnchere" type="date" data-th-field="*{articleVendu.dateFinEnchere}">
+        </div>
+        <div class="divRetrait">
+            <h2>Retrait</h2>
             <div>
                 <label for="retrait_rue">Rue</label>
                 <input id="retrait_rue" name="rue" type="text" data-th-field="*{retrait.rue}" >
@@ -60,16 +60,20 @@
                 <input id="retrait_ville" name="retrait" type="text" data-th-field="*{retrait.ville}">
             </div>
 
-    </div>
+        </div>
 
 
 
-    <div class="btn-pageAddArticle">
-        <button type="submit" class="btn-enregistre">Enregistrer</button>
-        <a href="/" class="btn-addArticle">Retour</a>
+        <div class="btn-pageAddArticle">
+            <button type="submit" class="btn-enregistre">Enregistrer</button>
+            <a href="/" class="btn-addArticle">Retour</a>
 
-    </div>
+        </div>
 
-</form>
+    </form>
+
+</div>
+
+
 </main>
 

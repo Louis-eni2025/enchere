@@ -9,37 +9,42 @@
 
 <body class="main">
 
-<form th:action="@{/inscription}" method="post" data-th-object="${inscriptionForm}" class="formInscription">
-  <div class="gauche">
-      <label>Pseudo</label>
-    <input type="text"  data-th-field="*{pseudo}"  required>
-      <label class="labelInscription">Nom</label>
-    <input type="text" placeholder="Votre nom" data-th-field="*{nom}" required>
-      <label class="labelInscription">prenom</label>
-    <input type="text" placeholder="Votre prenom" data-th-field="*{prenom}" required>
-      <label class="labelInscription">mail</label>
-    <input type="email" placeholder="votre email" data-th-field="*{email}" required>
-      <label class="labelInscription">Phone</label>
-    <input type="text" placeholder="votre numero de telephone" data-th-field="*{telephone}" required>
-  </div>
-  <div class="droite">
-      <label class="labelInscription">Rue</label>
-    <input type="text" data-th-field="*{rue}" required>
-      <label class="labelInscription">Code Postal</label>
-    <input type="text" data-th-field="*{codePostal}"required>
-      <label  class="labelInscription">Ville</label>
-    <input type="text" data-th-field="*{ville}"required>
-      <label class="labelInscription">Mot de passe</label>
-    <input type="password" data-th-field="*{motDePasse}" required>
-      <label class="labelInscription">Confirmation</label>
-      <input name="confirmation" type="password"  required>
- </div>
-  <div class="footerInscription">
-    <p data-th-text="${message}" data-th-if="${message}"  class="msgError"></p>
-    <button type="submit" name="validate" value="valider" id="btn-validate">S'inscrire</button>
-      <button type="submit" name="validate" value="valider" id="btn-annuler"><a href="/">Annuler</a></button>
-  </div>
-</form>
+<div class="divInscription">
+    <form th:action="@{/inscription} " method="post" class="formInscription">
+        <div class="gauche">
+            <label>Pseudo</label>
+            <input name="pseudo" type="text" required>
+            <label>Nom</label>
+            <input name="nom" type="text" placeholder="Votre nom" required>
+            <label>prenom</label>
+            <input name="prenom" type="text" placeholder="Votre prenom" required>
+            <label>mail</label>
+            <input name="email" type="email" placeholder="votre email" required>
+            <label>Phone</label>
+            <input name="telephone" type="text" placeholder="votre numero de telephone" required>
+        </div>
+        <div class="droite">
+            <label>Rue</label>
+            <input name="rue" type="text" required>
+            <label>Code Postal</label>
+            <input name="codePostal" type="text" required>
+            <label>Ville</label>
+            <input name="ville" type="text" required>
+            <label>Mot de passe</label>
+            <input name="motDePasse" type="password" required>
+            <label>Confirmation</label>
+            <input name="confirmation" type="password" required>
+        </div>
+        <div class="footerInscription">
+            <p data-th-text="${message}" data-th-if="${message}"  class="msgError"></p>
+            <button type="submit" name="validate" value="valider" id="btn-validate">S'inscrire</button>
+            <button type="submit" name="validate" value="valider" id="btn-annuler"><a href="/">Annuler</a></button>
+        </div>
+    </form>
+
+</div>
+
+
 
 </body>
 </html>

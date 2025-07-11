@@ -32,25 +32,25 @@ public class EniSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
                     auth
-                            .requestMatchers(HttpMethod.GET, "/*").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/login").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/.well-known/*").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/inscription").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/login/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/addArticle").authenticated()
                             .requestMatchers(HttpMethod.POST, "/addArticle").authenticated()
+
+                            .requestMatchers(HttpMethod.GET, "/inscription").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/inscription").permitAll()
+
+                            .requestMatchers(HttpMethod.GET, "/login/*").permitAll()
                             .requestMatchers(HttpMethod.GET, "/profile/*").authenticated()
                             .requestMatchers(HttpMethod.GET, "/modifierProfile").authenticated()
                             .requestMatchers(HttpMethod.POST, "/modifierProfile").authenticated()
                             .requestMatchers(HttpMethod.GET, "/resetPassword").authenticated()
                             .requestMatchers(HttpMethod.POST, "/resetPassword").authenticated()
 
-
+                            .requestMatchers(HttpMethod.GET, "/*").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/login").permitAll()
                             .requestMatchers("/css/*").permitAll()
                             .requestMatchers("/scripts/*").permitAll()
                             .requestMatchers("/images/*").permitAll()
-                            .anyRequest().permitAll();
+                            .anyRequest().denyAll();
                 }
         );
 
