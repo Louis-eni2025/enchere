@@ -49,9 +49,6 @@ public class ProfileController {
 
         if (principal != null) {
             try {
-                /*Utilisateur utilisateur = contexteService.charger(principal.getName());
-                model.addAttribute("utilisateur", utilisateur);*/
-
                 UserProfileDTO userProfileDTO = contexteService.read(principal.getName());
                 model.addAttribute("userProfileDTO", userProfileDTO);
                 return "modifierProfile";
@@ -65,12 +62,10 @@ public class ProfileController {
 
     @PostMapping("/modifierProfile")
     public String modifierProfile(
-
             @Valid @ModelAttribute UserProfileDTO userProfileDTO,
             BindingResult bindingResult,
             Model model,
             Principal principal) {
-        System.out.println("on va modifier le profile");
 
         if (principal != null) {
             String userEmail = principal.getName();
