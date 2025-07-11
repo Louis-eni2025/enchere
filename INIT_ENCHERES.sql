@@ -105,7 +105,7 @@
     )
     VALUES
 		-- MOT DE PASSE = 'Test1&'
-        ('yajuan', 'Hu', 'Yajuan', 'yajuan@mail.fr', '0606060606', '1 rue de Yajuan', '75000', 'Paris', '$2a$10$lO.ripC.4EutJqNEeg9S0u9OnHefPvaTw/Zme7JysNA5.lnQTknmS', 100, 0), 
+        ('yajuan', 'Hu', 'Yajuan', 'yajuan@mail.fr', '0606060606', '1 rue de Yajuan', '75000', 'Paris', '$2a$10$lO.ripC.4EutJqNEeg9S0u9OnHefPvaTw/Zme7JysNA5.lnQTknmS', 100, 0),
         ('julien', 'Lefevre', 'Julien', 'julien@mail.fr', '0606060606', '2 rue de Julien', '75000', 'Paris', '$2a$10$lO.ripC.4EutJqNEeg9S0u9OnHefPvaTw/Zme7JysNA5.lnQTknmS', 100, 0),
         ('louis', 'Lesage', 'Louis', 'louis@mail.fr', '0606060606', '3 rue de Louis', '75000', 'Paris', '$2a$10$lO.ripC.4EutJqNEeg9S0u9OnHefPvaTw/Zme7JysNA5.lnQTknmS', 100, 0),
         ('admin', 'Admin', 'Admin', 'admin@mail.fr', '0606060606', '4 rue de la papipopapala', '75000', 'Paris', '$2a$10$lO.ripC.4EutJqNEeg9S0u9OnHefPvaTw/Zme7JysNA5.lnQTknmS', 100, 1);
@@ -140,7 +140,7 @@
 	('Commode', 'Une magnifique commode en bois', DATEFROMPARTS(2024, 7, 3), DATEFROMPARTS(2024, 7, 31), 300, null, 3, 2),
 	('Lit', 'Un magnifique lit en bois', DATEFROMPARTS(2025, 5, 1), DATEFROMPARTS(2025, 5, 31), 200, null, 2, 2),
 	-- CATEGORIE VETEMENT
-	('Slip en tungsten', 'Un slip en tungsten tach�', DATEFROMPARTS(2025, 8, 3), DATEFROMPARTS(2025, 8, 31), 1, null, 2, 3),
+	('Slip en tungsten', 'Un slip en tungsten taché', DATEFROMPARTS(2025, 8, 3), DATEFROMPARTS(2025, 8, 31), 1, null, 2, 3),
 	('T-shirt', 'Un t-shirt sans tache', DATEFROMPARTS(2025, 7, 1), DATEFROMPARTS(2025, 7, 31), 5, null, 3, 3),
 	('Pantalon', 'Un pantalon en cuir de vache', DATEFROMPARTS(2024, 7, 3), DATEFROMPARTS(2024, 7, 31), 20, null, 2, 3),
 	('Chaussette', 'Paire de chaussette peu odorante', DATEFROMPARTS(2025, 5, 1), DATEFROMPARTS(2025, 5, 31), 2, null, 1, 3),

@@ -42,7 +42,11 @@ public class ArticleVenduController {
     }
 
     @GetMapping("/")
-    public String index(Model model, @RequestParam(value = "categorie",required = false) String categorie, @RequestParam(value = "recherche",required = false) String recherche, @RequestParam(value = "enCours",required = false) Boolean enCours, Principal principal) {
+    public String index(Model model,
+                        @RequestParam(value = "categorie",required = false) String categorie,
+                        @RequestParam(value = "recherche",required = false) String recherche,
+                        @RequestParam(value = "enCours",required = false) Boolean enCours,
+                        Principal principal) {
         Utilisateur currentUser = null;
         if(enCours == null){
             enCours = false;
