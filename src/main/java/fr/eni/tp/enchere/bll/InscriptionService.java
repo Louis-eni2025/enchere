@@ -19,7 +19,7 @@ public interface InscriptionService {
 
     void update(Utilisateur utilisateur, String email);
 
-    void update(UserProfileDTO userProfileDTO);
+    void update(UserProfileDTO userProfileDTO, int id);
 
     boolean confirmPassword(String password1, String password2);
 

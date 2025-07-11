@@ -61,8 +61,8 @@ public class InscriptionServiceImpl implements  InscriptionService {
     }
 
     @Override
-    public void update(UserProfileDTO userProfileDTO) {
-        utilisateurDAO.update(userProfileDTO);
+    public void update(UserProfileDTO userProfileDTO, int id) {
+        utilisateurDAO.update(userProfileDTO, id);
     }
 
     @Override

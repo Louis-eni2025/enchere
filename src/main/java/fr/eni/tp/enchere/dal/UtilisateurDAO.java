@@ -31,6 +31,6 @@ public interface UtilisateurDAO {
 
     void resetPassword(int id, String nouveauPassword);
 
-    void update(UserProfileDTO userProfileDTO);
+    void update(UserProfileDTO userProfileDTO, int id);
 
 }

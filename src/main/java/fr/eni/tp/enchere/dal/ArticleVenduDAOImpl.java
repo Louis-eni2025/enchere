@@ -4,6 +4,7 @@ import fr.eni.tp.enchere.bo.ArticleVendu;
 import fr.eni.tp.enchere.bo.Categorie;
 import fr.eni.tp.enchere.bo.Retrait;
 import fr.eni.tp.enchere.bo.Utilisateur;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -68,6 +69,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         return jdbc.getJdbcTemplate().query(SELECT_ALL, new ArticleVenduRowMapper());
     }
 
+//    /!\ N'a pas sa place dans cette classe, mais dans CategorieDAO
+//    public List<ArticleVendu> findAllCategorie(){
+//        return jdbc.getJdbcTemplate().query(SELECT_ALL_CAT, new ArticleVenduRowMapper());
+//    }
     @Override
     public List<ArticleVendu> findAllByRecherche(String recherche, boolean enCours) {
         String sql = SELECT_ALL_BY_RECHERCHE;
@@ -113,13 +118,16 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     public List<ArticleVendu> findAllEnCours() {
         return jdbc.query(SELECT_ALL_EN_COURS, new ArticleVenduRowMapper());
     }
-
     @Override
-    public ArticleVendu readById(int no_article) {
+    public ArticleVendu readById(Integer no_article) {
+
+        System.out.println("Recherche article avec no_article = " + no_article);
+
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("no_article", no_article);
 
-        return jdbc.queryForObject(SELECT_BY_ID, map, new ArticleVenduRowMapper());
+            System.out.println("article trouvé" + no_article + SELECT_BY_ID);
+            return jdbc.queryForObject(SELECT_BY_ID, map, new ArticleVenduRowMapper());
     }
 
     @Override

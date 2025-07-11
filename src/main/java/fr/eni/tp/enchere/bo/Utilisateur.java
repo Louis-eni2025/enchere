@@ -16,38 +16,39 @@ public class Utilisateur {
     @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String pseudo;
 
-    @NotBlank
+    /*@NotBlank
     @Size(min=2, max = 30)
-    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")*/
     private String nom;
 
-    @NotBlank
+    /*@NotBlank
     @Size(min=2, max = 30)
-    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\- ]{2,30}$")*/
     private String prenom;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+    /*@NotBlank
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")*/
     private String email;
 
-    @NotBlank
-    @Pattern(regexp = "^((\\+33\\s?|0)[1-9](\\s?\\d{2}){4})$")
+   /* @NotBlank
+    @Pattern(regexp = "^((\\+33\\s?|0)[1-9](\\s?\\d{2}){4})$")*/
     private String telephone;
 
-    @NotBlank
-    @Pattern(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ'\\.\\-\\s]{3,100}$")
+   /* @NotBlank
+    @Pattern(regexp = "^[0-9A-Za-zÀ-ÖØ-öø-ÿ'\\.\\-\\s]{3,100}$")*/
     private String rue;
 
     @NotBlank
     @Pattern(regexp = "^\\d{5}$")
     private String codePostal;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\-\\s]{2,50}$")
+    /*@NotBlank
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ'\\-\\s]{2,50}$")*/
     private String ville;
 
-    @NotBlank
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$")
+    /*@NotBlank
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).+$")*/
+    // "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/";
     private String motDePasse;
 
     private int credit;
@@ -70,8 +71,15 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.credit = credit;
         this.administrateur = administrateur;
-        LstArticle = lstArticle;
-        LstEnchere = lstEnchere;
+
+        if (lstArticle != null) {
+            LstArticle = lstArticle;
+        }
+
+        if (lstEnchere != null) {
+            LstEnchere = lstEnchere;
+        }
+
     }
 
     public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur, List<ArticleVendu> lstArticle, List<Enchere> lstEnchere) {
@@ -87,6 +95,14 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.credit = credit;
         this.administrateur = administrateur;
+
+//        if (lstArticle != null) {
+//            LstArticle = lstArticle;
+//        }
+//
+//        if (lstEnchere != null) {
+//            LstEnchere = lstEnchere;
+//        }
         LstArticle = lstArticle;
         LstEnchere = lstEnchere;
     }

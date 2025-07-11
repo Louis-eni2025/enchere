@@ -15,7 +15,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
@@ -82,7 +81,8 @@ public class ProfileController {
                     return "modifierProfile";
                 }
                 inscriptionService.validUser(utilisateur, userEmail);
-                inscriptionService.update(userProfileDTO);
+                System.out.println(userProfileDTO.getNoUtilisateur());
+                inscriptionService.update(userProfileDTO, utilisateur.getNoUtilisateur());
                 System.out.println("update fait");
                 return "redirect:/profile";
 
@@ -121,21 +121,16 @@ public class ProfileController {
     @GetMapping("/resetPassword")
     public String resetPassword(Model model, Principal principal) {
 
-        if (principal != null) {
-            String userEmail = principal.getName();
-            UserPasswordDTO userPasswordDTO = contexteService.readPassword(userEmail);
-            model.addAttribute("userPasswordDTO", userPasswordDTO);
-            return "/resetPassword";
-        }
-        return "redirect:/login";
+        String userEmail = principal.getName();
+        UserPasswordDTO userPasswordDTO = contexteService.readPassword(userEmail);
+        model.addAttribute("userPasswordDTO", userPasswordDTO);
+        return "/resetPassword";
     }
 
     @PostMapping("/resetPassword")
     public String resetPassword(@Valid @ModelAttribute UserPasswordDTO userPasswordDTO,
                                 BindingResult bindingResult,
                                 Model model, Principal principal) {
-
-        if (principal != null) {
 
             try {
                 String userEmail = principal.getName();
@@ -162,11 +157,9 @@ public class ProfileController {
                         }
                 );
             }
-            contexteService.resetPassword(userPasswordDTO.getNoUtilisateur(), userPasswordDTO.getNouveauMotDePasse());
+        Utilisateur utilisateur = contexteService.charger(principal.getName());
+            contexteService.resetPassword(utilisateur.getNoUtilisateur(), userPasswordDTO.getNouveauMotDePasse());
             return "redirect:/";
         }
-
-        return "redirect:/login";
-    }
 }
 
